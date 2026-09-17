@@ -33,7 +33,7 @@ export default function VirtualToolsSection() {
             See the <span className="text-gradient">Transformation Live</span>
           </h2>
           <p className="section-subtitle">
-            Interact with our virtual detailing simulator to see the power of our multi-stage paint correction, ceramic hydrophobic gloss, and showroom restoration.
+            Interact with our virtual simulator to see the power of our Full Car Wash, interior deep sanitization, and Teflon high-gloss finish.
           </p>
         </div>
 
@@ -58,7 +58,7 @@ export default function VirtualToolsSection() {
             }}
           >
             <Sliders size={16} />
-            <span>Interactive Before & After Slider</span>
+            <span>Interactive Before &amp; After Slider</span>
           </button>
 
           <button
@@ -80,7 +80,7 @@ export default function VirtualToolsSection() {
             }}
           >
             <Droplet size={16} />
-            <span>Hydrophobic Ceramic Simulator</span>
+            <span>Teflon Hydrophobic Gloss Simulator</span>
           </button>
         </div>
 
@@ -102,64 +102,24 @@ export default function VirtualToolsSection() {
               overflow: "hidden",
               userSelect: "none"
             }}>
-              {/* After Image (Full width background) */}
+              {/* Background Image (Dirty Before - on the right) */}
               <img
-                src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80"
-                alt="After Detailing - Showroom Mirror Gloss"
+                src="/before-after-dirty.jpg"
+                alt="Before Detailing - Dull &amp; Road Dirt"
                 style={{
                   position: "absolute",
                   top: 0,
                   left: 0,
                   width: "100%",
                   height: "100%",
-                  objectFit: "cover"
+                  objectFit: "cover",
                 }}
               />
-              <div style={{
-                position: "absolute",
-                top: "20px",
-                right: "20px",
-                background: "rgba(16, 185, 129, 0.92)",
-                color: "#ffffff",
-                padding: "6px 14px",
-                borderRadius: "9999px",
-                fontSize: "13px",
-                fontWeight: "700",
-                display: "flex",
-                alignItems: "center",
-                gap: "5px",
-                boxShadow: "0 4px 10px rgba(0,0,0,0.2)"
-              }}>
-                <Sparkles size={14} />
-                <span>AFTER: 9H Ceramic & Ultimate Detail</span>
-              </div>
-
-              {/* Before Image (Clipped overlay) */}
-              <div style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                bottom: 0,
-                width: `${sliderPosition}%`,
-                overflow: "hidden"
-              }}>
-                <img
-                  src="https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80"
-                  alt="Before Detailing - Dull & Road Dirt"
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "960px",
-                    height: "100%",
-                    objectFit: "cover",
-                    filter: "sepia(0.35) contrast(0.85) brightness(0.85)"
-                  }}
-                />
-                <div style={{
+              <div
+                style={{
                   position: "absolute",
                   top: "20px",
-                  left: "20px",
+                  right: "20px",
                   background: "rgba(220, 38, 38, 0.95)",
                   color: "#ffffff",
                   padding: "6px 14px",
@@ -169,40 +129,82 @@ export default function VirtualToolsSection() {
                   display: "flex",
                   alignItems: "center",
                   gap: "5px",
-                  boxShadow: "0 4px 10px rgba(0,0,0,0.2)"
-                }}>
-                  <span>BEFORE: Swirl Marks & Dust</span>
-                </div>
+                  boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+                  zIndex: 5,
+                }}
+              >
+                <span>BEFORE: Swirl Marks &amp; Dust</span>
+              </div>
+
+              {/* Overlay Image (Clean After - on the left via clip-path) */}
+              <img
+                src="/before-after-clean.jpg"
+                alt="After Detailing - Showroom Mirror Gloss"
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)`,
+                }}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  top: "20px",
+                  left: "20px",
+                  background: "rgba(16, 185, 129, 0.92)",
+                  color: "#ffffff",
+                  padding: "6px 14px",
+                  borderRadius: "9999px",
+                  fontSize: "13px",
+                  fontWeight: "700",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "5px",
+                  boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+                  zIndex: 5,
+                }}
+              >
+                <Sparkles size={14} />
+                <span>AFTER: 9H Ceramic &amp; Ultimate Detail</span>
               </div>
 
               {/* Slider Line Divider */}
-              <div style={{
-                position: "absolute",
-                top: 0,
-                bottom: 0,
-                left: `${sliderPosition}%`,
-                width: "4px",
-                background: "#ffffff",
-                transform: "translateX(-50%)",
-                boxShadow: "0 0 12px rgba(0,0,0,0.5)",
-                pointerEvents: "none"
-              }}>
-                <div style={{
+              <div
+                style={{
                   position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "50%",
-                  background: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
-                  border: "3px solid #ffffff",
-                  boxShadow: "0 4px 15px rgba(220,38,38,0.4)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "#ffffff"
-                }}>
+                  top: 0,
+                  bottom: 0,
+                  left: `${sliderPosition}%`,
+                  width: "4px",
+                  background: "#ffffff",
+                  transform: "translateX(-50%)",
+                  boxShadow: "0 0 12px rgba(0,0,0,0.5)",
+                  pointerEvents: "none",
+                  zIndex: 10,
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    background: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
+                    border: "3px solid #ffffff",
+                    boxShadow: "0 4px 15px rgba(220,38,38,0.4)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#ffffff",
+                  }}
+                >
                   <Sliders size={18} />
                 </div>
               </div>
@@ -220,7 +222,8 @@ export default function VirtualToolsSection() {
                   opacity: 0,
                   cursor: "ew-resize",
                   width: "100%",
-                  height: "100%"
+                  height: "100%",
+                  zIndex: 20,
                 }}
                 aria-label="Before and After slider"
               />
@@ -234,9 +237,9 @@ export default function VirtualToolsSection() {
               fontSize: "13px",
               color: "#64748b"
             }}>
-              <span>⬅ Drag slider left to reveal Showroom After</span>
+              <span>⬅ Drag slider left to view Before</span>
               <span style={{ fontWeight: "700", color: "#dc2626" }}>Interactive Comparison ({sliderPosition}%)</span>
-              <span>Drag slider right to view Before ➡</span>
+              <span>Drag slider right to reveal Showroom After ➡</span>
             </div>
           </div>
         )}
@@ -293,7 +296,7 @@ export default function VirtualToolsSection() {
                 </ul>
               </div>
 
-              {/* Right: Protected 9H Nano Ceramic */}
+              {/* Right: Protected Teflon Coating */}
               <div style={{
                 background: "linear-gradient(180deg, #f0f4fc 0%, #fee2e2 100%)",
                 borderRadius: "16px",
@@ -302,7 +305,7 @@ export default function VirtualToolsSection() {
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "14px" }}>
                   <span style={{ width: "12px", height: "12px", borderRadius: "50%", background: "#dc2626" }} />
-                  <h4 style={{ fontSize: "17px", fontWeight: "800", color: "#172554" }}>9H Ceramic Hydrophobic Shield</h4>
+                  <h4 style={{ fontSize: "17px", fontWeight: "800", color: "#172554" }}>A1 Teflon Protective Coating</h4>
                 </div>
                 <div style={{
                   height: "160px",
@@ -319,22 +322,22 @@ export default function VirtualToolsSection() {
                   border: "1px solid rgba(220, 38, 38, 0.3)"
                 }}>
                   <div style={{ textAlign: "center", padding: "16px" }}>
-                    <div style={{ fontSize: "14px", fontWeight: "800", color: "#ef4444", marginBottom: "4px" }}>115° Water Contact Angle</div>
-                    <div style={{ fontSize: "12px", color: "#ffffff", opacity: 0.95 }}>Water pearls instantly bead up and roll off carrying dust away effortlessly</div>
+                    <div style={{ fontSize: "14px", fontWeight: "800", color: "#ef4444", marginBottom: "4px" }}>High Gloss Mirror Reflection</div>
+                    <div style={{ fontSize: "12px", color: "#ffffff", opacity: 0.95 }}>Fluoropolymer bond shields paint, repelling water, dust & minor scratches</div>
                   </div>
                 </div>
                 <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "8px", fontSize: "13px", color: "#172554", fontWeight: "600" }}>
-                  <li>✓ 9H pencil hardness scratch defense</li>
-                  <li>✓ Deep mirror candy-like reflections</li>
-                  <li>✓ 3 to 5 Years certified manufacturer warranty</li>
+                  <li>✓ 7-Seater: ₹4,000 | 5-Seater: ₹3,500</li>
+                  <li>✓ Deep mirror shine & minor swirl protection</li>
+                  <li>✓ Slick hydrophobic barrier for effortless washing</li>
                 </ul>
               </div>
 
             </div>
 
             <div style={{ textAlign: "center", marginTop: "24px" }}>
-              <a href="#services-section" className="btn-primary" style={{ padding: "12px 28px" }}>
-                <span>Explore Ceramic & PPF Coating Packages</span>
+              <a href="#pricing-section" className="btn-primary" style={{ padding: "12px 28px" }}>
+                <span>Explore Teflon &amp; Detailing Rates</span>
               </a>
             </div>
           </div>

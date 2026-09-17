@@ -1,20 +1,26 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X, Phone, ChevronDown, MapPin, Check } from "lucide-react";
 import Link from "next/link";
 import { STORES_DATA } from "@/data/storesData";
 
 interface NavbarProps {
   currentStoreSlug?: string;
+  solid?: boolean;
 }
 
-export default function Navbar({ currentStoreSlug }: NavbarProps) {
+export default function Navbar({ currentStoreSlug, solid }: NavbarProps) {
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [storesDropdownOpen, setStoresDropdownOpen] = useState(false);
   const [mobileStoresOpen, setMobileStoresOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  // Permanent solid navbar with clean white background and crisp dark text
+  const isSolid = true;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,18 +52,18 @@ export default function Navbar({ currentStoreSlug }: NavbarProps) {
         left: 0,
         right: 0,
         zIndex: 1000,
-        backgroundColor: isScrolled ? "rgba(255, 255, 255, 0.98)" : "transparent",
-        backdropFilter: isScrolled ? "blur(14px)" : "none",
-        WebkitBackdropFilter: isScrolled ? "blur(14px)" : "none",
-        borderBottom: isScrolled
+        backgroundColor: isSolid ? "#ffffff" : "transparent",
+        backdropFilter: isSolid ? "none" : "none",
+        WebkitBackdropFilter: isSolid ? "none" : "none",
+        borderBottom: isSolid
           ? "1px solid #e2e8f0"
           : "1px solid rgba(255, 255, 255, 0.14)",
-        boxShadow: isScrolled ? "0 4px 24px rgba(15, 23, 42, 0.08)" : "none",
+        boxShadow: isSolid ? "0 4px 20px rgba(15, 23, 42, 0.08)" : "none",
         transition: "all 0.3s ease",
       }}
     >
       <div
-        className="container"
+        className="container navbar-container"
         style={{
           display: "flex",
           alignItems: "center",
@@ -79,6 +85,7 @@ export default function Navbar({ currentStoreSlug }: NavbarProps) {
           }}
         >
           <div
+            className="navbar-logo-badge"
             style={{
               width: 40,
               height: 40,
@@ -92,31 +99,32 @@ export default function Navbar({ currentStoreSlug }: NavbarProps) {
               fontWeight: 900,
               fontSize: "14px",
               letterSpacing: "0.02em",
+              flexShrink: 0,
             }}
           >
             A1
           </div>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <span
+              className="navbar-brand-name"
               style={{
-                fontSize: 21,
+                fontSize: 20,
                 fontWeight: 900,
                 letterSpacing: "-0.03em",
-                color: isScrolled ? "#0f172a" : "#ffffff",
+                color: "#0f172a",
                 lineHeight: 1.1,
-                transition: "color 0.3s ease",
-                textShadow: isScrolled ? "none" : "0 2px 10px rgba(0,0,0,0.6)",
               }}
             >
               A1 <span style={{ color: "#ef4444" }}>CAR WASH</span>
             </span>
             <span
+              className="navbar-brand-tag"
               style={{
-                fontSize: 10,
+                fontSize: 9.5,
                 fontWeight: 700,
-                letterSpacing: "0.06em",
+                letterSpacing: "0.05em",
                 textTransform: "uppercase",
-                color: isScrolled ? "#64748b" : "rgba(255, 255, 255, 0.8)",
+                color: "#64748b",
               }}
             >
               Quality Car Cleaning & Detailing
@@ -134,16 +142,16 @@ export default function Navbar({ currentStoreSlug }: NavbarProps) {
             style={{
               fontSize: 14,
               fontWeight: 600,
-              color: isScrolled ? "#334155" : "rgba(255, 255, 255, 0.95)",
+              color: isSolid ? "#334155" : "rgba(255, 255, 255, 0.95)",
               textDecoration: "none",
               transition: "color 0.2s ease",
-              textShadow: isScrolled ? "none" : "0 2px 8px rgba(0,0,0,0.6)",
+              textShadow: isSolid ? "none" : "0 2px 8px rgba(0,0,0,0.6)",
             }}
             onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")}
             onMouseLeave={(e) =>
-              (e.currentTarget.style.color = isScrolled
-                ? "#334155"
-                : "rgba(255, 255, 255, 0.95)")
+            (e.currentTarget.style.color = isSolid
+              ? "#334155"
+              : "rgba(255, 255, 255, 0.95)")
             }
           >
             Home
@@ -154,16 +162,16 @@ export default function Navbar({ currentStoreSlug }: NavbarProps) {
             style={{
               fontSize: 14,
               fontWeight: 600,
-              color: isScrolled ? "#334155" : "rgba(255, 255, 255, 0.95)",
+              color: isSolid ? "#334155" : "rgba(255, 255, 255, 0.95)",
               textDecoration: "none",
               transition: "color 0.2s ease",
-              textShadow: isScrolled ? "none" : "0 2px 8px rgba(0,0,0,0.6)",
+              textShadow: isSolid ? "none" : "0 2px 8px rgba(0,0,0,0.6)",
             }}
             onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")}
             onMouseLeave={(e) =>
-              (e.currentTarget.style.color = isScrolled
-                ? "#334155"
-                : "rgba(255, 255, 255, 0.95)")
+            (e.currentTarget.style.color = isSolid
+              ? "#334155"
+              : "rgba(255, 255, 255, 0.95)")
             }
           >
             Services
@@ -189,14 +197,14 @@ export default function Navbar({ currentStoreSlug }: NavbarProps) {
                 fontSize: 14,
                 fontWeight: 600,
                 color:
-                  storesDropdownOpen ? "#ef4444" : (isScrolled ? "#0f172a" : "rgba(255, 255, 255, 0.95)"),
+                  storesDropdownOpen ? "#ef4444" : (isSolid ? "#0f172a" : "rgba(255, 255, 255, 0.95)"),
                 transition: "color 0.2s ease",
-                textShadow: isScrolled ? "none" : "0 2px 8px rgba(0,0,0,0.6)",
+                textShadow: isSolid ? "none" : "0 2px 8px rgba(0,0,0,0.6)",
               }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")}
               onMouseLeave={(e) =>
-                (e.currentTarget.style.color =
-                  storesDropdownOpen ? "#ef4444" : (isScrolled ? "#0f172a" : "rgba(255, 255, 255, 0.95)"))
+              (e.currentTarget.style.color =
+                storesDropdownOpen ? "#ef4444" : (isSolid ? "#0f172a" : "rgba(255, 255, 255, 0.95)"))
               }
             >
               <span>{currentStore ? currentStore.shortName : "Stores"}</span>
@@ -323,16 +331,16 @@ export default function Navbar({ currentStoreSlug }: NavbarProps) {
             style={{
               fontSize: 14,
               fontWeight: 600,
-              color: isScrolled ? "#334155" : "rgba(255, 255, 255, 0.95)",
+              color: isSolid ? "#334155" : "rgba(255, 255, 255, 0.95)",
               textDecoration: "none",
               transition: "color 0.2s ease",
-              textShadow: isScrolled ? "none" : "0 2px 8px rgba(0,0,0,0.6)",
+              textShadow: isSolid ? "none" : "0 2px 8px rgba(0,0,0,0.6)",
             }}
             onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")}
             onMouseLeave={(e) =>
-              (e.currentTarget.style.color = isScrolled
-                ? "#334155"
-                : "rgba(255, 255, 255, 0.95)")
+            (e.currentTarget.style.color = isSolid
+              ? "#334155"
+              : "rgba(255, 255, 255, 0.95)")
             }
           >
             About
@@ -343,16 +351,16 @@ export default function Navbar({ currentStoreSlug }: NavbarProps) {
             style={{
               fontSize: 14,
               fontWeight: 600,
-              color: isScrolled ? "#334155" : "rgba(255, 255, 255, 0.95)",
+              color: isSolid ? "#334155" : "rgba(255, 255, 255, 0.95)",
               textDecoration: "none",
               transition: "color 0.2s ease",
-              textShadow: isScrolled ? "none" : "0 2px 8px rgba(0,0,0,0.6)",
+              textShadow: isSolid ? "none" : "0 2px 8px rgba(0,0,0,0.6)",
             }}
             onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")}
             onMouseLeave={(e) =>
-              (e.currentTarget.style.color = isScrolled
-                ? "#334155"
-                : "rgba(255, 255, 255, 0.95)")
+            (e.currentTarget.style.color = isSolid
+              ? "#334155"
+              : "rgba(255, 255, 255, 0.95)")
             }
           >
             Gallery
@@ -363,49 +371,27 @@ export default function Navbar({ currentStoreSlug }: NavbarProps) {
             style={{
               fontSize: 14,
               fontWeight: 600,
-              color: isScrolled ? "#334155" : "rgba(255, 255, 255, 0.95)",
+              color: isSolid ? "#334155" : "rgba(255, 255, 255, 0.95)",
               textDecoration: "none",
               transition: "color 0.2s ease",
-              textShadow: isScrolled ? "none" : "0 2px 8px rgba(0,0,0,0.6)",
+              textShadow: isSolid ? "none" : "0 2px 8px rgba(0,0,0,0.6)",
             }}
             onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")}
             onMouseLeave={(e) =>
-              (e.currentTarget.style.color = isScrolled
-                ? "#334155"
-                : "rgba(255, 255, 255, 0.95)")
+            (e.currentTarget.style.color = isSolid
+              ? "#334155"
+              : "rgba(255, 255, 255, 0.95)")
             }
           >
             Contact
           </Link>
         </nav>
 
-        {/* Right CTA */}
+        {/* Desktop Right CTA */}
         <div
           style={{ display: "flex", alignItems: "center", gap: 14 }}
           className="desktop-actions"
         >
-          <a
-            href="tel:7045282473"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 6,
-              fontSize: 13,
-              fontWeight: 700,
-              color: isScrolled ? "#1e293b" : "#ffffff",
-              textDecoration: "none",
-              transition: "color 0.3s ease",
-              textShadow: isScrolled ? "none" : "0 2px 8px rgba(0,0,0,0.6)",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")}
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.color = isScrolled ? "#1e293b" : "#ffffff")
-            }
-          >
-            <Phone size={14} style={{ color: "#ef4444" }} />
-            <span>70452 82473</span>
-          </a>
-
           <a
             href="https://wa.me/917045282473?text=Hi%20A1%20Car%20Wash!%20I%20would%20like%20to%20book%20a%20car%20wash%20service%20in%20Hyderabad."
             target="_blank"
@@ -437,36 +423,68 @@ export default function Navbar({ currentStoreSlug }: NavbarProps) {
           </a>
         </div>
 
-        {/* Mobile Toggle Button */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          style={{
-            display: "none",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            color: isScrolled ? "#172554" : "#ffffff",
-          }}
-          className="mobile-menu-btn"
-          aria-label="Toggle menu"
-        >
-          {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
-        </button>
+        {/* Mobile Action Buttons (Call + Hamburger Menu) */}
+        <div className="mobile-actions">
+          <a
+            href="tel:7045282473"
+            aria-label="Call A1 Car Wash"
+            className="mobile-quick-call"
+            style={{
+              width: 38,
+              height: 38,
+              borderRadius: 9,
+              background: "#fee2e2",
+              color: "#dc2626",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              textDecoration: "none",
+              boxShadow: "0 2px 8px rgba(220, 38, 38, 0.15)",
+            }}
+          >
+            <Phone size={17} />
+          </a>
+
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: 9,
+              background: mobileMenuOpen ? "#fee2e2" : "#f1f5f9",
+              color: mobileMenuOpen ? "#dc2626" : "#0f172a",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              border: "1px solid",
+              borderColor: mobileMenuOpen ? "#fecaca" : "#e2e8f0",
+              cursor: "pointer",
+              transition: "all 0.2s ease",
+            }}
+            className="mobile-menu-btn"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
         <div
+          className="mobile-nav-drawer"
           style={{
             background: "#ffffff",
             borderTop: "1px solid #e2e8f0",
-            padding: "20px 20px 30px",
+            borderBottom: "3px solid #ef4444",
+            padding: "18px 20px 24px",
             display: "flex",
             flexDirection: "column",
-            gap: 12,
-            boxShadow: "0 14px 34px rgba(0,0,0,0.14)",
+            gap: 10,
+            boxShadow: "0 20px 40px rgba(15, 23, 42, 0.14)",
             maxHeight: "85vh",
             overflowY: "auto",
+            animation: "mobileMenuSlide 0.22s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
         >
           <Link
@@ -475,12 +493,18 @@ export default function Navbar({ currentStoreSlug }: NavbarProps) {
             style={{
               fontSize: 15,
               fontWeight: 700,
-              color: "#0f172a",
+              color: pathname === "/" ? "#dc2626" : "#0f172a",
               textDecoration: "none",
-              padding: "6px 0",
+              padding: "10px 14px",
+              borderRadius: 8,
+              background: pathname === "/" ? "#fee2e2" : "#f8fafc",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}
           >
-            Home
+            <span>Home</span>
+            <span style={{ fontSize: "12px", color: "#94a3b8" }}>→</span>
           </Link>
 
           <Link
@@ -489,16 +513,29 @@ export default function Navbar({ currentStoreSlug }: NavbarProps) {
             style={{
               fontSize: 15,
               fontWeight: 700,
-              color: "#0f172a",
+              color: pathname.startsWith("/services") ? "#dc2626" : "#0f172a",
               textDecoration: "none",
-              padding: "6px 0",
+              padding: "10px 14px",
+              borderRadius: 8,
+              background: pathname.startsWith("/services") ? "#fee2e2" : "#f8fafc",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}
           >
-            Services
+            <span>Services & Pricing</span>
+            <span style={{ fontSize: "12px", color: "#94a3b8" }}>→</span>
           </Link>
 
           {/* Mobile Stores Accordion */}
-          <div style={{ borderTop: "1px solid #f1f5f9", borderBottom: "1px solid #f1f5f9", padding: "10px 0" }}>
+          <div
+            style={{
+              borderRadius: 8,
+              background: "#f8fafc",
+              border: "1px solid #e2e8f0",
+              overflow: "hidden",
+            }}
+          >
             <button
               onClick={() => setMobileStoresOpen(!mobileStoresOpen)}
               style={{
@@ -512,21 +549,34 @@ export default function Navbar({ currentStoreSlug }: NavbarProps) {
                 fontWeight: 700,
                 color: "#0f172a",
                 cursor: "pointer",
-                padding: 0,
+                padding: "10px 14px",
               }}
             >
-              <span>Stores ({STORES_DATA.length})</span>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <MapPin size={16} style={{ color: "#ef4444" }} />
+                <span>Our Studios ({STORES_DATA.length})</span>
+              </div>
               <ChevronDown
                 size={16}
                 style={{
                   transform: mobileStoresOpen ? "rotate(180deg)" : "rotate(0deg)",
                   transition: "transform 0.2s",
+                  color: "#64748b",
                 }}
               />
             </button>
 
             {mobileStoresOpen && (
-              <div style={{ marginTop: "10px", display: "flex", flexDirection: "column", gap: "8px", paddingLeft: "10px" }}>
+              <div
+                style={{
+                  padding: "4px 10px 12px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "6px",
+                  borderTop: "1px solid #e2e8f0",
+                  background: "#ffffff",
+                }}
+              >
                 {STORES_DATA.map((s) => (
                   <Link
                     key={s.id}
@@ -535,16 +585,22 @@ export default function Navbar({ currentStoreSlug }: NavbarProps) {
                     style={{
                       display: "flex",
                       alignItems: "center",
+                      justifyContent: "space-between",
                       gap: "8px",
                       fontSize: "13.5px",
                       fontWeight: currentStoreSlug === s.slug ? 800 : 600,
                       color: currentStoreSlug === s.slug ? "#dc2626" : "#334155",
                       textDecoration: "none",
-                      padding: "6px 0",
+                      padding: "8px 10px",
+                      borderRadius: 6,
+                      background: currentStoreSlug === s.slug ? "#fee2e2" : "#f8fafc",
                     }}
                   >
-                    <MapPin size={13} style={{ color: currentStoreSlug === s.slug ? "#dc2626" : "#94a3b8" }} />
-                    <span>{s.name}</span>
+                    <div>
+                      <div>{s.shortName}</div>
+                      <div style={{ fontSize: "11px", color: "#64748b", fontWeight: 400 }}>{s.area}</div>
+                    </div>
+                    {currentStoreSlug === s.slug && <Check size={15} style={{ color: "#dc2626" }} />}
                   </Link>
                 ))}
               </div>
@@ -557,12 +613,18 @@ export default function Navbar({ currentStoreSlug }: NavbarProps) {
             style={{
               fontSize: 15,
               fontWeight: 700,
-              color: "#0f172a",
+              color: pathname === "/about" ? "#dc2626" : "#0f172a",
               textDecoration: "none",
-              padding: "6px 0",
+              padding: "10px 14px",
+              borderRadius: 8,
+              background: pathname === "/about" ? "#fee2e2" : "#f8fafc",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}
           >
-            About
+            <span>About Us</span>
+            <span style={{ fontSize: "12px", color: "#94a3b8" }}>→</span>
           </Link>
 
           <Link
@@ -571,12 +633,18 @@ export default function Navbar({ currentStoreSlug }: NavbarProps) {
             style={{
               fontSize: 15,
               fontWeight: 700,
-              color: "#0f172a",
+              color: pathname === "/gallery" ? "#dc2626" : "#0f172a",
               textDecoration: "none",
-              padding: "6px 0",
+              padding: "10px 14px",
+              borderRadius: 8,
+              background: pathname === "/gallery" ? "#fee2e2" : "#f8fafc",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}
           >
-            Gallery
+            <span>Photo Gallery</span>
+            <span style={{ fontSize: "12px", color: "#94a3b8" }}>→</span>
           </Link>
 
           <Link
@@ -585,34 +653,41 @@ export default function Navbar({ currentStoreSlug }: NavbarProps) {
             style={{
               fontSize: 15,
               fontWeight: 700,
-              color: "#0f172a",
+              color: pathname === "/contact" ? "#dc2626" : "#0f172a",
               textDecoration: "none",
-              padding: "6px 0",
+              padding: "10px 14px",
+              borderRadius: 8,
+              background: pathname === "/contact" ? "#fee2e2" : "#f8fafc",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}
           >
-            Contact
+            <span>Contact & Location</span>
+            <span style={{ fontSize: "12px", color: "#94a3b8" }}>→</span>
           </Link>
 
-          <div style={{ marginTop: "12px", display: "flex", flexDirection: "column", gap: "8px" }}>
+          <div style={{ marginTop: "8px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
             <a
               href="tel:7045282473"
               style={{
                 textAlign: "center",
                 border: "1.5px solid #dc2626",
                 color: "#dc2626",
-                padding: "10px",
-                borderRadius: 8,
+                padding: "12px 8px",
+                borderRadius: 9,
                 fontWeight: 800,
-                fontSize: "14px",
+                fontSize: "13.5px",
                 textDecoration: "none",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: "8px",
+                gap: "6px",
+                background: "#fef2f2",
               }}
             >
-              <Phone size={16} />
-              <span>Call: 70452 82473</span>
+              <Phone size={15} />
+              <span>Call Now</span>
             </a>
 
             <a
@@ -623,14 +698,19 @@ export default function Navbar({ currentStoreSlug }: NavbarProps) {
                 textAlign: "center",
                 background: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
                 color: "#ffffff",
-                padding: "12px",
-                borderRadius: 8,
+                padding: "12px 8px",
+                borderRadius: 9,
                 fontWeight: 800,
+                fontSize: "13.5px",
                 textDecoration: "none",
                 boxShadow: "0 4px 14px rgba(220, 38, 38, 0.4)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "6px",
               }}
             >
-              Instant WhatsApp Booking
+              <span>Book Wash</span>
             </a>
           </div>
         </div>
@@ -648,9 +728,45 @@ export default function Navbar({ currentStoreSlug }: NavbarProps) {
           }
         }
 
+        @keyframes mobileMenuSlide {
+          from {
+            opacity: 0;
+            transform: translateY(-8px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .mobile-actions {
+          display: none;
+          align-items: center;
+          gap: 10px;
+        }
+
         @media (max-width: 1040px) {
           .desktop-nav, .desktop-actions { display: none !important; }
-          .mobile-menu-btn { display: block !important; }
+          .mobile-actions { display: flex !important; }
+        }
+
+        @media (max-width: 640px) {
+          .navbar-container {
+            height: 62px !important;
+            padding: 0 16px !important;
+          }
+          .navbar-logo-badge {
+            width: 36px !important;
+            height: 36px !important;
+            font-size: 13px !important;
+          }
+          .navbar-brand-name {
+            font-size: 17px !important;
+          }
+          .navbar-brand-tag {
+            font-size: 8.5px !important;
+            letter-spacing: 0.04em !important;
+          }
         }
       `}</style>
     </header>

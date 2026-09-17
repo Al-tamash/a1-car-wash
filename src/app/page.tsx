@@ -4,16 +4,13 @@ import React from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ServicesSection from "@/components/ServicesSection";
-import WhyChooseUs from "@/components/WhyChooseUs";
+import AboutSection from "@/components/AboutSection";
+import PricingSection from "@/components/PricingSection";
 import HowItWorks from "@/components/HowItWorks";
 import StoreLocator from "@/components/StoreLocator";
-import PricingSection from "@/components/PricingSection";
 import GallerySection from "@/components/GallerySection";
 import TestimonialsSection from "@/components/TestimonialsSection";
-import BlogSection from "@/components/BlogSection";
 import FaqSection from "@/components/FaqSection";
-import DoorstepCTA from "@/components/DoorstepCTA";
-import ContactBookingSection from "@/components/ContactBookingSection";
 import Footer from "@/components/Footer";
 
 export default function HomePage() {
@@ -25,40 +22,31 @@ export default function HomePage() {
       {/* 2. Hero — dark red bg, car image, slider dots */}
       <HeroSection />
 
-      {/* 3. Our Services — 6-card grid */}
+      {/* 3. Our Services — 3-card grid */}
       <ServicesSection />
 
-      {/* 4. Why Choose Us */}
-      <WhyChooseUs />
+      {/* 4. About Section */}
+      <AboutSection />
 
-      {/* 5. How It Works */}
-      <HowItWorks />
-
-      {/* 6. Testimonials */}
-      <TestimonialsSection />
-
-      {/* 7. Our Packages — Basic / Standard / Premium */}
+      {/* 5. Pricing & Packages */}
       <PricingSection />
 
-      {/* 8. Our Gallery — filter tabs + photo grid */}
+      {/* 6. How It Works */}
+      <HowItWorks />
+
+      {/* 7. Testimonials */}
+      <TestimonialsSection />
+
+      {/* 8. Our Gallery — mosaic grid */}
       <GallerySection />
 
-      {/* 9. Our Blog — 3 blog cards */}
-      <BlogSection />
-
-      {/* 10. FAQs */}
+      {/* 9. FAQs */}
       <FaqSection />
 
-      {/* 11. 24/7 Doorstep CTA banner */}
-      <DoorstepCTA />
-
-      {/* 12. Contact Us */}
-      <ContactBookingSection />
-
-      {/* 13. Store Locations & Virtual Tours (Moved to last) */}
+      {/* 10. Store Locations */}
       <StoreLocator />
 
-      {/* 14. Footer */}
+      {/* 11. Footer */}
       <Footer />
     </main>
   );

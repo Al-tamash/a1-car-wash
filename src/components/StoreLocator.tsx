@@ -1,60 +1,75 @@
 "use client";
 
-import React, { useState } from "react";
-import {
-  MapPin,
-  ArrowRight,
-  Navigation,
-  Star,
-  Phone,
-  Clock,
-  ExternalLink,
-  MessageSquare,
-  CheckCircle2,
-} from "lucide-react";
+import React from "react";
+import { MapPin, Navigation, Clock, Sparkles, ChevronRight } from "lucide-react";
 import Link from "next/link";
-import { STORES_DATA, StoreLocation } from "@/data/storesData";
+import { STORES_DATA } from "@/data/storesData";
 
 interface StoreLocatorProps {
   currentStoreSlug?: string;
 }
 
 export default function StoreLocator({ currentStoreSlug }: StoreLocatorProps = {}) {
-  // Default to first studio (Raidurg / Film Nagar) or currently selected slug
-  const [selectedSlug, setSelectedSlug] = useState<string>(
-    currentStoreSlug || "raidurga-film-nagar"
-  );
-
-  const activeStore: StoreLocation =
-    STORES_DATA.find((s) => s.slug === selectedSlug) || STORES_DATA[0];
-
   return (
     <section
       id="stores-section"
       style={{
-        background: "#ffffff",
-        padding: "70px 0 85px",
+        background: "radial-gradient(ellipse at 50% 0%, rgba(239, 68, 68, 0.07) 0%, rgba(248, 250, 252, 0.7) 45%, #ffffff 100%)",
+        padding: "80px 0 90px",
         position: "relative",
         borderTop: "1px solid #f1f5f9",
+        borderBottom: "1px solid #f1f5f9",
+        overflow: "hidden",
       }}
     >
+      {/* Subtle background dot grid texture */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: "radial-gradient(#e2e8f0 1.2px, transparent 1.2px)",
+          backgroundSize: "28px 28px",
+          opacity: 0.55,
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Ambient Red Glow Spot */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: "-40px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "550px",
+          height: "220px",
+          background: "radial-gradient(circle, rgba(239, 68, 68, 0.12) 0%, transparent 70%)",
+          filter: "blur(40px)",
+          pointerEvents: "none",
+        }}
+      />
+
       <div
         className="container"
         style={{
           maxWidth: "1240px",
           margin: "0 auto",
           padding: "0 24px",
+          position: "relative",
+          zIndex: 1,
         }}
       >
         {/* ── HEADER (RED THEME) ── */}
-        <div style={{ textAlign: "center", marginBottom: "38px" }}>
-          {/* Badge: FIND US (RED THEME) */}
+        <div style={{ textAlign: "center", marginBottom: "36px" }}>
+          {/* Badge: FIND US (RED THEME) with live beacon */}
           <div
             style={{
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
-              gap: "6px",
+              gap: "8px",
               background: "#fee2e2",
               color: "#dc2626",
               padding: "7px 22px",
@@ -64,18 +79,29 @@ export default function StoreLocator({ currentStoreSlug }: StoreLocatorProps = {
               letterSpacing: "0.08em",
               textTransform: "uppercase",
               marginBottom: "14px",
-              boxShadow: "0 2px 10px rgba(220, 38, 38, 0.12)",
+              boxShadow: "0 2px 12px rgba(220, 38, 38, 0.14)",
+              border: "1px solid rgba(220, 38, 38, 0.2)",
             }}
           >
+            <span
+              style={{
+                width: "7px",
+                height: "7px",
+                borderRadius: "50%",
+                background: "#dc2626",
+                boxShadow: "0 0 0 3px rgba(220, 38, 38, 0.25)",
+                display: "inline-block",
+              }}
+            />
             <MapPin size={14} style={{ color: "#dc2626" }} />
-            <span>FIND US</span>
+            <span>FIND US • 6 HYDERABAD HUBS</span>
           </div>
 
           {/* Heading: Store Locations (RED THEME) */}
           <h2
             style={{
-              fontSize: "clamp(2.1rem, 4vw, 3rem)",
-              fontWeight: 800,
+              fontSize: "clamp(2rem, 3.2vw, 2.75rem)",
+              fontWeight: 600,
               lineHeight: 1.15,
               margin: "0 0 14px 0",
               letterSpacing: "-0.02em",
@@ -97,79 +123,70 @@ export default function StoreLocator({ currentStoreSlug }: StoreLocatorProps = {
           >
             Choose your studio below to view branch hours, contact details, and instant navigation.
           </p>
+
+          {/* Feature Highlight Chips */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "18px",
+              marginTop: "16px",
+              flexWrap: "wrap",
+            }}
+          >
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontSize: "12.5px", color: "#475569", fontWeight: 600 }}>
+              <Clock size={13} style={{ color: "#dc2626" }} />
+              <span>8:00 AM – 9:00 PM Daily</span>
+            </span>
+            <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "#cbd5e1" }} />
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontSize: "12.5px", color: "#475569", fontWeight: 600 }}>
+              <Sparkles size={13} style={{ color: "#dc2626" }} />
+              <span>Hydraulic Jack Lift Bays</span>
+            </span>
+            <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "#cbd5e1" }} />
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontSize: "12.5px", color: "#475569", fontWeight: 600 }}>
+              <Navigation size={13} style={{ color: "#dc2626" }} />
+              <span>Instant GPS Navigation</span>
+            </span>
+          </div>
         </div>
 
-        {/* ── 5 STORE LOCATION BUTTONS (EXACTLY AS IN SCREENSHOT, RED THEME) ── */}
+        {/* ── GLASS CONTAINER FRAMING THE BUTTONS ── */}
         <div
-          className="store-buttons-grid"
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-            gap: "14px",
-            marginBottom: "36px",
+            background: "rgba(255, 255, 255, 0.82)",
+            backdropFilter: "blur(12px)",
+            borderRadius: "22px",
+            padding: "18px",
+            border: "1px solid rgba(226, 232, 240, 0.85)",
+            boxShadow: "0 15px 35px -8px rgba(15, 23, 42, 0.05), 0 0 0 1px rgba(255,255,255,0.9) inset",
           }}
         >
+          {/* ── STORE LOCATION BUTTONS (RED THEME) ── */}
+          <div
+            className="store-buttons-grid"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(175px, 1fr))",
+              gap: "14px",
+            }}
+          >
           {STORES_DATA.map((store) => {
-            const isSelected = selectedSlug === store.slug;
+            const isSelected = currentStoreSlug === store.slug;
             return (
-              <button
+              <Link
                 key={store.id}
-                type="button"
-                onClick={() => setSelectedSlug(store.slug)}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "12px",
-                  padding: "14px 18px",
-                  borderRadius: "14px",
-                  cursor: "pointer",
-                  textAlign: "left",
-                  transition: "all 0.22s cubic-bezier(0.4, 0, 0.2, 1)",
-                  background: isSelected
-                    ? "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)"
-                    : "#ffffff",
-                  color: isSelected ? "#ffffff" : "#0f172a",
-                  border: isSelected ? "2px solid #dc2626" : "1.5px solid #e2e8f0",
-                  boxShadow: isSelected
-                    ? "0 10px 24px rgba(220, 38, 38, 0.35), 0 0 0 2px rgba(239, 68, 68, 0.2)"
-                    : "0 2px 8px rgba(15, 23, 42, 0.04)",
-                  transform: isSelected ? "translateY(-2px)" : "translateY(0)",
-                }}
-                onMouseEnter={(e) => {
-                  if (!isSelected) {
-                    e.currentTarget.style.borderColor = "#dc2626";
-                    e.currentTarget.style.transform = "translateY(-2px)";
-                    e.currentTarget.style.boxShadow = "0 6px 16px rgba(220, 38, 38, 0.12)";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isSelected) {
-                    e.currentTarget.style.borderColor = "#e2e8f0";
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "0 2px 8px rgba(15, 23, 42, 0.04)";
-                  }
-                }}
+                href={`/stores/${store.slug}`}
+                className={`store-nav-card ${isSelected ? "selected" : ""}`}
               >
-                {/* Icon box */}
-                <div
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "10px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexShrink: 0,
-                    background: isSelected ? "rgba(255, 255, 255, 0.2)" : "#fee2e2",
-                    color: isSelected ? "#ffffff" : "#dc2626",
-                    transition: "all 0.2s ease",
-                  }}
-                >
-                  <MapPin size={20} />
+                {/* Animated Icon box */}
+                <div className="store-nav-icon">
+                  <MapPin size={19} />
                 </div>
 
                 {/* Title & Subtitle */}
-                <div style={{ overflow: "hidden", flex: 1 }}>
+                <div style={{ overflow: "hidden", flex: 1, minWidth: 0 }}>
                   <div
                     style={{
                       fontSize: "14.5px",
@@ -189,7 +206,7 @@ export default function StoreLocator({ currentStoreSlug }: StoreLocatorProps = {
                       fontSize: "12px",
                       fontWeight: 500,
                       lineHeight: 1.3,
-                      color: isSelected ? "rgba(255, 255, 255, 0.88)" : "#64748b",
+                      color: isSelected ? "rgba(255, 255, 255, 0.9)" : "#64748b",
                       whiteSpace: "nowrap",
                       textOverflow: "ellipsis",
                       overflow: "hidden",
@@ -198,307 +215,125 @@ export default function StoreLocator({ currentStoreSlug }: StoreLocatorProps = {
                     {store.area}
                   </div>
                 </div>
-              </button>
+
+                {/* Hover reveal arrow indicator */}
+                <ChevronRight size={15} className="store-nav-arrow" />
+              </Link>
             );
           })}
-        </div>
-
-        {/* ── SELECTED STUDIO DETAILS (RED THEME, CLEAN, NO MAP IFRAMES) ── */}
-        <div
-          style={{
-            maxWidth: "880px",
-            margin: "0 auto",
-            background: "#ffffff",
-            borderRadius: "20px",
-            border: "1.5px solid #fee2e2",
-            boxShadow: "0 12px 36px rgba(220, 38, 38, 0.08), 0 4px 16px rgba(15, 23, 42, 0.04)",
-            overflow: "hidden",
-            transition: "all 0.3s ease",
-          }}
-        >
-          {/* Card Header Bar */}
-          <div
-            style={{
-              background: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
-              padding: "18px 28px",
-              color: "#ffffff",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              flexWrap: "wrap",
-              gap: "12px",
-            }}
-          >
-            <div>
-              <div
-                style={{
-                  fontSize: "12px",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.08em",
-                  fontWeight: 700,
-                  opacity: 0.9,
-                }}
-              >
-                Selected Studio
-              </div>
-              <h3
-                style={{
-                  fontSize: "20px",
-                  fontWeight: 800,
-                  margin: "2px 0 0 0",
-                }}
-              >
-                {activeStore.name}
-              </h3>
-            </div>
-
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                background: "rgba(255, 255, 255, 0.2)",
-                padding: "6px 14px",
-                borderRadius: "9999px",
-                fontSize: "13px",
-                fontWeight: 700,
-              }}
-            >
-              <Star size={15} fill="#fef08a" color="#fef08a" />
-              <span>{activeStore.rating} / 5.0</span>
-              <span style={{ opacity: 0.85, fontWeight: 500 }}>
-                ({activeStore.reviewCount} Reviews)
-              </span>
-            </div>
-          </div>
-
-          {/* Card Content */}
-          <div style={{ padding: "26px 28px" }}>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1.2fr 1fr",
-                gap: "24px",
-                alignItems: "start",
-              }}
-              className="store-info-grid"
-            >
-              {/* Left Column: Address & Details */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-                <div style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
-                  <MapPin
-                    size={18}
-                    style={{ color: "#dc2626", flexShrink: 0, marginTop: "2px" }}
-                  />
-                  <div>
-                    <strong style={{ color: "#0f172a", fontSize: "14px" }}>
-                      Address:
-                    </strong>
-                    <div
-                      style={{
-                        color: "#475569",
-                        fontSize: "13.5px",
-                        lineHeight: 1.5,
-                        marginTop: "2px",
-                      }}
-                    >
-                      {activeStore.address}
-                    </div>
-                  </div>
-                </div>
-
-                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                  <Clock size={18} style={{ color: "#dc2626", flexShrink: 0 }} />
-                  <div>
-                    <strong style={{ color: "#0f172a", fontSize: "14px" }}>
-                      Hours:
-                    </strong>
-                    <span style={{ color: "#475569", fontSize: "13.5px", marginLeft: "6px" }}>
-                      {activeStore.timing}
-                    </span>
-                  </div>
-                </div>
-
-                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                  <Phone size={18} style={{ color: "#dc2626", flexShrink: 0 }} />
-                  <div>
-                    <strong style={{ color: "#0f172a", fontSize: "14px" }}>
-                      Direct Line:
-                    </strong>
-                    <a
-                      href={`tel:${activeStore.phone.replace(/\s+/g, "")}`}
-                      style={{
-                        color: "#dc2626",
-                        fontSize: "14px",
-                        fontWeight: 700,
-                        marginLeft: "6px",
-                        textDecoration: "none",
-                      }}
-                    >
-                      +91 {activeStore.phone}
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Column: Highlights & Features */}
-              <div
-                style={{
-                  background: "#fef2f2",
-                  padding: "16px 20px",
-                  borderRadius: "14px",
-                  border: "1px solid #fee2e2",
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: "13px",
-                    fontWeight: 800,
-                    color: "#991b1b",
-                    marginBottom: "10px",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.05em",
-                  }}
-                >
-                  Studio Highlights
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                  {activeStore.features.slice(0, 3).map((feat, idx) => (
-                    <div
-                      key={idx}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "8px",
-                        fontSize: "13px",
-                        color: "#475569",
-                      }}
-                    >
-                      <CheckCircle2 size={15} style={{ color: "#dc2626", flexShrink: 0 }} />
-                      <span>{feat}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Action Buttons Row */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                flexWrap: "wrap",
-                gap: "14px",
-                marginTop: "24px",
-                paddingTop: "20px",
-                borderTop: "1px solid #f1f5f9",
-              }}
-            >
-              {/* Directions Button (Opens Google Maps link directly without iframe) */}
-              <a
-                href={activeStore.googleMapsLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  background: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
-                  color: "#ffffff",
-                  padding: "12px 24px",
-                  borderRadius: "10px",
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  textDecoration: "none",
-                  boxShadow: "0 4px 14px rgba(220, 38, 38, 0.3)",
-                  transition: "all 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                  e.currentTarget.style.boxShadow = "0 8px 20px rgba(220, 38, 38, 0.4)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "0 4px 14px rgba(220, 38, 38, 0.3)";
-                }}
-              >
-                <Navigation size={16} />
-                <span>Get Directions</span>
-                <ExternalLink size={13} />
-              </a>
-
-              {/* WhatsApp Branch */}
-              <a
-                href={`https://wa.me/${activeStore.whatsapp}?text=Hello%20A1%20Car%20Wash,%20I%20would%20like%20to%20inquire%20about%20booking%20at%20${encodeURIComponent(
-                  activeStore.name
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  background: "#22c55e",
-                  color: "#ffffff",
-                  padding: "12px 22px",
-                  borderRadius: "10px",
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  textDecoration: "none",
-                  boxShadow: "0 4px 12px rgba(34, 197, 94, 0.25)",
-                  transition: "all 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                  e.currentTarget.style.boxShadow = "0 8px 18px rgba(34, 197, 94, 0.35)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "0 4px 12px rgba(34, 197, 94, 0.25)";
-                }}
-              >
-                <MessageSquare size={16} />
-                <span>WhatsApp Studio</span>
-              </a>
-
-              {/* View Full Branch Page */}
-              <Link
-                href={`/stores/${activeStore.slug}`}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  background: "#ffffff",
-                  color: "#dc2626",
-                  border: "1.5px solid #dc2626",
-                  padding: "12px 22px",
-                  borderRadius: "10px",
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  textDecoration: "none",
-                  marginLeft: "auto",
-                  transition: "all 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "#fee2e2";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "#ffffff";
-                }}
-              >
-                <span>View Full Studio Page</span>
-                <ArrowRight size={15} />
-              </Link>
-            </div>
           </div>
         </div>
       </div>
 
       <style>{`
-        @media (max-width: 768px) {
-          .store-info-grid {
-            grid-template-columns: 1fr !important;
+        .store-nav-card {
+          position: relative;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 14px 16px;
+          border-radius: 14px;
+          cursor: pointer;
+          text-align: left;
+          text-decoration: none;
+          background: #ffffff;
+          color: #0f172a;
+          border: 1.5px solid #e2e8f0;
+          box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+          transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease, border-color 0.28s ease, background 0.28s ease;
+        }
+
+        .store-nav-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -120%;
+          width: 80%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.08), rgba(255, 255, 255, 0.6), transparent);
+          transform: skewX(-20deg);
+          transition: left 0.75s ease;
+          pointer-events: none;
+        }
+
+        .store-nav-card:hover::before {
+          left: 140%;
+        }
+
+        .store-nav-card:hover {
+          transform: translateY(-4px) scale(1.02);
+          border-color: #dc2626 !important;
+          box-shadow: 0 14px 28px -4px rgba(220, 38, 38, 0.22), 0 4px 10px rgba(15, 23, 42, 0.04) !important;
+        }
+
+        .store-nav-card:active {
+          transform: translateY(-1px) scale(0.99);
+        }
+
+        .store-nav-icon {
+          width: 40px;
+          height: 40px;
+          border-radius: 11px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          background: #fee2e2;
+          color: #dc2626;
+          transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.25s ease, color 0.25s ease, box-shadow 0.28s ease;
+        }
+
+        .store-nav-card:hover .store-nav-icon {
+          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+          color: #ffffff;
+          transform: scale(1.12) rotate(-6deg);
+          box-shadow: 0 6px 16px rgba(220, 38, 38, 0.38);
+        }
+
+        .store-nav-arrow {
+          opacity: 0;
+          transform: translateX(-6px);
+          color: #dc2626;
+          transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+          flex-shrink: 0;
+        }
+
+        .store-nav-card:hover .store-nav-arrow {
+          opacity: 1;
+          transform: translateX(0);
+        }
+
+        .store-nav-card.selected {
+          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+          color: #ffffff !important;
+          border-color: #dc2626 !important;
+          box-shadow: 0 12px 28px rgba(220, 38, 38, 0.35), 0 0 0 2px rgba(239, 68, 68, 0.2) !important;
+          transform: translateY(-3px);
+          animation: pulseGlow 2.6s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+          0% {
+            box-shadow: 0 10px 24px rgba(220, 38, 38, 0.35), 0 0 0 2px rgba(239, 68, 68, 0.2);
           }
+          100% {
+            box-shadow: 0 14px 32px rgba(220, 38, 38, 0.5), 0 0 0 4px rgba(239, 68, 68, 0.3);
+          }
+        }
+
+        .store-nav-card.selected .store-nav-icon {
+          background: rgba(255, 255, 255, 0.22) !important;
+          color: #ffffff !important;
+        }
+
+        .store-nav-card.selected .store-nav-arrow {
+          opacity: 1;
+          color: #ffffff;
+          transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
           .store-buttons-grid {
             grid-template-columns: 1fr !important;
           }

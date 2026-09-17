@@ -81,8 +81,8 @@ export default function DoorstepCTA() {
           <div style={{ textAlign: "center", flex: 1, minWidth: "200px" }}>
             <h2
               style={{
-                fontSize: "clamp(1.3rem, 2.5vw, 2rem)",
-                fontWeight: 900,
+                fontSize: "clamp(1.4rem, 2.5vw, 2.2rem)",
+                fontWeight: 600,
                 color: "#ffffff",
                 letterSpacing: "-0.02em",
                 lineHeight: 1.3,

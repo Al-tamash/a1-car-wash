@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Check, Sparkles, ShieldCheck, Phone, Zap } from "lucide-react";
+import { Check, Sparkles, ShieldCheck, ArrowRight, Car, Bike } from "lucide-react";
 
 type VehicleCategory = "7seater" | "5seater" | "bikes";
 
@@ -9,7 +9,8 @@ interface PlanItem {
   id: string;
   name: string;
   badge?: string;
-  highlighted?: boolean;
+  popular?: boolean;
+  image: string;
   price7Seater: string;
   price5Seater: string;
   tagline: string;
@@ -18,54 +19,55 @@ interface PlanItem {
 
 const CAR_PLANS: PlanItem[] = [
   {
-    id: "body-wash",
-    name: "Body Wash",
-    badge: "Quick Refresh",
-    highlighted: false,
-    price7Seater: "₹700",
-    price5Seater: "₹600",
-    tagline: "Exterior foam wash & inside cabin vacuuming",
+    id: "full-car-wash",
+    name: "Full Car Wash",
+    badge: "MOST POPULAR",
+    popular: true,
+    image: "/pricing/pricing-full-car-wash.jpg",
+    price7Seater: "₹1,200",
+    price5Seater: "₹1,000",
+    tagline: "Hydraulic lift wash, engine oil & diesel degrease + full interior foam care",
     features: [
-      "Body Wash (High-Density Foam)",
-      "Inside Vacuum Cleaning",
-      "Dashboard Polish & Conditioning",
-      "Outside Foam Wash & Microfiber Wipe",
-      "Tyre Polish & Gloss Dressing",
+      "Hydraulic Jack Lift Wash",
+      "Engine Bay Oil & Diesel Wash",
+      "Thick pH-Neutral Foam Bath",
+      "Complete Interior Dry Vacuum",
+      "Dashboard & Trim UV Dressing",
+      "Tyre Polish & Wheel Rim Shine",
     ],
   },
   {
-    id: "full-car-wash",
-    name: "Full Car Wash",
-    badge: "Most Popular",
-    highlighted: true,
-    price7Seater: "₹1,200",
-    price5Seater: "₹1,000",
-    tagline: "Jack lift wash, oil wash, diesel degrease & full spa",
+    id: "body-wash",
+    name: "Express Body Wash",
+    badge: "QUICK REFRESH",
+    popular: false,
+    image: "/pricing/pricing-body-foam-wash.jpg",
+    price7Seater: "₹700",
+    price5Seater: "₹600",
+    tagline: "Exterior high-pressure snow foam bath, inside vacuum & tyre shine",
     features: [
-      "Jack Lift Wash (Hydraulic Ramp)",
-      "Oil Wash (Chassis & Mechanicals)",
-      "Diesel Wash (Engine Bay Degrease)",
-      "Interior Deep Vacuum & Cleaning",
-      "Vacuum Cleaning (Seats & Boot)",
-      "Dashboard Polish & UV Shield",
-      "Outside Foam Wash",
-      "Tyre Polish & Rim Cleanse",
+      "Active Snow Foam Body Bath",
+      "High-Pressure RO Jet Rinse",
+      "Cabin Floor & Seat Vacuum",
+      "Dashboard Anti-Static Polish",
+      "Long-Lasting Tyre Dressing",
     ],
   },
   {
     id: "interior-cleaning",
-    name: "Interior Deep Cleaning",
-    badge: "Deep Spa",
-    highlighted: false,
+    name: "Interior Deep Steam Spa",
+    badge: "DEEP SANITIZATION",
+    popular: false,
+    image: "/pricing/pricing-interior-deep-clean.jpg",
     price7Seater: "₹3,500",
     price5Seater: "₹3,000",
-    tagline: "Complete seat extraction, door panels & floor mats",
+    tagline: "High-temp steam extraction, leather conditioning & complete germ disinfection",
     features: [
-      "Seat Deep Cleaning & Extraction",
-      "Door Panel Cleaning & Dressing",
-      "Full Interior Cleaning (Roof & Console)",
-      "Floor Mat Cleaning & Shampoo",
-      "Full Interior Polish & Sanitization",
+      "Seat & Upholstery Steam Wash",
+      "Door Panel & Roof Dry Cleaning",
+      "Deep Trunk Extraction & Vacuum",
+      "AC Vent Germ Sanitization",
+      "Premium Leather & Plastic Polish",
     ],
   },
 ];
@@ -73,32 +75,34 @@ const CAR_PLANS: PlanItem[] = [
 const ADDITIONAL_COATING_SERVICES = [
   {
     id: "teflon",
-    name: "Teflon Coating",
-    badge: "High Gloss Paint Protection",
+    name: "9H Teflon Gloss Coating",
+    badge: "MIRROR SHIELD",
+    image: "/gallery/about-fortuner-studio.jpg",
     price7Seater: "₹4,000",
     price5Seater: "₹3,500",
     description:
-      "Fluoropolymer bonding layer providing deep mirror finish, minor swirl mark resistance, and water/dust repellent surface.",
+      "Advanced fluoropolymer polymer shield providing intense wet-look mirror gloss, swirl resistance, and ultra-hydrophobic dirt repellent finish.",
     features: [
-      "High Gloss Mirror Shine Finish",
-      "Minor Swirl & Scratch Protection",
-      "Fluoropolymer Paint Shield",
-      "Easy Wash Maintenance & Dirt Repelling",
+      "High-Gloss Wet Look Mirror Finish",
+      "Swirl & Minor Scratch Defense",
+      "Hydrophobic Water Beading Layer",
+      "Easy Wash Maintenance",
     ],
   },
   {
     id: "underbody",
-    name: "Underbody Anti-Rust Coating + Black Colour & Silencer Spray",
-    badge: "Professional Underbody Protection & Anti-Rust Treatment",
+    name: "Underbody Anti-Rust + Silencer Coat",
+    badge: "CHASSIS SHIELD",
+    image: "/gallery/underbody-antirust-work.jpg",
     price7Seater: "₹3,500",
     price5Seater: "₹3,000",
     description:
-      "Heavy-duty rustproofing undercoating with sleek black color finish plus high-temperature heat-resistant silencer spray treatment.",
+      "Heavy-duty bitumen rubberized rustproofing undercoating with matte black protective seal and heat-resistant zinc silencer spray.",
     features: [
-      "Professional Underbody Anti-Rust Treatment",
-      "Black Colour Chassis Protective Coat",
-      "High-Temperature Silencer Spray Treatment",
-      "Monsoon Mud & Salt Water Corrosion Defense",
+      "Heavy Anti-Rust Bitumen Undercoat",
+      "Matte Black Chassis Protective Seal",
+      "High-Temp Exhaust Silencer Spray",
+      "Monsoon Mud & Salt Corrosion Defense",
     ],
   },
 ];
@@ -106,10 +110,12 @@ const ADDITIONAL_COATING_SERVICES = [
 const BIKE_SERVICES = [
   {
     id: "normal-bike",
-    name: "Normal Bike",
-    category: "Daily Commuters (Splendor, Shine, Pulsar, Activa)",
+    name: "Commuter Bike & Scooter",
+    category: "Splendor, Shine, Activa, Jupiter, Pulsar",
+    image: "/gallery/real-scooter-foam-bay.jpg",
     foamPrice: "₹150",
     dieselPrice: "₹180",
+    badge: "EXPRESS CARE",
     features: [
       "High-Pressure Snow Foam Bath",
       "Diesel Engine Cleansing & Degrease",
@@ -119,31 +125,33 @@ const BIKE_SERVICES = [
   },
   {
     id: "bullet",
-    name: "Royal Enfield Bullet",
-    category: "Cruisers & Heavy Classics (Classic 350, Meteor, Hunter)",
+    name: "Royal Enfield & Heavy Cruiser",
+    category: "Classic 350, Meteor, Hunter, Jawa, Yezdi",
+    image: "/gallery/real-bullet-pressure-wash.jpg",
     foamPrice: "₹180",
     dieselPrice: "₹250",
-    badge: "Cruiser Specialist",
+    badge: "CRUISER CARE",
     features: [
-      "Heavy Snow Foam Wash (₹180)",
-      "Diesel Engine Bay Wash (₹250)",
-      "Chrome Polish & Spoke Rim Detailing",
-      "Engine Cooling Fin Dirt Removal",
-      "Silencer & Mudguard Gloss Protection",
+      "Heavy Snow Foam Body Wash",
+      "Engine Bay Diesel Degreasing",
+      "Chrome Spoke & Exhaust Polishing",
+      "Engine Cooling Fin Dirt Extraction",
+      "Silencer & Mudguard Gloss Seal",
     ],
   },
   {
     id: "sport-bikes",
-    name: "All Sport Bikes",
-    category: "Performance & Superbikes (KTM, Yamaha R15, Ninja, Dominar)",
+    name: "Performance & Superbikes",
+    category: "KTM RC/Duke, Yamaha R15/MT15, Ninja, Dominar",
+    image: "/pricing/pricing-bike-wash.jpg",
     foamPrice: "₹200",
     dieselPrice: "₹250",
-    badge: "Superbike Care",
+    badge: "SUPERBIKE SPA",
     features: [
-      "Fairing-Safe pH Neutral Foam Wash (₹200)",
-      "Diesel Engine & Swingarm Wash (₹250)",
+      "Fairing-Safe pH-Neutral Foam Bath",
+      "Swingarm & Diesel Engine Clean",
       "High-Tension Chain Scrub & Lube",
-      "Alloy Wheel & Brake Caliper Care",
+      "Alloy Rim & Disc Brake Decon",
       "Hydrophobic Scratch-Safe Hand Dry",
     ],
   },
@@ -151,586 +159,227 @@ const BIKE_SERVICES = [
 
 export default function PricingSection() {
   const [selectedCategory, setSelectedCategory] = useState<VehicleCategory>("7seater");
-  const [hovered, setHovered] = useState<string | null>(null);
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+
+  const isBikeTab = selectedCategory === "bikes";
+  const vehicleLabel = selectedCategory === "7seater" ? "7-Seater Car" : "5-Seater Car";
 
   return (
-    <section
-      id="pricing-section"
-      style={{
-        background: "linear-gradient(180deg, #f8fafc 0%, #ffffff 50%, #f8fafc 100%)",
-        padding: "85px 0 95px",
-        position: "relative",
-      }}
-    >
-      <div className="container" style={{ padding: "0 24px", maxWidth: "1280px", margin: "0 auto" }}>
-        
-        {/* Section Header */}
-        <div style={{ textAlign: "center", marginBottom: "40px" }}>
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "6px",
-              background: "#fee2e2",
-              color: "#dc2626",
-              borderRadius: "9999px",
-              fontSize: "12px",
-              fontWeight: 800,
-              padding: "5px 16px",
-              marginBottom: "14px",
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-            }}
-          >
-            <Sparkles size={13} />
+    <section id="pricing" className="pricing-modern-root">
+      {/* Subtle Navy / Red Atmospheric Glow */}
+      <div className="pricing-ambient-glow" aria-hidden="true" />
+
+      <div className="pricing-container">
+        {/* ── SECTION HEADER ── */}
+        <div className="pricing-header-wrap">
+          <div className="pricing-eyebrow">
+            <span className="pricing-eyebrow-dash" />
             <span>TRANSPARENT VALUE PRICING</span>
           </div>
 
-          <h2
-            style={{
-              fontSize: "clamp(2rem, 3.8vw, 3rem)",
-              fontWeight: 900,
-              color: "#0f172a",
-              letterSpacing: "-0.03em",
-              marginBottom: "12px",
-            }}
-          >
-            A1 Car Wash <span style={{ color: "#dc2626" }}>Packages & Pricing</span>
+          <h2 className="pricing-main-title">
+            Wash Packages &amp; <span className="pricing-title-accent">Studio Rates</span>
           </h2>
-          <p
-            style={{
-              fontSize: "15px",
-              color: "#64748b",
-              maxWidth: "580px",
-              margin: "0 auto 28px",
-              lineHeight: 1.65,
-            }}
-          >
-            Quality car cleaning, hydraulic jack lift washes, and protective coatings at Raidurg, Hyderabad.
-            Select your vehicle type below to see exact prices with all inclusions.
+
+          <p className="pricing-main-desc">
+            Professional car &amp; bike detailing with hydraulic jack lifts, touchless snow foam, and 100% RO soft-water in Hyderabad. Choose your vehicle type below:
           </p>
 
-          {/* Vehicle Segment Tabs Switcher */}
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              background: "#e2e8f0",
-              padding: "5px",
-              borderRadius: "9999px",
-              gap: "4px",
-              flexWrap: "wrap",
-              justifyContent: "center",
-            }}
-          >
+          {/* ── VEHICLE SEGMENT TABS SWITCHER ── */}
+          <div className="pricing-tabs-pill-row">
             <button
+              type="button"
+              className={`pricing-tab-btn ${selectedCategory === "7seater" ? "active-red" : ""}`}
               onClick={() => setSelectedCategory("7seater")}
-              style={{
-                padding: "10px 24px",
-                borderRadius: "9999px",
-                border: "none",
-                background: selectedCategory === "7seater" ? "#dc2626" : "transparent",
-                color: selectedCategory === "7seater" ? "#ffffff" : "#334155",
-                fontSize: "14px",
-                fontWeight: 800,
-                cursor: "pointer",
-                transition: "all 0.25s ease",
-                boxShadow:
-                  selectedCategory === "7seater" ? "0 4px 14px rgba(220,38,38,0.3)" : "none",
-              }}
             >
-              🚗 7-Seater Cars
+              <Car size={16} />
+              <span>7-Seater Cars</span>
             </button>
 
             <button
+              type="button"
+              className={`pricing-tab-btn ${selectedCategory === "5seater" ? "active-red" : ""}`}
               onClick={() => setSelectedCategory("5seater")}
-              style={{
-                padding: "10px 24px",
-                borderRadius: "9999px",
-                border: "none",
-                background: selectedCategory === "5seater" ? "#dc2626" : "transparent",
-                color: selectedCategory === "5seater" ? "#ffffff" : "#334155",
-                fontSize: "14px",
-                fontWeight: 800,
-                cursor: "pointer",
-                transition: "all 0.25s ease",
-                boxShadow:
-                  selectedCategory === "5seater" ? "0 4px 14px rgba(220,38,38,0.3)" : "none",
-              }}
             >
-              🚗 5-Seater Cars
+              <Car size={16} />
+              <span>5-Seater Cars</span>
             </button>
 
             <button
+              type="button"
+              className={`pricing-tab-btn ${selectedCategory === "bikes" ? "active-navy" : ""}`}
               onClick={() => setSelectedCategory("bikes")}
-              style={{
-                padding: "10px 24px",
-                borderRadius: "9999px",
-                border: "none",
-                background: selectedCategory === "bikes" ? "#0f172a" : "transparent",
-                color: selectedCategory === "bikes" ? "#ffffff" : "#334155",
-                fontSize: "14px",
-                fontWeight: 800,
-                cursor: "pointer",
-                transition: "all 0.25s ease",
-                boxShadow:
-                  selectedCategory === "bikes" ? "0 4px 14px rgba(15,23,42,0.3)" : "none",
-              }}
             >
-              🏍️ Bikes & Two-Wheelers
+              <Bike size={16} />
+              <span>Bikes &amp; Two-Wheelers</span>
             </button>
           </div>
         </div>
 
-        {/* ── CAR PACKAGES (7-Seater / 5-Seater) ── */}
-        {(selectedCategory === "7seater" || selectedCategory === "5seater") && (
-          <div>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-                gap: "28px",
-                alignItems: "stretch",
-                maxWidth: "1140px",
-                margin: "0 auto 50px auto",
-              }}
-              className="packages-grid"
-            >
+        {/* ── 1. CAR PACKAGES (7-SEATER & 5-SEATER) ── */}
+        {!isBikeTab && (
+          <div className="pricing-cards-section">
+            <div className="pricing-cards-grid">
               {CAR_PLANS.map((plan) => {
                 const currentPrice =
                   selectedCategory === "7seater" ? plan.price7Seater : plan.price5Seater;
-                const vehicleLabel =
-                  selectedCategory === "7seater" ? "7-Seater" : "5-Seater";
+                const isHovered = hoveredCard === plan.id;
 
                 return (
                   <div
                     key={plan.id}
-                    onMouseEnter={() => setHovered(plan.id)}
-                    onMouseLeave={() => setHovered(null)}
-                    style={{
-                      borderRadius: "18px",
-                      padding: "36px 28px",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between",
-                      position: "relative",
-                      transition: "all 0.25s ease",
-                      ...(plan.highlighted
-                        ? {
-                            background: "linear-gradient(155deg, #dc2626 0%, #991b1b 100%)",
-                            boxShadow: "0 22px 50px rgba(220,38,38,0.35)",
-                            color: "#ffffff",
-                            transform:
-                              hovered === plan.id ? "translateY(-8px)" : "translateY(-4px)",
-                          }
-                        : {
-                            background: "#ffffff",
-                            border: "1px solid #e2e8f0",
-                            boxShadow:
-                              hovered === plan.id
-                                ? "0 14px 34px rgba(15,23,42,0.1)"
-                                : "0 4px 18px rgba(15,23,42,0.05)",
-                            transform: hovered === plan.id ? "translateY(-4px)" : "none",
-                          }),
-                    }}
+                    className={`pricing-card-box ${plan.popular ? "is-popular" : ""}`}
+                    onMouseEnter={() => setHoveredCard(plan.id)}
+                    onMouseLeave={() => setHoveredCard(null)}
                   >
-                    {/* Badge */}
-                    {plan.badge && (
-                      <div
-                        style={{
-                          position: "absolute",
-                          top: "-13px",
-                          left: "50%",
-                          transform: "translateX(-50%)",
-                          background: plan.highlighted ? "#0f172a" : "#dc2626",
-                          color: "#ffffff",
-                          fontSize: "11px",
-                          fontWeight: 800,
-                          padding: "5px 16px",
-                          borderRadius: "9999px",
-                          whiteSpace: "nowrap",
-                          letterSpacing: "0.05em",
-                          boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-                        }}
-                      >
-                        {plan.badge}
-                      </div>
-                    )}
-
-                    <div>
-                      {/* Title & Pricing */}
-                      <div style={{ marginBottom: "22px" }}>
-                        <div
-                          style={{
-                            fontSize: "12px",
-                            fontWeight: 800,
-                            letterSpacing: "0.06em",
-                            textTransform: "uppercase",
-                            color: plan.highlighted
-                              ? "rgba(255,255,255,0.8)"
-                              : "#dc2626",
-                            marginBottom: "4px",
-                          }}
-                        >
-                          {vehicleLabel} Wash Package
-                        </div>
-                        <h3
-                          style={{
-                            fontSize: "22px",
-                            fontWeight: 900,
-                            marginBottom: "6px",
-                            color: plan.highlighted ? "#ffffff" : "#0f172a",
-                          }}
-                        >
-                          {plan.name}
-                        </h3>
-                        <p
-                          style={{
-                            fontSize: "12.5px",
-                            color: plan.highlighted
-                              ? "rgba(255,255,255,0.85)"
-                              : "#64748b",
-                            marginBottom: "16px",
-                            lineHeight: 1.45,
-                          }}
-                        >
-                          {plan.tagline}
-                        </p>
-
-                        <div style={{ display: "flex", alignItems: "baseline", gap: "6px" }}>
-                          <span
-                            style={{
-                              fontSize: "42px",
-                              fontWeight: 900,
-                              lineHeight: 1,
-                              color: plan.highlighted ? "#ffffff" : "#dc2626",
-                            }}
-                          >
-                            {currentPrice}
-                          </span>
-                          <span
-                            style={{
-                              fontSize: "13.5px",
-                              color: plan.highlighted
-                                ? "rgba(255,255,255,0.75)"
-                                : "#94a3b8",
-                              fontWeight: 700,
-                            }}
-                          >
-                            / total
-                          </span>
-                        </div>
-                      </div>
-
-                      <div
-                        style={{
-                          height: "1px",
-                          background: plan.highlighted
-                            ? "rgba(255,255,255,0.2)"
-                            : "#f1f5f9",
-                          marginBottom: "20px",
-                        }}
+                    {/* Top Image Banner */}
+                    <div className="pricing-card-image-wrap">
+                      <img
+                        src={plan.image}
+                        alt={plan.name}
+                        loading="lazy"
+                        className="pricing-card-img"
                       />
+                      <div className="pricing-card-img-overlay" />
+                      
+                      {/* Floating Badge */}
+                      {plan.badge && (
+                        <div className={`pricing-floating-badge ${plan.popular ? "badge-popular" : "badge-normal"}`}>
+                          <Sparkles size={12} />
+                          <span>{plan.badge}</span>
+                        </div>
+                      )}
 
-                      {/* Checklist */}
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "11px",
-                          marginBottom: "30px",
-                        }}
-                      >
-                        {plan.features.map((feat, i) => (
-                          <div
-                            key={i}
-                            style={{
-                              display: "flex",
-                              alignItems: "flex-start",
-                              gap: "10px",
-                              fontSize: "13.5px",
-                              color: plan.highlighted
-                                ? "rgba(255,255,255,0.95)"
-                                : "#334155",
-                              lineHeight: 1.45,
-                            }}
-                          >
-                            <div
-                              style={{
-                                width: "18px",
-                                height: "18px",
-                                borderRadius: "50%",
-                                background: plan.highlighted
-                                  ? "rgba(255,255,255,0.2)"
-                                  : "#fee2e2",
-                                color: plan.highlighted ? "#ffffff" : "#dc2626",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                flexShrink: 0,
-                                marginTop: "1px",
-                              }}
-                            >
-                              <Check size={12} strokeWidth={3} />
-                            </div>
-                            <span style={{ fontWeight: 600 }}>{feat}</span>
-                          </div>
-                        ))}
+                      {/* Vehicle Category Chip on bottom-right of image */}
+                      <div className="pricing-img-chip">
+                        {vehicleLabel}
                       </div>
                     </div>
 
-                    {/* Booking CTA Button */}
-                    <button
-                      onClick={() => {
-                        const msg = `Hi A1 Car Wash! I would like to book the *${vehicleLabel} ${plan.name}* (${currentPrice}) at Raidurg, Hyderabad.`;
-                        window.open(
-                          `https://wa.me/917045282473?text=${encodeURIComponent(msg)}`,
-                          "_blank"
-                        );
-                      }}
-                      style={{
-                        width: "100%",
-                        padding: "14px",
-                        borderRadius: "10px",
-                        fontWeight: 800,
-                        fontSize: "14px",
-                        cursor: "pointer",
-                        border: "none",
-                        transition: "all 0.2s ease",
-                        ...(plan.highlighted
-                          ? {
-                              background: "#ffffff",
-                              color: "#dc2626",
-                              boxShadow: "0 6px 20px rgba(0,0,0,0.16)",
-                            }
-                          : {
-                              background:
-                                "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
-                              color: "#ffffff",
-                              boxShadow: "0 4px 16px rgba(220,38,38,0.3)",
-                            }),
-                      }}
-                    >
-                      Book {vehicleLabel} for {currentPrice}
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* ── ADDITIONAL SERVICES: Teflon & Underbody Anti-Rust ── */}
-            <div
-              style={{
-                background: "#ffffff",
-                border: "1.5px solid #e2e8f0",
-                borderRadius: "20px",
-                padding: "36px 32px",
-                maxWidth: "1140px",
-                margin: "0 auto",
-                boxShadow: "0 10px 30px rgba(15,23,42,0.04)",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  flexWrap: "wrap",
-                  gap: "12px",
-                  marginBottom: "24px",
-                  borderBottom: "1px solid #f1f5f9",
-                  paddingBottom: "18px",
-                }}
-              >
-                <div>
-                  <div
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "6px",
-                      fontSize: "11.5px",
-                      fontWeight: 800,
-                      color: "#dc2626",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.06em",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    <ShieldCheck size={14} />
-                    <span>A1 CAR WASH — ADDITIONAL SERVICES</span>
-                  </div>
-                  <h3
-                    style={{
-                      fontSize: "22px",
-                      fontWeight: 900,
-                      color: "#0f172a",
-                      margin: 0,
-                    }}
-                  >
-                    Protective Coatings & Anti-Rust Shield
-                  </h3>
-                </div>
-                <div style={{ fontSize: "13px", fontWeight: 700, color: "#64748b" }}>
-                  Selected Vehicle:{" "}
-                  <span style={{ color: "#dc2626", fontWeight: 800 }}>
-                    {selectedCategory === "7seater" ? "7-Seater" : "5-Seater"}
-                  </span>
-                </div>
-              </div>
-
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: "24px",
-                }}
-                className="additional-grid"
-              >
-                {ADDITIONAL_COATING_SERVICES.map((add) => {
-                  const price =
-                    selectedCategory === "7seater" ? add.price7Seater : add.price5Seater;
-                  const vLabel =
-                    selectedCategory === "7seater" ? "7-Seater" : "5-Seater";
-
-                  return (
-                    <div
-                      key={add.id}
-                      style={{
-                        borderRadius: "14px",
-                        border: "1px solid #e2e8f0",
-                        padding: "24px",
-                        background: "#f8fafc",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "space-between",
-                        transition: "all 0.2s ease",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = "#dc2626";
-                        e.currentTarget.style.background = "#ffffff";
-                        e.currentTarget.style.boxShadow =
-                          "0 10px 26px rgba(220,38,38,0.08)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = "#e2e8f0";
-                        e.currentTarget.style.background = "#f8fafc";
-                        e.currentTarget.style.boxShadow = "none";
-                      }}
-                    >
-                      <div>
-                        <div
-                          style={{
-                            display: "inline-block",
-                            background: "#fee2e2",
-                            color: "#dc2626",
-                            fontSize: "11px",
-                            fontWeight: 800,
-                            padding: "3px 10px",
-                            borderRadius: "6px",
-                            marginBottom: "10px",
-                          }}
-                        >
-                          {add.badge}
-                        </div>
-
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "flex-start",
-                            marginBottom: "10px",
-                          }}
-                        >
-                          <h4
-                            style={{
-                              fontSize: "18px",
-                              fontWeight: 900,
-                              color: "#0f172a",
-                              margin: 0,
-                              maxWidth: "280px",
-                              lineHeight: 1.3,
-                            }}
-                          >
-                            {add.name}
-                          </h4>
-                          <div style={{ textAlign: "right" }}>
-                            <span
-                              style={{
-                                fontSize: "26px",
-                                fontWeight: 900,
-                                color: "#dc2626",
-                              }}
-                            >
-                              {price}
-                            </span>
-                            <div style={{ fontSize: "11px", color: "#64748b", fontWeight: 700 }}>
-                              {vLabel} Price
-                            </div>
-                          </div>
-                        </div>
-
-                        <p
-                          style={{
-                            fontSize: "12.5px",
-                            color: "#64748b",
-                            lineHeight: 1.5,
-                            marginBottom: "16px",
-                          }}
-                        >
-                          {add.description}
-                        </p>
-
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "8px",
-                            marginBottom: "20px",
-                          }}
-                        >
-                          {add.features.map((f, fi) => (
-                            <div
-                              key={fi}
-                              style={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "8px",
-                                fontSize: "12.5px",
-                                color: "#334155",
-                                fontWeight: 600,
-                              }}
-                            >
-                              <Check size={14} style={{ color: "#16a34a" }} />
-                              <span>{f}</span>
-                            </div>
-                          ))}
+                    {/* Card Body */}
+                    <div className="pricing-card-body">
+                      <div className="pricing-card-header">
+                        <h3 className="pricing-card-title">{plan.name}</h3>
+                        <p className="pricing-card-tagline">{plan.tagline}</p>
+                        
+                        {/* Price Display */}
+                        <div className="pricing-price-row">
+                          <span className="pricing-price-val">{currentPrice}</span>
+                          <span className="pricing-price-unit">/ all-inclusive</span>
                         </div>
                       </div>
 
+                      <div className="pricing-card-divider" />
+
+                      {/* Feature Checklist */}
+                      <div className="pricing-checklist">
+                        {plan.features.map((feat, i) => (
+                          <div key={i} className="pricing-check-item">
+                            <div className="pricing-check-icon">
+                              <Check size={13} strokeWidth={3} />
+                            </div>
+                            <span className="pricing-check-text">{feat}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* CTA Booking Button */}
                       <button
+                        type="button"
+                        className={`pricing-btn-action ${plan.popular ? "btn-popular" : "btn-normal"}`}
                         onClick={() => {
-                          const msg = `Hi A1 Car Wash! I would like to book *${vLabel} ${add.name}* (${price}) at Raidurg, Hyderabad.`;
+                          const msg = `Hi A1 Car Wash! I would like to book the *${vehicleLabel} ${plan.name}* (${currentPrice}) at Raidurg, Hyderabad.`;
                           window.open(
                             `https://wa.me/917045282473?text=${encodeURIComponent(msg)}`,
                             "_blank"
                           );
                         }}
-                        style={{
-                          background: "#0f172a",
-                          color: "#ffffff",
-                          padding: "11px",
-                          borderRadius: "8px",
-                          fontSize: "13px",
-                          fontWeight: 800,
-                          border: "none",
-                          cursor: "pointer",
-                          transition: "all 0.2s",
-                        }}
-                        onMouseEnter={(e) => (e.currentTarget.style.background = "#dc2626")}
-                        onMouseLeave={(e) => (e.currentTarget.style.background = "#0f172a")}
                       >
-                        Book {add.name} ({price})
+                        <span>Book {plan.name}</span>
+                        <ArrowRight size={16} />
                       </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* ── 2. ADDITIONAL PROTECTIVE SERVICES (TEFLON & UNDERBODY) ── */}
+            <div className="pricing-additional-container">
+              <div className="pricing-add-header">
+                <div className="pricing-add-title-col">
+                  <div className="pricing-add-eyebrow">
+                    <ShieldCheck size={14} />
+                    <span>A1 CAR CARE — PROTECTIVE COATINGS</span>
+                  </div>
+                  <h3 className="pricing-add-title">
+                    Studio Ceramic, Teflon &amp; Anti-Rust Shield
+                  </h3>
+                </div>
+                <div className="pricing-add-meta">
+                  Selected: <span className="pricing-add-vlabel">{vehicleLabel}</span>
+                </div>
+              </div>
+
+              <div className="pricing-additional-grid">
+                {ADDITIONAL_COATING_SERVICES.map((add) => {
+                  const price =
+                    selectedCategory === "7seater" ? add.price7Seater : add.price5Seater;
+
+                  return (
+                    <div key={add.id} className="pricing-add-card">
+                      {/* Left/Top Image Banner */}
+                      <div className="pricing-add-img-wrap">
+                        <img
+                          src={add.image}
+                          alt={add.name}
+                          loading="lazy"
+                          className="pricing-add-img"
+                        />
+                        <div className="pricing-add-img-overlay" />
+                        <div className="pricing-add-badge">{add.badge}</div>
+                      </div>
+
+                      {/* Content */}
+                      <div className="pricing-add-body">
+                        <div>
+                          <div className="pricing-add-card-top">
+                            <h4 className="pricing-add-card-name">{add.name}</h4>
+                            <div className="pricing-add-card-price">
+                              <span className="price-num">{price}</span>
+                              <span className="price-sub">{vehicleLabel}</span>
+                            </div>
+                          </div>
+
+                          <p className="pricing-add-desc">{add.description}</p>
+
+                          <div className="pricing-add-features">
+                            {add.features.map((f, fi) => (
+                              <div key={fi} className="pricing-add-feat-item">
+                                <div className="pricing-add-check-dot">
+                                  <Check size={11} strokeWidth={3} />
+                                </div>
+                                <span>{f}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <button
+                          type="button"
+                          className="pricing-add-btn"
+                          onClick={() => {
+                            const msg = `Hi A1 Car Wash! I would like to book *${vehicleLabel} ${add.name}* (${price}) at Raidurg, Hyderabad.`;
+                            window.open(
+                              `https://wa.me/917045282473?text=${encodeURIComponent(msg)}`,
+                              "_blank"
+                            );
+                          }}
+                        >
+                          <span>Book {add.name} ({price})</span>
+                          <ArrowRight size={15} />
+                        </button>
+                      </div>
                     </div>
                   );
                 })}
@@ -739,252 +388,877 @@ export default function PricingSection() {
           </div>
         )}
 
-        {/* ── BIKES & TWO WHEELERS SECTION ── */}
-        {selectedCategory === "bikes" && (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "28px",
-              alignItems: "stretch",
-              maxWidth: "1140px",
-              margin: "0 auto",
-            }}
-            className="packages-grid"
-          >
-            {BIKE_SERVICES.map((bike) => (
-              <div
-                key={bike.id}
-                style={{
-                  borderRadius: "18px",
-                  padding: "32px 26px",
-                  background: "#ffffff",
-                  border: "1px solid #e2e8f0",
-                  boxShadow: "0 6px 20px rgba(15,23,42,0.06)",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  transition: "all 0.25s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "#dc2626";
-                  e.currentTarget.style.transform = "translateY(-4px)";
-                  e.currentTarget.style.boxShadow = "0 14px 34px rgba(220,38,38,0.12)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "#e2e8f0";
-                  e.currentTarget.style.transform = "none";
-                  e.currentTarget.style.boxShadow = "0 6px 20px rgba(15,23,42,0.06)";
-                }}
-              >
-                <div>
-                  {bike.badge && (
-                    <div
-                      style={{
-                        display: "inline-block",
-                        background: "#fee2e2",
-                        color: "#dc2626",
-                        fontSize: "11px",
-                        fontWeight: 800,
-                        padding: "4px 12px",
-                        borderRadius: "9999px",
-                        marginBottom: "12px",
+        {/* ── 3. BIKES & TWO-WHEELERS SECTION ── */}
+        {isBikeTab && (
+          <div className="pricing-cards-section">
+            <div className="pricing-cards-grid">
+              {BIKE_SERVICES.map((bike) => (
+                <div key={bike.id} className="pricing-card-box">
+                  {/* Bike Image Banner */}
+                  <div className="pricing-card-image-wrap">
+                    <img
+                      src={bike.image}
+                      alt={bike.name}
+                      loading="lazy"
+                      className="pricing-card-img"
+                    />
+                    <div className="pricing-card-img-overlay" />
+                    
+                    {bike.badge && (
+                      <div className="pricing-floating-badge badge-normal">
+                        <Sparkles size={12} />
+                        <span>{bike.badge}</span>
+                      </div>
+                    )}
+
+                    <div className="pricing-img-chip">Two-Wheeler Spa</div>
+                  </div>
+
+                  {/* Body */}
+                  <div className="pricing-card-body">
+                    <div className="pricing-card-header">
+                      <h3 className="pricing-card-title">{bike.name}</h3>
+                      <p className="pricing-card-tagline">{bike.category}</p>
+
+                      {/* Dual Price Pill */}
+                      <div className="pricing-bike-dual-row">
+                        <div className="bike-price-box">
+                          <span className="bike-price-label">Foam Wash</span>
+                          <span className="bike-price-val">{bike.foamPrice}</span>
+                        </div>
+                        <div className="bike-price-divider" />
+                        <div className="bike-price-box">
+                          <span className="bike-price-label red-text">Diesel Wash</span>
+                          <span className="bike-price-val red-text">{bike.dieselPrice}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="pricing-card-divider" />
+
+                    {/* Features */}
+                    <div className="pricing-checklist">
+                      {bike.features.map((f, i) => (
+                        <div key={i} className="pricing-check-item">
+                          <div className="pricing-check-icon">
+                            <Check size={13} strokeWidth={3} />
+                          </div>
+                          <span className="pricing-check-text">{f}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Button */}
+                    <button
+                      type="button"
+                      className="pricing-btn-action btn-normal"
+                      onClick={() => {
+                        const msg = `Hi A1 Car Wash! I would like to book a *${bike.name}* wash (Foam: ${bike.foamPrice} / Diesel: ${bike.dieselPrice}) at Raidurg, Hyderabad.`;
+                        window.open(
+                          `https://wa.me/917045282473?text=${encodeURIComponent(msg)}`,
+                          "_blank"
+                        );
                       }}
                     >
-                      {bike.badge}
-                    </div>
-                  )}
-
-                  <h3
-                    style={{
-                      fontSize: "22px",
-                      fontWeight: 900,
-                      color: "#0f172a",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    {bike.name}
-                  </h3>
-                  <p
-                    style={{
-                      fontSize: "12px",
-                      color: "#64748b",
-                      marginBottom: "18px",
-                      lineHeight: 1.4,
-                    }}
-                  >
-                    {bike.category}
-                  </p>
-
-                  {/* Dual Pricing Pill */}
-                  <div
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "1fr 1fr",
-                      gap: "10px",
-                      background: "#f8fafc",
-                      padding: "14px 12px",
-                      borderRadius: "12px",
-                      border: "1px solid #e2e8f0",
-                      marginBottom: "20px",
-                      textAlign: "center",
-                    }}
-                  >
-                    <div>
-                      <div style={{ fontSize: "11px", fontWeight: 700, color: "#64748b" }}>
-                        Foam Wash
-                      </div>
-                      <div style={{ fontSize: "24px", fontWeight: 900, color: "#0f172a" }}>
-                        {bike.foamPrice}
-                      </div>
-                    </div>
-                    <div style={{ borderLeft: "1px solid #cbd5e1" }}>
-                      <div style={{ fontSize: "11px", fontWeight: 700, color: "#dc2626" }}>
-                        Diesel Wash
-                      </div>
-                      <div style={{ fontSize: "24px", fontWeight: 900, color: "#dc2626" }}>
-                        {bike.dieselPrice}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Features */}
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "10px",
-                      marginBottom: "26px",
-                    }}
-                  >
-                    {bike.features.map((f, i) => (
-                      <div
-                        key={i}
-                        style={{
-                          display: "flex",
-                          alignItems: "flex-start",
-                          gap: "8px",
-                          fontSize: "13px",
-                          color: "#334155",
-                          lineHeight: 1.4,
-                        }}
-                      >
-                        <Check
-                          size={15}
-                          style={{ color: "#16a34a", flexShrink: 0, marginTop: "2px" }}
-                        />
-                        <span style={{ fontWeight: 600 }}>{f}</span>
-                      </div>
-                    ))}
+                      <span>Book Bike Wash</span>
+                      <ArrowRight size={16} />
+                    </button>
                   </div>
                 </div>
-
-                <button
-                  onClick={() => {
-                    const msg = `Hi A1 Car Wash! I would like to book a *${bike.name}* wash (Foam: ${bike.foamPrice} / Diesel: ${bike.dieselPrice}) at Raidurg, Hyderabad.`;
-                    window.open(
-                      `https://wa.me/917045282473?text=${encodeURIComponent(msg)}`,
-                      "_blank"
-                    );
-                  }}
-                  style={{
-                    width: "100%",
-                    padding: "13px",
-                    borderRadius: "8px",
-                    fontWeight: 800,
-                    fontSize: "13.5px",
-                    cursor: "pointer",
-                    border: "none",
-                    background: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
-                    color: "#ffffff",
-                    boxShadow: "0 4px 14px rgba(220,38,38,0.35)",
-                    transition: "all 0.2s ease",
-                  }}
-                >
-                  Book Bike Wash
-                </button>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
-
-        {/* Bottom Booking Hotline Bar */}
-        <div
-          style={{
-            marginTop: "48px",
-            background: "#0f172a",
-            borderRadius: "16px",
-            padding: "24px 32px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            gap: "20px",
-            maxWidth: "1140px",
-            margin: "48px auto 0 auto",
-            color: "#ffffff",
-          }}
-        >
-          <div>
-            <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.7)", fontWeight: 700 }}>
-              LOCATION & IMMEDIATE SLOTS
-            </div>
-            <div style={{ fontSize: "16px", fontWeight: 800, color: "#ffffff", marginTop: "2px" }}>
-              Mehfil Restaurant, Raidurg, Darga Chowrasta, Film Nagar Road, Hyderabad
-            </div>
-          </div>
-
-          <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-            <a
-              href="tel:7045282473"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                background: "rgba(255,255,255,0.12)",
-                color: "#ffffff",
-                padding: "11px 20px",
-                borderRadius: "8px",
-                fontSize: "14px",
-                fontWeight: 800,
-                textDecoration: "none",
-              }}
-            >
-              <Phone size={15} style={{ color: "#ef4444" }} />
-              <span>70452 82473</span>
-            </a>
-
-            <a
-              href="https://wa.me/917045282473?text=Hi%20A1%20Car%20Wash!%20I%20would%20like%20to%20inquire%20about%20car%20wash%20rates."
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                background: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
-                color: "#ffffff",
-                padding: "11px 22px",
-                borderRadius: "8px",
-                fontSize: "14px",
-                fontWeight: 800,
-                textDecoration: "none",
-                boxShadow: "0 4px 14px rgba(220,38,38,0.4)",
-              }}
-            >
-              WhatsApp Us
-            </a>
-          </div>
-        </div>
-
       </div>
 
       <style>{`
-        @media (max-width: 980px) {
-          .packages-grid {
-            grid-template-columns: 1fr !important;
-            max-width: 440px !important;
-            margin: 0 auto 36px auto !important;
+        .pricing-modern-root {
+          position: relative;
+          background: #ffffff;
+          padding: 90px 20px 105px;
+          overflow: hidden;
+          border-top: 1px solid #f1f5f9;
+        }
+
+        .pricing-ambient-glow {
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 800px;
+          height: 400px;
+          background: radial-gradient(circle, rgba(239, 68, 68, 0.04) 0%, rgba(13, 27, 62, 0.02) 60%, transparent 100%);
+          pointer-events: none;
+        }
+
+        .pricing-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          position: relative;
+          z-index: 2;
+        }
+
+        /* ── Header ── */
+        .pricing-header-wrap {
+          text-align: center;
+          margin-bottom: 48px;
+        }
+
+        .pricing-eyebrow {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          color: #dc2626;
+          font-size: 12px;
+          font-weight: 800;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          margin-bottom: 12px;
+        }
+
+        .pricing-eyebrow-dash {
+          width: 22px;
+          height: 2.5px;
+          background: #dc2626;
+          border-radius: 2px;
+        }
+
+        .pricing-main-title {
+          font-family: var(--font-heading, 'Outfit', sans-serif);
+          font-size: clamp(2rem, 3.2vw, 2.75rem);
+          font-weight: 600;
+          color: #0f172a;
+          letter-spacing: -0.025em;
+          margin: 0 0 14px 0;
+        }
+
+        .pricing-title-accent {
+          color: #dc2626;
+        }
+
+        .pricing-main-desc {
+          font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+          font-size: 14.5px;
+          color: #64748b;
+          max-width: 600px;
+          margin: 0 auto 28px;
+          line-height: 1.65;
+        }
+
+        /* ── Segment Tabs Pill Row ── */
+        .pricing-tabs-pill-row {
+          display: inline-flex;
+          align-items: center;
+          background: #f1f5f9;
+          padding: 6px;
+          border-radius: 9999px;
+          gap: 6px;
+          border: 1px solid #e2e8f0;
+          box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .pricing-tab-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 10px 22px;
+          border-radius: 9999px;
+          border: none;
+          background: transparent;
+          color: #475569;
+          font-size: 13.5px;
+          font-weight: 800;
+          cursor: pointer;
+          transition: all 0.25s ease;
+        }
+
+        .pricing-tab-btn:hover {
+          color: #0f172a;
+        }
+
+        .pricing-tab-btn.active-red {
+          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+          color: #ffffff;
+          box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35);
+        }
+
+        .pricing-tab-btn.active-navy {
+          background: #0d1b3e;
+          color: #ffffff;
+          box-shadow: 0 4px 14px rgba(13, 27, 62, 0.35);
+        }
+
+        /* ── Cards Grid ── */
+        .pricing-cards-section {
+          width: 100%;
+        }
+
+        .pricing-cards-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 28px;
+          align-items: stretch;
+          margin-bottom: 50px;
+        }
+
+        .pricing-card-box {
+          position: relative;
+          background: #ffffff;
+          border-radius: 22px;
+          border: 1.5px solid #e2e8f0;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+          transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+
+        .pricing-card-box:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+          border-color: #cbd5e1;
+        }
+
+        /* Popular highlight card */
+        .pricing-card-box.is-popular {
+          border-color: #ef4444;
+          box-shadow: 0 14px 34px rgba(239, 68, 68, 0.16);
+        }
+
+        .pricing-card-box.is-popular:hover {
+          box-shadow: 0 24px 50px rgba(239, 68, 68, 0.28);
+        }
+
+        /* Image Banner */
+        .pricing-card-image-wrap {
+          position: relative;
+          width: 100%;
+          height: 210px;
+          background: #0d1b3e;
+          overflow: hidden;
+        }
+
+        .pricing-card-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .pricing-card-box:hover .pricing-card-img {
+          transform: scale(1.08);
+        }
+
+        .pricing-card-img-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.2) 60%, transparent 100%);
+        }
+
+        .pricing-floating-badge {
+          position: absolute;
+          top: 14px;
+          left: 14px;
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          padding: 5px 12px;
+          border-radius: 9999px;
+          font-size: 10.5px;
+          font-weight: 900;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+          z-index: 3;
+        }
+
+        .badge-popular {
+          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+          color: #ffffff;
+        }
+
+        .badge-normal {
+          background: rgba(13, 27, 62, 0.9);
+          backdrop-filter: blur(4px);
+          color: #ffffff;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .pricing-img-chip {
+          position: absolute;
+          bottom: 12px;
+          right: 14px;
+          background: rgba(0, 0, 0, 0.75);
+          backdrop-filter: blur(6px);
+          color: #ffffff;
+          font-size: 11px;
+          font-weight: 700;
+          padding: 4px 10px;
+          border-radius: 6px;
+          border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        /* Body */
+        .pricing-card-body {
+          padding: 26px 24px 28px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          flex: 1;
+        }
+
+        .pricing-card-title {
+          font-family: var(--font-heading, 'Outfit', sans-serif);
+          font-size: 22px;
+          font-weight: 900;
+          color: #0f172a;
+          margin: 0 0 6px 0;
+          line-height: 1.2;
+        }
+
+        .pricing-card-tagline {
+          font-size: 12.5px;
+          color: #64748b;
+          line-height: 1.45;
+          margin: 0 0 16px 0;
+          min-height: 36px;
+        }
+
+        .pricing-price-row {
+          display: flex;
+          align-items: baseline;
+          gap: 6px;
+        }
+
+        .pricing-price-val {
+          font-family: var(--font-heading, 'Outfit', sans-serif);
+          font-size: 38px;
+          font-weight: 900;
+          color: #dc2626;
+          line-height: 1;
+        }
+
+        .pricing-price-unit {
+          font-size: 13px;
+          color: #94a3b8;
+          font-weight: 700;
+        }
+
+        .pricing-card-divider {
+          height: 1px;
+          background: #f1f5f9;
+          margin: 18px 0;
+        }
+
+        /* Checklist */
+        .pricing-checklist {
+          display: flex;
+          flex-direction: column;
+          gap: 11px;
+          margin-bottom: 26px;
+        }
+
+        .pricing-check-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+        }
+
+        .pricing-check-icon {
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          background: #fee2e2;
+          color: #dc2626;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          margin-top: 1px;
+        }
+
+        .pricing-check-text {
+          font-size: 13.5px;
+          color: #334155;
+          font-weight: 600;
+          line-height: 1.4;
+        }
+
+        /* Action button */
+        .pricing-btn-action {
+          width: 100%;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 13px;
+          border-radius: 10px;
+          font-size: 14px;
+          font-weight: 800;
+          border: none;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .btn-popular {
+          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+          color: #ffffff;
+          box-shadow: 0 6px 18px rgba(220, 38, 38, 0.4);
+        }
+
+        .btn-popular:hover {
+          background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+          transform: translateY(-2px);
+          box-shadow: 0 10px 24px rgba(220, 38, 38, 0.55);
+        }
+
+        .btn-normal {
+          background: #0d1b3e;
+          color: #ffffff;
+          box-shadow: 0 4px 14px rgba(13, 27, 62, 0.25);
+        }
+
+        .btn-normal:hover {
+          background: #dc2626;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(220, 38, 38, 0.45);
+        }
+
+        /* Bike Dual Price Row */
+        .pricing-bike-dual-row {
+          display: grid;
+          grid-template-columns: 1fr auto 1fr;
+          gap: 12px;
+          align-items: center;
+          background: #f8fafc;
+          border: 1px solid #e2e8f0;
+          border-radius: 12px;
+          padding: 10px 14px;
+        }
+
+        .bike-price-box {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+
+        .bike-price-label {
+          font-size: 11px;
+          font-weight: 700;
+          color: #64748b;
+          text-transform: uppercase;
+        }
+
+        .bike-price-label.red-text {
+          color: #dc2626;
+        }
+
+        .bike-price-val {
+          font-family: var(--font-heading, 'Outfit', sans-serif);
+          font-size: 22px;
+          font-weight: 900;
+          color: #0f172a;
+        }
+
+        .bike-price-val.red-text {
+          color: #dc2626;
+        }
+
+        .bike-price-divider {
+          width: 1px;
+          height: 32px;
+          background: #cbd5e1;
+        }
+
+        /* ── Additional Protective Services Container ── */
+        .pricing-additional-container {
+          background: #ffffff;
+          border: 1.5px solid #e2e8f0;
+          border-radius: 22px;
+          padding: 36px 32px;
+          box-shadow: 0 8px 26px rgba(15, 23, 42, 0.04);
+        }
+
+        .pricing-add-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 12px;
+          border-bottom: 1px solid #f1f5f9;
+          padding-bottom: 20px;
+          margin-bottom: 26px;
+        }
+
+        .pricing-add-eyebrow {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 11.5px;
+          font-weight: 800;
+          color: #dc2626;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          margin-bottom: 4px;
+        }
+
+        .pricing-add-title {
+          font-family: var(--font-heading, 'Outfit', sans-serif);
+          font-size: 22px;
+          font-weight: 900;
+          color: #0f172a;
+          margin: 0;
+        }
+
+        .pricing-add-meta {
+          font-size: 13px;
+          font-weight: 700;
+          color: #64748b;
+        }
+
+        .pricing-add-vlabel {
+          color: #dc2626;
+          font-weight: 800;
+        }
+
+        .pricing-additional-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 24px;
+        }
+
+        .pricing-add-card {
+          border-radius: 18px;
+          border: 1px solid #e2e8f0;
+          overflow: hidden;
+          background: #ffffff;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          transition: all 0.3s ease;
+        }
+
+        .pricing-add-card:hover {
+          border-color: #dc2626;
+          box-shadow: 0 12px 30px rgba(220, 38, 38, 0.12);
+          transform: translateY(-4px);
+        }
+
+        .pricing-add-img-wrap {
+          position: relative;
+          width: 100%;
+          height: 160px;
+          background: #0d1b3e;
+          overflow: hidden;
+        }
+
+        .pricing-add-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          transition: transform 0.5s ease;
+        }
+
+        .pricing-add-card:hover .pricing-add-img {
+          transform: scale(1.06);
+        }
+
+        .pricing-add-img-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+        }
+
+        .pricing-add-badge {
+          position: absolute;
+          top: 12px;
+          left: 14px;
+          background: #dc2626;
+          color: #ffffff;
+          font-size: 11px;
+          font-weight: 800;
+          padding: 4px 10px;
+          border-radius: 6px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .pricing-add-body {
+          padding: 22px 22px 24px;
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          justify-content: space-between;
+        }
+
+        .pricing-add-card-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          margin-bottom: 8px;
+          gap: 12px;
+        }
+
+        .pricing-add-card-name {
+          font-family: var(--font-heading, 'Outfit', sans-serif);
+          font-size: 17px;
+          font-weight: 900;
+          color: #0f172a;
+          margin: 0;
+          line-height: 1.3;
+        }
+
+        .pricing-add-card-price {
+          text-align: right;
+          flex-shrink: 0;
+        }
+
+        .price-num {
+          font-family: var(--font-heading, 'Outfit', sans-serif);
+          font-size: 24px;
+          font-weight: 900;
+          color: #dc2626;
+          display: block;
+          line-height: 1;
+        }
+
+        .price-sub {
+          font-size: 11px;
+          color: #64748b;
+          font-weight: 700;
+        }
+
+        .pricing-add-desc {
+          font-size: 12.5px;
+          color: #64748b;
+          line-height: 1.5;
+          margin: 0 0 14px 0;
+        }
+
+        .pricing-add-features {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          margin-bottom: 20px;
+        }
+
+        .pricing-add-feat-item {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 12.5px;
+          color: #334155;
+          font-weight: 600;
+        }
+
+        .pricing-add-check-dot {
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          background: #fee2e2;
+          color: #dc2626;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+
+        .pricing-add-btn {
+          width: 100%;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          background: #0d1b3e;
+          color: #ffffff;
+          padding: 11px;
+          border-radius: 8px;
+          font-size: 13px;
+          font-weight: 800;
+          border: none;
+          cursor: pointer;
+          transition: all 0.25s ease;
+        }
+
+        .pricing-add-btn:hover {
+          background: #dc2626;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 18px rgba(220, 38, 38, 0.4);
+        }
+
+        /* ── Hotline Strip ── */
+        .pricing-hotline-strip {
+          margin-top: 48px;
+          background: #0d1b3e;
+          border-radius: 18px;
+          padding: 24px 32px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 20px;
+          color: #ffffff;
+          box-shadow: 0 12px 32px rgba(13, 27, 62, 0.35);
+        }
+
+        .hotline-tag {
+          font-size: 11.5px;
+          color: #ef4444;
+          font-weight: 800;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+
+        .hotline-addr {
+          font-family: var(--font-heading, 'Outfit', sans-serif);
+          font-size: 15px;
+          font-weight: 800;
+          color: #ffffff;
+          margin-top: 2px;
+        }
+
+        .pricing-hotline-btns {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+
+        .hotline-phone-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(255, 255, 255, 0.12);
+          color: #ffffff;
+          padding: 11px 18px;
+          border-radius: 8px;
+          font-size: 13.5px;
+          font-weight: 800;
+          text-decoration: none;
+          transition: background 0.25s ease;
+        }
+
+        .hotline-phone-btn:hover {
+          background: rgba(255, 255, 255, 0.2);
+        }
+
+        .hotline-wa-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+          color: #ffffff;
+          padding: 11px 20px;
+          border-radius: 8px;
+          font-size: 13.5px;
+          font-weight: 800;
+          text-decoration: none;
+          box-shadow: 0 4px 14px rgba(220, 38, 38, 0.4);
+          transition: all 0.25s ease;
+        }
+
+        .hotline-wa-btn:hover {
+          background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(220, 38, 38, 0.55);
+        }
+
+        /* ── RESPONSIVE MEDIA QUERIES ── */
+        @media (max-width: 1024px) {
+          .pricing-cards-grid {
+            grid-template-columns: 1fr;
+            max-width: 480px;
+            margin: 0 auto 40px auto;
           }
-          .additional-grid {
-            grid-template-columns: 1fr !important;
+
+          .pricing-additional-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .pricing-modern-root {
+            padding: 55px 14px 65px;
+          }
+
+          .pricing-main-title {
+            font-size: 1.85rem;
+          }
+
+          .pricing-main-desc {
+            font-size: 13px;
+            margin-bottom: 20px;
+          }
+
+          .pricing-tabs-pill-row {
+            padding: 4px;
+            gap: 4px;
+            width: 100%;
+          }
+
+          .pricing-tab-btn {
+            padding: 8px 14px;
+            font-size: 12px;
+            flex: 1;
+            justify-content: center;
+          }
+
+          .pricing-card-image-wrap {
+            height: 180px;
+          }
+
+          .pricing-card-body {
+            padding: 20px 16px 22px;
+          }
+
+          .pricing-card-tagline {
+            min-height: auto;
+          }
+
+          .pricing-price-val {
+            font-size: 32px;
+          }
+
+          .pricing-additional-container {
+            padding: 24px 16px;
+            border-radius: 16px;
+          }
+
+          .pricing-add-header {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+
+          .pricing-add-img-wrap {
+            height: 150px;
+          }
+
+          .pricing-add-body {
+            padding: 16px;
+          }
+
+          .pricing-hotline-strip {
+            flex-direction: column;
+            align-items: stretch;
+            text-align: center;
+            padding: 20px 16px;
+            margin-top: 36px;
+          }
+
+          .pricing-hotline-btns {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+          }
+
+          .hotline-phone-btn, .hotline-wa-btn {
+            justify-content: center;
+            font-size: 12px;
+            padding: 10px 8px;
           }
         }
       `}</style>

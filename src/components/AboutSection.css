@@ -1,0 +1,479 @@
+/* ==========================================================================
+   ABOUT SECTION (MATCHING GEOMETRIC CHAMFER IMAGE & 6-CHECKLIST REFERENCE)
+   ========================================================================== */
+
+.about-new-ref-root {
+  position: relative;
+  width: 100%;
+  padding: 100px 0;
+  background: #ffffff;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.about-new-container {
+  position: relative;
+  z-index: 10;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.about-new-grid {
+  display: grid;
+  grid-template-columns: 1.02fr 1.15fr;
+  gap: 56px;
+  align-items: center;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   LEFT COLUMN: GEOMETRIC CHAMFER IMAGE + INSET CARD + STAT POPUP
+   ────────────────────────────────────────────────────────────────────────── */
+
+.about-new-visual-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  aspect-ratio: 1 / 0.95;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Main Geometric Cut/Chamfered Base Image */
+.about-new-main-img-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 88%;
+  height: 88%;
+  border-radius: 60px 24px 60px 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 45px -12px rgba(15, 23, 42, 0.16);
+  border: 4px solid #ffffff;
+  background: #f1f5f9;
+  z-index: 1;
+  transition: transform 0.4s ease;
+}
+
+.about-new-main-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.about-new-main-img-box:hover {
+  transform: scale(1.02);
+}
+
+/* Inset / Top-Right Floating Team/Studio Card */
+.about-new-inset-card {
+  position: absolute;
+  top: 8%;
+  right: 0;
+  width: 46%;
+  height: 46%;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 16px 36px -8px rgba(15, 23, 42, 0.2);
+  border: 4px solid #ffffff;
+  background: #ffffff;
+  z-index: 3;
+  transition: transform 0.3s ease;
+}
+
+.about-new-inset-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.about-new-inset-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Bottom-Left Floating Stat Card */
+.about-new-stat-card {
+  position: absolute;
+  bottom: 2%;
+  left: -8px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 14px 18px;
+  box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.16);
+  z-index: 4;
+  min-width: 190px;
+  transition: transform 0.3s ease;
+}
+
+.about-new-stat-card:hover {
+  transform: translateY(-3px);
+}
+
+.about-stat-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.about-stat-label {
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.about-stat-icon-wrap {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #fee2e2;
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-stat-number {
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-size: 24px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.about-stat-bottom-text {
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   RIGHT COLUMN: CONTENT & 6-CHECKLIST GRID
+   ────────────────────────────────────────────────────────────────────────── */
+
+.about-new-content-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* Eyebrow */
+.about-new-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #dc2626;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.about-eyebrow-diamond {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #dc2626;
+  transform: rotate(45deg);
+  border-radius: 1px;
+}
+
+.about-eyebrow-h-line {
+  display: inline-block;
+  width: 20px;
+  height: 2px;
+  background: #dc2626;
+  border-radius: 2px;
+}
+
+/* Main Headline */
+.about-new-heading {
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-size: clamp(2rem, 3.2vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  color: #0f172a;
+  margin: 0 0 16px 0;
+}
+
+.about-new-heading span {
+  color: #dc2626;
+}
+
+/* Description */
+.about-new-desc {
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: #64748b;
+  margin: 0 0 28px 0;
+  max-width: 580px;
+}
+
+/* ── 6-Checklist Grid (2 columns x 3 rows) ── */
+.about-checklist-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 20px;
+  width: 100%;
+  margin-bottom: 34px;
+}
+
+.about-check-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.about-check-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fee2e2;
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.about-check-text {
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #0f172a;
+  white-space: nowrap;
+}
+
+/* ── Bottom Action Row: Discover Now + Call Us Now ── */
+.about-new-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.about-btn-discover {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: #ffffff;
+  padding: 13px 28px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 8px 20px -4px rgba(220, 38, 38, 0.45);
+  transition: all 0.3s ease;
+}
+
+.about-btn-discover:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -4px rgba(220, 38, 38, 0.55);
+  color: #ffffff;
+}
+
+.about-call-box-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.about-call-icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #0d1b3e;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 6px 14px rgba(13, 27, 62, 0.2);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.about-call-box-link:hover .about-call-icon-circle {
+  transform: scale(1.08);
+  background: #dc2626;
+}
+
+.about-call-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-call-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+.about-call-number {
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-size: 15.5px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   RESPONSIVE DESIGN (DESKTOP & MOBILE CONSISTENCY)
+   ────────────────────────────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .about-new-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .about-new-visual-wrap {
+    max-width: 440px;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-new-ref-root {
+    padding: 48px 0;
+  }
+
+  .about-new-container {
+    padding: 0 16px;
+  }
+
+  .about-new-grid {
+    gap: 32px;
+  }
+
+  .about-new-eyebrow {
+    font-size: 11.5px;
+    margin-bottom: 8px;
+  }
+
+  .about-new-heading {
+    font-size: clamp(1.55rem, 5.8vw, 1.95rem);
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .about-new-desc {
+    font-size: 13px;
+    line-height: 1.55;
+    margin-bottom: 18px;
+    color: #64748b;
+  }
+
+  /* 2-Column Compact Checklist on Mobile */
+  .about-checklist-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 12px;
+    margin-bottom: 22px;
+    width: 100%;
+  }
+
+  .about-check-item {
+    gap: 8px;
+  }
+
+  .about-check-circle {
+    width: 20px;
+    height: 20px;
+  }
+
+  .about-check-circle svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .about-check-text {
+    font-size: 12px;
+    white-space: normal;
+    line-height: 1.25;
+  }
+
+  .about-new-visual-wrap {
+    max-width: 100%;
+    aspect-ratio: 1 / 0.95;
+  }
+
+  .about-new-main-img-box {
+    border-radius: 36px 16px 36px 16px;
+    border-width: 3px;
+  }
+
+  .about-new-inset-card {
+    border-radius: 14px;
+    border-width: 3px;
+  }
+
+  .about-new-stat-card {
+    min-width: 150px;
+    padding: 10px 14px;
+    border-radius: 14px;
+    bottom: 0;
+    left: -4px;
+  }
+
+  .about-stat-number {
+    font-size: 20px;
+  }
+
+  /* Side-by-Side Clean Action Row on Mobile */
+  .about-new-actions-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 14px;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .about-btn-discover {
+    padding: 11px 20px;
+    font-size: 13px;
+    border-radius: 9999px;
+    box-shadow: 0 6px 16px -4px rgba(220, 38, 38, 0.45);
+  }
+
+  .about-call-box-link {
+    gap: 10px;
+  }
+
+  .about-call-icon-circle {
+    width: 38px;
+    height: 38px;
+  }
+
+  .about-call-icon-circle svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .about-call-label {
+    font-size: 10px;
+  }
+
+  .about-call-number {
+    font-size: 13.5px;
+  }
+}

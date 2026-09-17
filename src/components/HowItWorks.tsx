@@ -2,347 +2,346 @@
 
 import React, { useState } from "react";
 import { 
-  SlidersHorizontal, 
-  CalendarClock, 
+  Search,
+  CalendarCheck2, 
   Sparkles, 
-  Car 
+  ShieldCheck 
 } from "lucide-react";
 
 interface StepItem {
+  id: string;
   number: string;
   title: string;
   description: string;
-  icon: React.ComponentType<{ size?: number; color?: string; strokeWidth?: number; className?: string }>;
+  gradient: string;
+  glowColor: string;
+  dotColor: string;
+  icon: React.ComponentType<{ size?: number; color?: string; strokeWidth?: number }>;
 }
 
-const steps: StepItem[] = [
+const STEPS_DATA: StepItem[] = [
   {
+    id: "step-1",
     number: "01",
-    title: "Choose Your Service",
-    description: "Select from our expert foam wash, interior deep clean, ceramic coating, or full detailing packages tailored to your vehicle.",
-    icon: SlidersHorizontal,
+    title: "Choose Service",
+    description: "Select from our express foam wash, interior deep steam, or 9H ceramic coating.",
+    gradient: "linear-gradient(135deg, #ff4d4d 0%, #ef4444 50%, #dc2626 100%)",
+    glowColor: "rgba(239, 68, 68, 0.4)",
+    dotColor: "#ef4444",
+    icon: Search,
   },
   {
+    id: "step-2",
     number: "02",
-    title: "Instant Bay Booking",
-    description: "Pick your preferred time slot and nearby studio location or book our doorstep mobile wash with zero waiting time.",
-    icon: CalendarClock,
+    title: "Instant Booking",
+    description: "Pick your preferred bay slot with real-time confirmation and zero waiting hassle.",
+    gradient: "linear-gradient(135deg, #1e3a8a 0%, #0d1b3e 100%)",
+    glowColor: "rgba(13, 27, 62, 0.4)",
+    dotColor: "#1e3a8a",
+    icon: CalendarCheck2,
   },
   {
+    id: "step-3",
     number: "03",
-    title: "Expert Wash & Detail",
-    description: "Our certified professionals use 100% RO soft water, pH-neutral premium shampoos, and multi-stage microfiber care.",
+    title: "Expert Detailing",
+    description: "Certified technicians wash with 100% RO soft-water & pH-neutral snow foam.",
+    gradient: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
+    glowColor: "rgba(220, 38, 38, 0.4)",
+    dotColor: "#dc2626",
     icon: Sparkles,
   },
   {
+    id: "step-4",
     number: "04",
     title: "Pristine Handover",
-    description: "Complete a thorough 21-point supervisor inspection before driving away in a showroom-ready, gleaming car.",
-    icon: Car,
+    description: "21-point supervisor quality check before you drive away in showroom shine.",
+    gradient: "linear-gradient(135deg, #1e3a8a 0%, #0d1b3e 100%)",
+    glowColor: "rgba(13, 27, 62, 0.4)",
+    dotColor: "#1e3a8a",
+    icon: ShieldCheck,
   },
 ];
 
 export default function HowItWorks() {
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const [activeStep, setActiveStep] = useState<number | null>(null);
 
   return (
-    <section
-      id="how-it-works"
-      style={{
-        position: "relative",
-        background: "#ffffff",
-        padding: "90px 20px 100px",
-        overflow: "hidden",
-      }}
-    >
-      {/* Background Dotted Halftone Texture (top-right and top-left corners) */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          right: 0,
-          width: "360px",
-          height: "360px",
-          backgroundImage: "radial-gradient(rgba(239, 68, 68, 0.16) 1.5px, transparent 1.5px)",
-          backgroundSize: "20px 20px",
-          opacity: 0.9,
-          pointerEvents: "none",
-          maskImage: "radial-gradient(circle at top right, black 30%, transparent 70%)",
-          WebkitMaskImage: "radial-gradient(circle at top right, black 30%, transparent 70%)",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "300px",
-          height: "300px",
-          backgroundImage: "radial-gradient(rgba(15, 23, 42, 0.08) 1.5px, transparent 1.5px)",
-          backgroundSize: "20px 20px",
-          opacity: 0.8,
-          pointerEvents: "none",
-          maskImage: "radial-gradient(circle at top left, black 20%, transparent 70%)",
-          WebkitMaskImage: "radial-gradient(circle at top left, black 20%, transparent 70%)",
-        }}
-      />
-
-      {/* Subtle ambient light glow */}
-      <div
-        style={{
-          position: "absolute",
-          top: "12%",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "650px",
-          height: "320px",
-          background: "radial-gradient(ellipse at center, rgba(239, 68, 68, 0.06) 0%, transparent 70%)",
-          filter: "blur(60px)",
-          pointerEvents: "none",
-        }}
-      />
-
-      <div style={{ maxWidth: "1240px", margin: "0 auto", position: "relative", zIndex: 2 }}>
-        {/* Header (eyebrow, main title, subtitle) */}
-        <div style={{ textAlign: "center", marginBottom: "64px" }}>
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              padding: "6px 16px",
-              borderRadius: "9999px",
-              background: "#fef2f2",
-              border: "1px solid #fee2e2",
-              color: "#dc2626",
-              fontSize: "12px",
-              fontWeight: 800,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              marginBottom: "16px",
-            }}
-          >
-            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#dc2626" }} />
-            HOW IT WORKS
+    <section id="how-it-works" className="how-ref-section">
+      <div className="how-ref-container">
+        {/* Main Title */}
+        <div className="how-ref-header">
+          <div className="how-ref-eyebrow">
+            <span className="how-ref-eyebrow-dash" />
+            <span>Process Flow</span>
           </div>
-
-          <h2
-            style={{
-              fontSize: "clamp(1.85rem, 3.2vw, 2.75rem)",
-              fontWeight: 900,
-              color: "#0f172a",
-              letterSpacing: "-0.025em",
-              lineHeight: 1.2,
-              marginBottom: "14px",
-              fontFamily: "var(--font-heading)",
-            }}
-          >
-            How We Deliver Flawless Car Care In{" "}
-            <span style={{ color: "#dc2626" }}>4 Simple Steps</span>
+          <h2 className="how-ref-title">
+            How it <span className="how-ref-title-accent">works?</span>
           </h2>
-
-          <p
-            style={{
-              fontSize: "15px",
-              color: "#64748b",
-              maxWidth: "560px",
-              margin: "0 auto",
-              lineHeight: 1.7,
-            }}
-          >
-            Experience a seamless, worry-free process engineered to give your car a lasting showroom shine with zero waiting hassle.
-          </p>
         </div>
 
-        {/* 4 Cards Grid with floating Hexagon Badges */}
-        <div className="how-it-works-grid">
-          {steps.map((item, idx) => {
-            const Icon = item.icon;
-            const isHovered = hoveredIdx === idx;
+        {/* Horizontal Process Steps Flow */}
+        <div className="how-ref-flow">
+          {STEPS_DATA.map((step, idx) => {
+            const Icon = step.icon;
+            const isLast = idx === STEPS_DATA.length - 1;
+            const isHovered = activeStep === idx;
 
             return (
-              <div
-                key={idx}
-                onMouseEnter={() => setHoveredIdx(idx)}
-                onMouseLeave={() => setHoveredIdx(null)}
-                style={{
-                  position: "relative",
-                  marginTop: "38px",
-                  display: "flex",
-                  flexDirection: "column",
-                  transition: "all 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
-                  transform: isHovered ? "translateY(-8px)" : "translateY(0)",
-                }}
-              >
-                {/* Floating Hexagon Badge at Top Edge */}
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "-36px",
-                    left: "50%",
-                    transform: isHovered
-                      ? "translateX(-50%) scale(1.08)"
-                      : "translateX(-50%) scale(1)",
-                    width: "72px",
-                    height: "82px",
-                    zIndex: 4,
-                    transition: "transform 0.35s ease, filter 0.35s ease",
-                    filter: isHovered
-                      ? "drop-shadow(0 10px 22px rgba(220, 38, 38, 0.5))"
-                      : "drop-shadow(0 6px 14px rgba(220, 38, 38, 0.32))",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
+              <React.Fragment key={step.id}>
+                {/* Single Step Column */}
+                <div 
+                  className="how-ref-step-col"
+                  onMouseEnter={() => setActiveStep(idx)}
+                  onMouseLeave={() => setActiveStep(null)}
                 >
-                  {/* SVG Hexagon with rounded corners and gradient fill */}
-                  <svg
-                    viewBox="0 0 72 82"
-                    width="72"
-                    height="82"
-                    style={{ position: "absolute", inset: 0 }}
+                  {/* Glowing Squircle Icon (Bright Red & Navy Blue only) */}
+                  <div 
+                    className="how-ref-squircle-wrap"
+                    style={{
+                      transform: isHovered ? "translateY(-6px) scale(1.05)" : "translateY(0) scale(1)",
+                    }}
                   >
-                    <defs>
-                      <linearGradient id={`hexGrad-${idx}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#f87171" />
-                        <stop offset="45%" stopColor="#ef4444" />
-                        <stop offset="100%" stopColor="#dc2626" />
-                      </linearGradient>
-                    </defs>
-                    {/* Rounded Point-Topped Hexagon Path */}
-                    <path
-                      d="M 42 6 L 64 18.5 Q 68 21 68 26 L 68 56 Q 68 61 64 63.5 L 42 76 Q 36 79.5 30 76 L 8 63.5 Q 4 61 4 56 L 4 26 Q 4 21 8 18.5 L 30 6 Q 36 2.5 42 6 Z"
-                      fill={`url(#hexGrad-${idx})`}
-                      stroke="rgba(255, 255, 255, 0.4)"
-                      strokeWidth="1.5"
+                    <div 
+                      className="how-ref-squircle"
+                      style={{
+                        background: step.gradient,
+                        boxShadow: `0 16px 32px -4px ${step.glowColor}`,
+                      }}
+                    >
+                      <Icon size={28} color="#ffffff" strokeWidth={2.2} />
+                    </div>
+                  </div>
+
+                  {/* Step Title (Black text) */}
+                  <h3 className="how-ref-step-title">{step.title}</h3>
+
+                  {/* Step Description */}
+                  <p className="how-ref-step-desc">{step.description}</p>
+                </div>
+
+                {/* Dotted Connecting Line Between Steps (Except Last) */}
+                {!isLast && (
+                  <div className="how-ref-connector" aria-hidden="true">
+                    <span 
+                      className="how-ref-connector-dot start-dot" 
+                      style={{ backgroundColor: step.dotColor }} 
                     />
-                  </svg>
-
-                  {/* Icon centered in badge */}
-                  <div
-                    style={{
-                      position: "relative",
-                      zIndex: 2,
-                      color: "#ffffff",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Icon size={26} color="#ffffff" strokeWidth={2.2} />
+                    <div className="how-ref-connector-line" />
+                    <span 
+                      className="how-ref-connector-dot end-dot" 
+                      style={{ backgroundColor: STEPS_DATA[idx + 1].dotColor }} 
+                    />
                   </div>
-                </div>
-
-                {/* Card Body with Light Navy Blue Styling */}
-                <div
-                  style={{
-                    flex: 1,
-                    background: isHovered
-                      ? "linear-gradient(180deg, #ffffff 0%, #eaf1fc 100%)"
-                      : "linear-gradient(180deg, #f8faff 0%, #f0f4fc 100%)",
-                    borderRadius: "20px",
-                    border: isHovered
-                      ? "1px solid #93c5fd"
-                      : "1px solid #dce6f5",
-                    padding: "54px 24px 32px",
-                    textAlign: "center",
-                    boxShadow: isHovered
-                      ? "0 22px 38px -8px rgba(23, 37, 84, 0.16), 0 8px 20px -4px rgba(30, 58, 138, 0.1)"
-                      : "0 10px 25px -5px rgba(23, 37, 84, 0.07), 0 4px 10px -2px rgba(23, 37, 84, 0.03)",
-                    transition: "all 0.35s ease",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                >
-                  {/* Step Number Tag in Light Navy Pill */}
-                  <div
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      padding: "4px 12px",
-                      borderRadius: "9999px",
-                      background: isHovered ? "#dbeafe" : "#e0e9f8",
-                      border: "1px solid #cbdcf7",
-                      fontSize: "11px",
-                      fontWeight: 800,
-                      color: "#1e3a8a",
-                      letterSpacing: "0.12em",
-                      textTransform: "uppercase",
-                      marginBottom: "12px",
-                      transition: "all 0.3s ease",
-                    }}
-                  >
-                    STEP {item.number}
-                  </div>
-
-                  {/* Card Title */}
-                  <h3
-                    style={{
-                      fontSize: "18px",
-                      fontWeight: 800,
-                      color: "#172554",
-                      marginBottom: "12px",
-                      lineHeight: 1.3,
-                      fontFamily: "var(--font-heading)",
-                    }}
-                  >
-                    {item.title}
-                  </h3>
-
-                  {/* Card Description */}
-                  <p
-                    style={{
-                      fontSize: "13.5px",
-                      color: isHovered ? "#334155" : "#64748b",
-                      lineHeight: 1.7,
-                      margin: 0,
-                      transition: "color 0.3s ease",
-                    }}
-                  >
-                    {item.description}
-                  </p>
-
-                  {/* Bottom light navy / red accent line indicator */}
-                  <div
-                    style={{
-                      marginTop: "24px",
-                      width: isHovered ? "48px" : "26px",
-                      height: "3px",
-                      borderRadius: "9999px",
-                      background: isHovered
-                        ? "linear-gradient(90deg, #1e3a8a, #dc2626)"
-                        : "#cbdcf7",
-                      transition: "all 0.35s ease",
-                    }}
-                  />
-                </div>
-              </div>
+                )}
+              </React.Fragment>
             );
           })}
         </div>
       </div>
 
       <style>{`
-        .how-it-works-grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 26px;
+        .how-ref-section {
+          position: relative;
+          width: 100%;
+          background: #ffffff;
+          padding: 80px 24px 90px;
+          overflow: hidden;
+          box-sizing: border-box;
         }
 
-        @media (max-width: 1024px) {
-          .how-it-works-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px 24px;
+        .how-ref-container {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .how-ref-header {
+          text-align: center;
+          margin-bottom: 60px;
+        }
+
+        .how-ref-eyebrow {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          color: #dc2626;
+          font-size: 13px;
+          font-weight: 800;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          margin-bottom: 10px;
+        }
+
+        .how-ref-eyebrow-dash {
+          width: 20px;
+          height: 2.5px;
+          background: #dc2626;
+          border-radius: 99px;
+        }
+
+        .how-ref-title {
+          font-family: var(--font-heading, 'Outfit', sans-serif);
+          font-size: clamp(2rem, 3.2vw, 2.75rem);
+          font-weight: 600;
+          color: #000000;
+          letter-spacing: -0.02em;
+          margin: 0;
+        }
+
+        .how-ref-title-accent {
+          color: #ef4444;
+        }
+
+        /* Horizontal Flow Layout */
+        .how-ref-flow {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          width: 100%;
+          gap: 12px;
+        }
+
+        /* Step Column */
+        .how-ref-step-col {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          flex: 1;
+          max-width: 220px;
+          transition: transform 0.3s ease;
+          cursor: pointer;
+        }
+
+        /* Squircle Icon */
+        .how-ref-squircle-wrap {
+          margin-bottom: 24px;
+          transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .how-ref-squircle {
+          width: 76px;
+          height: 76px;
+          border-radius: 22px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.3s ease;
+        }
+
+        /* Step Typography (Black text) */
+        .how-ref-step-title {
+          font-family: var(--font-heading, 'Outfit', sans-serif);
+          font-size: 17px;
+          font-weight: 800;
+          color: #000000;
+          margin: 0 0 10px 0;
+          line-height: 1.25;
+        }
+
+        .how-ref-step-desc {
+          font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+          font-size: 13.5px;
+          line-height: 1.55;
+          color: #334155;
+          margin: 0;
+          max-width: 200px;
+        }
+
+        /* Connecting Dotted Line with Dots */
+        .how-ref-connector {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex: 0.8;
+          height: 76px;
+          position: relative;
+          padding: 0 4px;
+        }
+
+        .how-ref-connector-line {
+          flex: 1;
+          height: 0;
+          border-top: 2px dashed #cbd5e1;
+          margin: 0 6px;
+        }
+
+        .how-ref-connector-dot {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          flex-shrink: 0;
+          box-shadow: 0 0 8px currentColor;
+        }
+
+        /* ──────────────────────────────────────────────────────────────────
+           MOBILE: VERTICAL CONNECTED FLOW (NO HORIZONTAL SCROLL)
+           ────────────────────────────────────────────────────────────────── */
+        @media (max-width: 768px) {
+          .how-ref-section {
+            padding: 50px 16px 60px;
           }
-        }
 
-        @media (max-width: 640px) {
-          .how-it-works-grid {
-            grid-template-columns: 1fr;
-            gap: 48px;
-            max-width: 380px;
-            margin: 0 auto;
+          .how-ref-header {
+            margin-bottom: 36px;
+          }
+
+          .how-ref-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            overflow: visible;
+            padding: 0;
+            margin: 0;
+          }
+
+          .how-ref-step-col {
+            max-width: 300px;
+            width: 100%;
+            flex: none;
+            padding: 8px 0;
+          }
+
+          .how-ref-squircle-wrap {
+            margin-bottom: 14px;
+          }
+
+          .how-ref-squircle {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+          }
+
+          .how-ref-step-title {
+            font-size: 16.5px;
+            margin: 0 0 6px 0;
+          }
+
+          .how-ref-step-desc {
+            font-size: 13px;
+            line-height: 1.5;
+            max-width: 270px;
+          }
+
+          /* Vertical Dotted Connector Line */
+          .how-ref-connector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            width: 20px;
+            height: 44px;
+            padding: 4px 0;
+            margin: 6px 0;
+            flex: none;
+          }
+
+          .how-ref-connector-line {
+            width: 0;
+            height: 100%;
+            border-top: none;
+            border-left: 2px dashed #cbd5e1;
+            margin: 4px 0;
           }
         }
       `}</style>

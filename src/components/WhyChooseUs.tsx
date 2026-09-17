@@ -4,28 +4,34 @@ import { ArrowRight } from "lucide-react";
 
 const carWashImages = [
   {
-    src: "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=900&q=80",
-    caption: "Ceramic Coating Experts",
+    src: "/gallery/about-interceptor-bike.jpg",
+    caption: "Royal Enfield Interceptor 650 Wash Bay",
+    position: "center center",
   },
   {
-    src: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=900&q=80",
-    caption: "100% RO Water Wash",
+    src: "/gallery/about-bay-ratecard.jpg",
+    caption: "A1 Car Wash Main Bay & Official Rate Board",
+    position: "center center",
   },
   {
-    src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80",
-    caption: "Premium Foam Wash",
+    src: "/gallery/about-fortuner-studio.jpg",
+    caption: "Detailing Studio under Precision LED Inspection Lights",
+    position: "center center",
   },
   {
-    src: "https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&fit=crop&w=900&q=80",
-    caption: "Paint Polishing & Detailing",
+    src: "/gallery/interior-deep-cleaning-card.jpg",
+    caption: "Hydraulic Ramp Interior Deep Cleaning",
+    position: "center center",
   },
   {
-    src: "https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&w=900&q=80",
-    caption: "Interior Deep Clean",
+    src: "/gallery/bike-wash-card.jpg",
+    caption: "High-Pressure Snow Foam Bike Wash",
+    position: "center center",
   },
   {
-    src: "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=900&q=80",
-    caption: "Showroom Auto Spa",
+    src: "/gallery/real-dual-lift-wide.jpg",
+    caption: "Dual Hydraulic Ramp Lift Station",
+    position: "center center",
   },
 ];
 
@@ -37,13 +43,13 @@ const reasons = [
   },
   {
     num: "02",
-    title: "Certified 9H Ceramic & PPF Experts",
-    desc: "Our technicians are factory-trained and certified. We apply genuine nano-ceramic and self-healing PPF that lasts years.",
+    title: "Specialized Hydraulic Jack Lift & Anti-Rust Facility",
+    desc: "Our high-capacity hydraulic jack lifts enable thorough underbody wash, oil & diesel degreasing, and heavy-duty underbody anti-rust protection with black chassis & silencer spray.",
   },
   {
     num: "03",
-    title: "4.9-Star Rated Across 5 Locations",
-    desc: "Over 50,000 happy customers and 2,200+ verified Google reviews make us Hyderabad's most trusted car care studio.",
+    title: "Flagship Studio at Mehfil Restaurant, Raidurg",
+    desc: "Conveniently located at Darga Chowrasta, Film Nagar Road with dedicated bays, express turnaround, and 4.9-star customer satisfaction.",
   },
 ];
 
@@ -54,7 +60,7 @@ export default function WhyChooseUs() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % carWashImages.length);
-    }, 3000);
+    }, 3200);
     return () => clearInterval(timer);
   }, []);
 
@@ -80,6 +86,7 @@ export default function WhyChooseUs() {
             overflow: "hidden",
             clipPath: "polygon(0 0, 88% 0, 100% 100%, 0 100%)",
             minHeight: "520px",
+            background: "#0f172a",
           }}
         >
           {/* Slides */}
@@ -96,32 +103,103 @@ export default function WhyChooseUs() {
             >
               <img
                 src={img.src}
-                alt=""
+                alt={img.caption}
                 onError={(e) => {
                   (e.target as HTMLImageElement).src =
-                    "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=900&q=80";
+                    "/gallery/real-fortuner-studio-lights.png";
                 }}
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: img.position || "center center",
+                }}
               />
             </div>
           ))}
 
-          {/* Dark overlay */}
+          {/* Subtle vignette gradient that keeps the vehicle clean and visible */}
           <div
             style={{
               position: "absolute",
               inset: 0,
               background:
-                "linear-gradient(to bottom, rgba(15,23,42,0.70) 0%, rgba(15,23,42,0.15) 55%, rgba(15,23,42,0.55) 100%)",
+                "linear-gradient(to bottom, rgba(15,23,42,0.45) 0%, rgba(15,23,42,0.02) 40%, rgba(15,23,42,0.7) 100%)",
               zIndex: 2,
             }}
           />
 
-          {/* Top overlay text */}
-          <div style={{ position: "absolute", top: "36px", left: "36px", right: "64px", zIndex: 3 }}>
-            <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.9)", lineHeight: 1.75, marginBottom: "18px", maxWidth: "300px" }}>
-              Hyderabad&apos;s most trusted car care studio — delivering showroom results at every visit.
-            </p>
+          {/* Top overlay pill - compact & non-obstructive */}
+          <div style={{ position: "absolute", top: "24px", left: "28px", zIndex: 3 }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                background: "rgba(15, 23, 42, 0.75)",
+                backdropFilter: "blur(8px)",
+                border: "1px solid rgba(255,255,255,0.2)",
+                color: "#ffffff",
+                padding: "6px 14px",
+                borderRadius: "9999px",
+                fontSize: "12px",
+                fontWeight: 700,
+              }}
+            >
+              <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#ef4444" }} />
+              A1 Detailing Studio Bay
+            </div>
+          </div>
+
+          {/* Bottom Overlay: Live Caption + Quick Action */}
+          <div
+            style={{
+              position: "absolute",
+              bottom: "28px",
+              left: "28px",
+              right: "60px",
+              zIndex: 3,
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "space-between",
+              gap: "12px",
+              flexWrap: "wrap",
+            }}
+          >
+            <div>
+              <p
+                style={{
+                  fontSize: "15px",
+                  fontWeight: 700,
+                  color: "#ffffff",
+                  lineHeight: 1.4,
+                  margin: "0 0 6px 0",
+                  textShadow: "0 2px 8px rgba(0,0,0,0.8)",
+                }}
+              >
+                {carWashImages[current].caption}
+              </p>
+              <div style={{ display: "flex", gap: "5px" }}>
+                {carWashImages.map((_, dotIdx) => (
+                  <button
+                    key={dotIdx}
+                    onClick={() => setCurrent(dotIdx)}
+                    aria-label={`Go to slide ${dotIdx + 1}`}
+                    style={{
+                      width: dotIdx === current ? "22px" : "7px",
+                      height: "7px",
+                      borderRadius: "9999px",
+                      background: dotIdx === current ? "#ef4444" : "rgba(255,255,255,0.45)",
+                      border: "none",
+                      padding: 0,
+                      cursor: "pointer",
+                      transition: "all 0.3s ease",
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+
             <a
               href="#contact-section"
               style={{
@@ -131,25 +209,22 @@ export default function WhyChooseUs() {
                 background: "linear-gradient(135deg, #ef4444, #dc2626)",
                 color: "#fff",
                 fontWeight: 700,
-                fontSize: "13px",
-                padding: "10px 22px",
+                fontSize: "12.5px",
+                padding: "8px 18px",
                 borderRadius: "9999px",
                 textDecoration: "none",
-                boxShadow: "0 4px 14px rgba(220,38,38,0.45)",
+                boxShadow: "0 4px 14px rgba(220,38,38,0.5)",
+                flexShrink: 0,
               }}
             >
               Explore <ArrowRight size={13} />
             </a>
           </div>
-
-
-
-
         </div>
 
         {/* RIGHT: Heading + Numbered timeline */}
-        <div style={{ padding: "60px 48px 60px 32px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-          <h2 style={{ fontSize: "clamp(1.75rem, 2.8vw, 2.5rem)", fontWeight: 900, color: "#0f172a", lineHeight: 1.2, letterSpacing: "-0.025em", marginBottom: "40px" }}>
+        <div className="wcu-content-col" style={{ padding: "60px 48px 60px 32px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <h2 style={{ fontSize: "clamp(1.75rem, 3.2vw, 2.75rem)", fontWeight: 600, color: "#0f172a", lineHeight: 1.2, letterSpacing: "-0.025em", marginBottom: "32px" }}>
             Why Choose Us for{" "}
             <span style={{ background: "linear-gradient(90deg, #dc2626, #172554)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
               Best Car Care Experience
@@ -159,11 +234,11 @@ export default function WhyChooseUs() {
           {/* Timeline numbered list */}
           <div style={{ display: "flex", flexDirection: "column" }}>
             {reasons.map((r, i) => (
-              <div key={i} style={{ display: "flex", gap: "20px", alignItems: "flex-start" }}>
+              <div key={i} style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}>
                 {/* Leaf badge + connector */}
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
                   <div style={{
-                    width: "50px", height: "50px",
+                    width: "44px", height: "44px",
                     borderRadius: i === 0 ? "50% 0 50% 0" : i === 1 ? "0 50% 0 50%" : "50% 0 50% 0",
                     background: i === 0
                       ? "linear-gradient(135deg, #ef4444, #dc2626)"
@@ -179,20 +254,20 @@ export default function WhyChooseUs() {
                         : "0 2px 8px rgba(15,23,42,0.06)",
                     flexShrink: 0,
                   }}>
-                    <span style={{ fontSize: "14px", fontWeight: 900, color: i < 2 ? "#ffffff" : "#64748b", letterSpacing: "0.04em", fontFamily: "monospace" }}>
+                    <span style={{ fontSize: "13px", fontWeight: 900, color: i < 2 ? "#ffffff" : "#64748b", letterSpacing: "0.04em", fontFamily: "monospace" }}>
                       {r.num}
                     </span>
                   </div>
                   {i < reasons.length - 1 && (
-                    <div style={{ width: "2px", flex: 1, minHeight: "28px", background: i === 0 ? "linear-gradient(to bottom, #dc2626, #e2e8f0)" : "#e2e8f0", margin: "6px 0" }} />
+                    <div style={{ width: "2px", flex: 1, minHeight: "24px", background: i === 0 ? "linear-gradient(to bottom, #dc2626, #e2e8f0)" : "#e2e8f0", margin: "4px 0" }} />
                   )}
                 </div>
                 {/* Text */}
-                <div style={{ paddingBottom: i < reasons.length - 1 ? "28px" : "0", paddingTop: "8px" }}>
-                  <h4 style={{ fontSize: "15px", fontWeight: 800, color: i === 0 ? "#0f172a" : "#334155", marginBottom: "6px", lineHeight: 1.3 }}>
+                <div style={{ paddingBottom: i < reasons.length - 1 ? "22px" : "0", paddingTop: "6px" }}>
+                  <h4 style={{ fontSize: "14.5px", fontWeight: 800, color: i === 0 ? "#0f172a" : "#334155", marginBottom: "4px", lineHeight: 1.3 }}>
                     {r.title}
                   </h4>
-                  <p style={{ fontSize: "13px", color: "#64748b", lineHeight: 1.72, margin: 0 }}>
+                  <p style={{ fontSize: "12.5px", color: "#64748b", lineHeight: 1.65, margin: 0 }}>
                     {r.desc}
                   </p>
                 </div>
@@ -205,7 +280,8 @@ export default function WhyChooseUs() {
       <style>{`
         @media (max-width: 820px) {
           .wcu-layout { grid-template-columns: 1fr !important; }
-          .wcu-layout > div:first-child { min-height: 320px !important; clip-path: none !important; }
+          .wcu-layout > div:first-child { min-height: 280px !important; clip-path: none !important; }
+          .wcu-content-col { padding: 36px 20px 44px !important; }
         }
       `}</style>
     </section>

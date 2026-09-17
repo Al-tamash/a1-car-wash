@@ -1,670 +1,462 @@
 "use client";
 
 import React, { useState } from "react";
-import { Sparkles, Check, X, Phone, ArrowRight } from "lucide-react";
-import { MAIN_SERVICES, MainService } from "@/data/servicesData";
+import Link from "next/link";
+import { ArrowRight, Car, Bike, ShieldCheck } from "lucide-react";
 
 interface ServiceCardItem {
   id: string;
-  step: string;
+  slug: string;
   title: string;
-  price: string;
+  badge: string;
+  badgeColor: string;
+  description: string;
   image: string;
-  isHighlighted?: boolean;
-  mainServiceId: string;
+  accentGradient: string;
+  shadowColor: string;
+  icon: React.ReactNode;
 }
 
-const PRIMARY_SERVICES: ServiceCardItem[] = [
+const SERVICES_DATA: ServiceCardItem[] = [
   {
-    id: "full-wash",
-    step: "01",
-    title: "Full Car Wash",
-    price: "From ₹1,000",
-    image: "/card-foam-wash.jpg",
-    mainServiceId: "full-car-wash",
+    id: "car-wash",
+    slug: "car-wash",
+    title: "Car Wash",
+    badge: "MOST POPULAR",
+    badgeColor: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
+    description:
+      "Complete four-wheeler care powered by heavy hydraulic jack lift ramps, RO soft water foam baths, chassis degreasing, and interior deep extraction.",
+    image: "/gallery/real-dual-lift-wide.jpg",
+    accentGradient: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
+    shadowColor: "rgba(239, 68, 68, 0.4)",
+    icon: <Car size={26} strokeWidth={2.2} />,
   },
   {
-    id: "body-wash",
-    step: "02",
-    title: "Body Wash",
-    price: "From ₹600",
-    image: "/hero-bg.jpg",
-    isHighlighted: true,
-    mainServiceId: "body-wash",
+    id: "bike-wash",
+    slug: "bike-wash",
+    title: "Bike Wash",
+    badge: "EXPRESS CARE",
+    badgeColor: "linear-gradient(135deg, #1e3a8a 0%, #0d1b3e 100%)",
+    description:
+      "Specialized pressure cleaning, touchless snow foam wash, chain degreasing & lube, and scratch-free detailing for all commuter, sports, and cruiser bikes.",
+    image: "/gallery/bike-wash-card.jpg",
+    accentGradient: "linear-gradient(135deg, #1e3a8a 0%, #0d1b3e 100%)",
+    shadowColor: "rgba(13, 27, 62, 0.4)",
+    icon: <Bike size={26} strokeWidth={2.2} />,
   },
   {
-    id: "interior-cleaning",
-    step: "03",
-    title: "Interior Spa",
-    price: "From ₹3,000",
-    image: "/images/indian_man_complete_wash.jpg",
-    mainServiceId: "interior-deep-cleaning",
-  },
-  {
-    id: "jack-lift",
-    step: "04",
-    title: "Jack Lift Cleanse",
-    price: "In Full Wash",
-    image: "/gallery/gallery-3.jpg",
-    mainServiceId: "full-car-wash",
-  },
-];
-
-const PROTECTION_SERVICES: ServiceCardItem[] = [
-  {
-    id: "teflon",
-    step: "01",
-    title: "Teflon Coat",
-    price: "From ₹3,500",
-    image: "/card-ceramic-beading.jpg",
-    mainServiceId: "teflon-coating",
-  },
-  {
-    id: "underbody",
-    step: "02",
-    title: "Underbody Anti-Rust",
-    price: "From ₹3,000",
-    image: "/gallery/gallery-5.jpg",
-    isHighlighted: true,
-    mainServiceId: "underbody-coating",
-  },
-  {
-    id: "silencer",
-    step: "03",
-    title: "Silencer Spray",
-    price: "Included with Anti-Rust",
-    image: "/gallery/gallery-2.jpg",
-    mainServiceId: "underbody-coating",
-  },
-  {
-    id: "bike-detailing",
-    step: "04",
-    title: "Bike Detailing",
-    price: "From ₹150",
-    image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=800&q=80",
-    mainServiceId: "bike-wash",
+    id: "teflon-coating",
+    slug: "teflon-coating",
+    title: "Teflon Coating",
+    badge: "9H CERAMIC SHIELD",
+    badgeColor: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
+    description:
+      "Professional machine compounding, swirl and scratch removal, high-gloss Teflon sealants, and ceramic protection layers to safeguard showroom shine.",
+    image: "/gallery/about-fortuner-studio.jpg",
+    accentGradient: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
+    shadowColor: "rgba(239, 68, 68, 0.4)",
+    icon: <ShieldCheck size={26} strokeWidth={2.2} />,
   },
 ];
 
 export default function ServicesSection() {
-  const [activeTab, setActiveTab] = useState<"standard" | "protection">("standard");
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
-  const [activeModalService, setActiveModalService] = useState<MainService | null>(null);
-
-  const currentServices = activeTab === "standard" ? PRIMARY_SERVICES : PROTECTION_SERVICES;
-
-  const handleCardClick = (mainServiceId: string) => {
-    const service = MAIN_SERVICES.find((s) => s.id === mainServiceId);
-    if (service) {
-      setActiveModalService(service);
-    }
-  };
+  const [activeCardId, setActiveCardId] = useState<string>("car-wash");
 
   return (
-    <section
-      id="services-section"
-      style={{
-        background: "linear-gradient(180deg, #f8fafc 0%, #ffffff 50%, #f8fafc 100%)",
-        padding: "85px 0 95px",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      {/* Ambient background decoration */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: "-150px",
-          right: "-150px",
-          width: "550px",
-          height: "550px",
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(220,38,38,0.04) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          bottom: "-150px",
-          left: "-150px",
-          width: "550px",
-          height: "550px",
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(2,132,199,0.04) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
+    <section id="services-section" className="services-section-root">
+      {/* Background ambient colorful glows */}
+      <div className="services-bg-accent-1" aria-hidden="true" />
+      <div className="services-bg-accent-2" aria-hidden="true" />
 
-      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 24px", position: "relative" }}>
-        
+      <div className="services-container">
         {/* ── Section Header ── */}
-        <div style={{ textAlign: "center", marginBottom: "44px" }}>
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "6px",
-              background: "#fef2f2",
-              color: "#dc2626",
-              border: "1px solid #fee2e2",
-              borderRadius: "9999px",
-              fontSize: "12px",
-              fontWeight: 800,
-              padding: "5px 16px",
-              marginBottom: "12px",
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-            }}
-          >
-            <Sparkles size={13} />
-            OUR DETAILING SERVICES
+        <div className="services-header">
+          <div className="services-eyebrow">
+            <span className="services-eyebrow-dash" />
+            <span>Our Services</span>
           </div>
 
-          <h2
-            style={{
-              fontSize: "clamp(2rem, 3.8vw, 2.9rem)",
-              fontWeight: 900,
-              letterSpacing: "-0.03em",
-              color: "#0f172a",
-              margin: "0 0 10px",
-              lineHeight: 1.15,
-            }}
-          >
-            A1 Car Wash <span style={{ color: "#dc2626" }}>Care Packages</span>
+          <h2 className="services-title">
+            What We <span className="services-title-accent">Offer</span>
           </h2>
-          <p
-            style={{
-              fontSize: "15px",
-              color: "#64748b",
-              maxWidth: "560px",
-              margin: "0 auto",
-              lineHeight: 1.6,
-            }}
-          >
-            Click any service to view vehicle-specific sub-services (7-Seater, 5-Seater & Bikes) with detailed inclusions and pricing.
-          </p>
-
-          {/* ── Tab Switcher ── */}
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              background: "#e2e8f0",
-              padding: "4px",
-              borderRadius: "9999px",
-              marginTop: "24px",
-              gap: "4px",
-            }}
-          >
-            <button
-              onClick={() => setActiveTab("standard")}
-              style={{
-                padding: "8px 22px",
-                borderRadius: "9999px",
-                border: "none",
-                background: activeTab === "standard" ? "#0f172a" : "transparent",
-                color: activeTab === "standard" ? "#ffffff" : "#475569",
-                fontSize: "13px",
-                fontWeight: 700,
-                cursor: "pointer",
-                transition: "all 0.25s ease",
-                boxShadow: activeTab === "standard" ? "0 4px 12px rgba(15,23,42,0.2)" : "none",
-              }}
-            >
-              Essential Detailing (01 – 04)
-            </button>
-            <button
-              onClick={() => setActiveTab("protection")}
-              style={{
-                padding: "8px 22px",
-                borderRadius: "9999px",
-                border: "none",
-                background: activeTab === "protection" ? "#dc2626" : "transparent",
-                color: activeTab === "protection" ? "#ffffff" : "#475569",
-                fontSize: "13px",
-                fontWeight: 700,
-                cursor: "pointer",
-                transition: "all 0.25s ease",
-                boxShadow: activeTab === "protection" ? "0 4px 12px rgba(220,38,38,0.25)" : "none",
-              }}
-            >
-              Teflon, Anti-Rust & Bike Detailing
-            </button>
-          </div>
         </div>
 
-        {/* ── 4-Card Rounded Stadium / Capsule Grid (Existing Design Preserved) ── */}
-        <div className="services-capsule-grid">
-          {currentServices.map((service) => {
-            const isHovered = hoveredId === service.id;
-            const isHighlighted = service.isHighlighted || isHovered;
-
-            const badgeBg = isHighlighted
-              ? service.id === "body-wash" || service.id === "underbody"
-                ? "#0284c7"
-                : "#dc2626"
-              : "#2d3748";
+        {/* ── 3 Main Service Cards with Colorful Badges & Floating Icons ── */}
+        <div className="services-grid">
+          {SERVICES_DATA.map((service) => {
+            const isActive = activeCardId === service.id;
 
             return (
               <div
                 key={service.id}
-                onClick={() => handleCardClick(service.mainServiceId)}
-                onMouseEnter={() => setHoveredId(service.id)}
-                onMouseLeave={() => setHoveredId(null)}
-                style={{
-                  position: "relative",
-                  display: "flex",
-                  flexDirection: "column",
-                  borderRadius: "110px 110px 110px 110px",
-                  backgroundColor: "#ffffff",
-                  overflow: "hidden",
-                  boxShadow: isHovered
-                    ? "0 22px 44px rgba(15,23,42,0.14), 0 0 0 1.5px #dc2626"
-                    : "0 8px 24px rgba(15,23,42,0.06), 0 0 0 1px rgba(226,232,240,0.5)",
-                  transform: isHovered ? "translateY(-6px)" : "translateY(0)",
-                  transition: "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease",
-                  cursor: "pointer",
-                }}
+                className={`service-card-wrapper ${isActive ? "active-card" : ""}`}
+                onMouseEnter={() => setActiveCardId(service.id)}
               >
-                {/* Top Arched Image Container */}
-                <div
-                  style={{
-                    position: "relative",
-                    width: "100%",
-                    height: "175px",
-                    overflow: "hidden",
-                    borderTopLeftRadius: "110px",
-                    borderTopRightRadius: "110px",
-                  }}
+                <Link
+                  href={`/services#${service.slug}`}
+                  className="service-card"
+                  aria-label={`Learn more about ${service.title}`}
                 >
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      objectPosition: "center",
-                      display: "block",
-                      transform: isHovered ? "scale(1.06)" : "scale(1)",
-                      transition: "transform 0.5s ease",
-                    }}
-                  />
+                  {/* Top Image with Diagonal Cut Top-Left */}
+                  <div className="service-card-image-wrap">
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="service-card-image"
+                      loading="lazy"
+                    />
+                    <div className="service-card-image-overlay" />
 
-                  {/* SVG Upward Curved Divider */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      height: "38px",
-                      pointerEvents: "none",
-                      zIndex: 2,
-                    }}
-                  >
-                    <svg
-                      viewBox="0 0 220 38"
-                      preserveAspectRatio="none"
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        display: "block",
-                      }}
+                    {/* Floating Service Badge Chip */}
+                    <span 
+                      className="service-card-top-chip"
+                      style={{ background: service.badgeColor }}
                     >
-                      <path
-                        d="M 0,38 L 0,22 C 58,22 75,22 85,14 C 95,5 100,0 110,0 C 120,0 125,5 135,14 C 145,22 162,22 220,22 L 220,38 Z"
-                        fill="#ffffff"
-                      />
-                    </svg>
+                      {service.badge}
+                    </span>
                   </div>
-                </div>
 
-                {/* Center Number Badge (01, 02, 03, 04) */}
-                <div
-                  style={{
-                    position: "relative",
-                    display: "flex",
-                    justifyContent: "center",
-                    marginTop: "-23px",
-                    zIndex: 10,
-                  }}
-                >
-                  <div
+                  {/* Floating Circular Icon Badge */}
+                  <div 
+                    className="service-card-icon-badge"
                     style={{
-                      width: "46px",
-                      height: "46px",
-                      borderRadius: "50%",
-                      backgroundColor: badgeBg,
-                      color: "#ffffff",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "14px",
-                      fontWeight: 800,
-                      letterSpacing: "0.02em",
-                      border: "3px solid #ffffff",
-                      boxShadow: isHighlighted
-                        ? "0 6px 16px rgba(2,132,199,0.35), 0 2px 6px rgba(0,0,0,0.1)"
-                        : "0 3px 10px rgba(15,23,42,0.14)",
-                      transition: "all 0.3s ease",
-                      transform: isHovered ? "scale(1.1)" : "scale(1)",
+                      background: service.accentGradient,
+                      boxShadow: `0 8px 20px ${service.shadowColor}`,
                     }}
                   >
-                    {service.step}
+                    {service.icon}
                   </div>
-                </div>
 
-                {/* Bottom Content */}
-                <div
-                  style={{
-                    padding: "10px 16px 28px 16px",
-                    textAlign: "center",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <h3
-                    style={{
-                      fontSize: "18px",
-                      fontWeight: 800,
-                      color: "#1e293b",
-                      margin: "2px 0 4px",
-                      letterSpacing: "-0.01em",
-                      lineHeight: 1.25,
-                    }}
-                  >
-                    {service.title}
-                  </h3>
-                  <span
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: 700,
-                      color: "#dc2626",
-                      letterSpacing: "0.02em",
-                    }}
-                  >
-                    {service.price}
-                  </span>
-                  <span
-                    style={{
-                      fontSize: "11px",
-                      color: "#64748b",
-                      marginTop: "4px",
-                      textDecoration: "underline",
-                    }}
-                  >
-                    Click for sub-services
-                  </span>
-                </div>
+                  {/* Card Body */}
+                  <div className="service-card-body">
+                    <h3 className="service-card-title">{service.title}</h3>
+                    <p className="service-card-description">{service.description}</p>
+
+                    <div className="service-card-cta">
+                      <span>Learn more</span>
+                      <ArrowRight size={16} className="service-card-cta-arrow" />
+                    </div>
+
+                    {/* Bottom Colorful Accent Line */}
+                    <div 
+                      className="service-card-bottom-accent" 
+                      style={{ background: service.accentGradient }}
+                    />
+                  </div>
+                </Link>
               </div>
             );
           })}
         </div>
-
-        {/* ── Sub-Services Interactive Modal / Drawer ── */}
-        {activeModalService && (
-          <div
-            style={{
-              position: "fixed",
-              inset: 0,
-              background: "rgba(15, 23, 42, 0.75)",
-              backdropFilter: "blur(6px)",
-              zIndex: 2000,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "20px",
-            }}
-            onClick={() => setActiveModalService(null)}
-          >
-            <div
-              style={{
-                background: "#ffffff",
-                borderRadius: "20px",
-                maxWidth: "760px",
-                width: "100%",
-                padding: "32px",
-                position: "relative",
-                maxHeight: "90vh",
-                overflowY: "auto",
-                boxShadow: "0 25px 60px rgba(0, 0, 0, 0.3)",
-              }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Close Button */}
-              <button
-                onClick={() => setActiveModalService(null)}
-                style={{
-                  position: "absolute",
-                  top: "20px",
-                  right: "20px",
-                  background: "#f1f5f9",
-                  border: "none",
-                  borderRadius: "50%",
-                  width: "36px",
-                  height: "36px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  cursor: "pointer",
-                  color: "#475569",
-                }}
-              >
-                <X size={18} />
-              </button>
-
-              {/* Modal Header */}
-              <div style={{ marginBottom: "20px", paddingRight: "40px" }}>
-                <div
-                  style={{
-                    display: "inline-block",
-                    background: "#fee2e2",
-                    color: "#dc2626",
-                    fontSize: "11.5px",
-                    fontWeight: 800,
-                    padding: "3px 12px",
-                    borderRadius: "9999px",
-                    marginBottom: "8px",
-                  }}
-                >
-                  {activeModalService.badge || "A1 Car Wash Service"}
-                </div>
-                <h3
-                  style={{
-                    fontSize: "24px",
-                    fontWeight: 900,
-                    color: "#0f172a",
-                    margin: 0,
-                  }}
-                >
-                  {activeModalService.title}
-                </h3>
-                <p style={{ fontSize: "14px", color: "#64748b", margin: "6px 0 0" }}>
-                  {activeModalService.tagline}
-                </p>
-              </div>
-
-              {/* Sub-Services List */}
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns:
-                    activeModalService.subServices.length > 2 ? "repeat(3, 1fr)" : "repeat(2, 1fr)",
-                  gap: "16px",
-                  marginBottom: "24px",
-                }}
-                className="modal-subservices-grid"
-              >
-                {activeModalService.subServices.map((sub) => (
-                  <div
-                    key={sub.id}
-                    style={{
-                      border: "1.5px solid #e2e8f0",
-                      borderRadius: "14px",
-                      padding: "18px 16px",
-                      background: "#f8fafc",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <div>
-                      <div
-                        style={{
-                          fontSize: "11px",
-                          fontWeight: 800,
-                          color: "#dc2626",
-                          textTransform: "uppercase",
-                          marginBottom: "4px",
-                        }}
-                      >
-                        {sub.vehicleType}
-                      </div>
-                      <h4
-                        style={{
-                          fontSize: "15px",
-                          fontWeight: 800,
-                          color: "#0f172a",
-                          margin: "0 0 6px 0",
-                          lineHeight: 1.25,
-                        }}
-                      >
-                        {sub.name}
-                      </h4>
-                      <div
-                        style={{
-                          fontSize: "20px",
-                          fontWeight: 900,
-                          color: "#dc2626",
-                          marginBottom: "12px",
-                        }}
-                      >
-                        {sub.formattedPrice}
-                      </div>
-
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "7px",
-                          marginBottom: "16px",
-                        }}
-                      >
-                        {sub.features.map((feat, fi) => (
-                          <div
-                            key={fi}
-                            style={{
-                              display: "flex",
-                              alignItems: "flex-start",
-                              gap: "8px",
-                              fontSize: "12.5px",
-                              color: "#334155",
-                              lineHeight: 1.35,
-                            }}
-                          >
-                            <Check
-                              size={13}
-                              style={{ color: "#16a34a", flexShrink: 0, marginTop: "2px" }}
-                            />
-                            <span>{feat}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <a
-                      href={`https://wa.me/917045282473?text=${encodeURIComponent(
-                        `Hi A1 Car Wash! I would like to book the *${sub.name}* (${sub.formattedPrice}) at Raidurg, Hyderabad.`
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        display: "block",
-                        textAlign: "center",
-                        background: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
-                        color: "#ffffff",
-                        fontSize: "12.5px",
-                        fontWeight: 800,
-                        padding: "9px 12px",
-                        borderRadius: "8px",
-                        textDecoration: "none",
-                        boxShadow: "0 4px 12px rgba(220, 38, 38, 0.35)",
-                      }}
-                    >
-                      Book on WhatsApp
-                    </a>
-                  </div>
-                ))}
-              </div>
-
-              {/* Hotline Footer */}
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  borderTop: "1px solid #e2e8f0",
-                  paddingTop: "16px",
-                  flexWrap: "wrap",
-                  gap: "10px",
-                }}
-              >
-                <div style={{ fontSize: "13px", color: "#64748b" }}>
-                  📍 Raidurg, Darga Chowrasta, Film Nagar Rd
-                </div>
-                <a
-                  href="tel:7045282473"
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    fontWeight: 800,
-                    color: "#0f172a",
-                    fontSize: "14px",
-                    textDecoration: "none",
-                  }}
-                >
-                  <Phone size={15} style={{ color: "#dc2626" }} />
-                  <span>Call 70452 82473</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        )}
-
       </div>
 
+      {/* ── Scoped inline styles for guaranteed styling in all environments ── */}
       <style>{`
-        .services-capsule-grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 22px;
-          max-width: 960px;
-          margin: 0 auto;
+        .services-section-root {
+          background-color: #f7f9fc !important;
+          padding: 95px 0 105px !important;
+          position: relative !important;
+          overflow: hidden !important;
         }
 
-        @media (max-width: 990px) {
-          .services-capsule-grid {
-            grid-template-columns: repeat(2, 1fr);
-            max-width: 480px;
-            gap: 20px;
+        .services-bg-accent-1 {
+          position: absolute !important;
+          top: -120px !important;
+          right: -100px !important;
+          width: 500px !important;
+          height: 500px !important;
+          border-radius: 50% !important;
+          background: radial-gradient(circle, rgba(239, 68, 68, 0.05) 0%, transparent 70%) !important;
+          pointer-events: none !important;
+        }
+
+        .services-bg-accent-2 {
+          position: absolute !important;
+          bottom: -120px !important;
+          left: -100px !important;
+          width: 500px !important;
+          height: 500px !important;
+          border-radius: 50% !important;
+          background: radial-gradient(circle, rgba(13, 27, 62, 0.04) 0%, transparent 70%) !important;
+          pointer-events: none !important;
+        }
+
+        .services-container {
+          max-width: 1240px !important;
+          margin: 0 auto !important;
+          padding: 0 24px !important;
+          position: relative !important;
+          z-index: 2 !important;
+        }
+
+        .services-header {
+          text-align: center !important;
+          margin-bottom: 54px !important;
+        }
+
+        .services-eyebrow {
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          gap: 8px !important;
+          margin-bottom: 12px !important;
+          font-size: 14px !important;
+          font-weight: 700 !important;
+          color: #64748b !important;
+          text-transform: capitalize !important;
+          letter-spacing: 0.02em !important;
+        }
+
+        .services-eyebrow-dash {
+          width: 24px !important;
+          height: 2.5px !important;
+          background-color: #ef4444 !important;
+          border-radius: 2px !important;
+          display: inline-block !important;
+        }
+
+        .services-title {
+          font-family: var(--font-heading, 'Outfit', sans-serif) !important;
+          font-size: clamp(2rem, 3.2vw, 2.75rem) !important;
+          font-weight: 600 !important;
+          color: #0d1b3e !important;
+          line-height: 1.15 !important;
+          letter-spacing: -0.025em !important;
+          margin: 0 !important;
+        }
+
+        .services-title-accent {
+          color: #ef4444 !important;
+          display: inline-block !important;
+        }
+
+        .services-grid {
+          display: grid !important;
+          grid-template-columns: repeat(3, 1fr) !important;
+          gap: 32px !important;
+          align-items: stretch !important;
+        }
+
+        .service-card-wrapper {
+          filter: drop-shadow(0 12px 28px rgba(15, 23, 42, 0.08)) !important;
+          transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease !important;
+          height: 100% !important;
+        }
+
+        .service-card-wrapper:hover {
+          transform: translateY(-8px) !important;
+          filter: drop-shadow(0 22px 38px rgba(239, 68, 68, 0.16)) !important;
+        }
+
+        .service-card {
+          background: #ffffff !important;
+          clip-path: polygon(52px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 52px) !important;
+          -webkit-clip-path: polygon(52px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 52px) !important;
+          border-radius: 0 22px 22px 22px !important;
+          overflow: hidden !important;
+          display: flex !important;
+          flex-direction: column !important;
+          position: relative !important;
+          height: 100% !important;
+          cursor: pointer !important;
+          text-decoration: none !important;
+          color: inherit !important;
+        }
+
+        .service-card-image-wrap {
+          position: relative !important;
+          width: 100% !important;
+          height: 220px !important;
+          overflow: hidden !important;
+          background-color: #0d1b3e !important;
+        }
+
+        .service-card-image {
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: cover !important;
+          display: block !important;
+          transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+
+        .service-card-wrapper:hover .service-card-image {
+          transform: scale(1.08) !important;
+        }
+
+        .service-card-image-overlay {
+          position: absolute !important;
+          inset: 0 !important;
+          background: linear-gradient(
+            180deg,
+            rgba(13, 27, 62, 0.05) 0%,
+            rgba(13, 27, 62, 0.4) 55%,
+            rgba(13, 27, 62, 0.88) 100%
+          ) !important;
+          pointer-events: none !important;
+        }
+
+        .service-card-top-chip {
+          position: absolute !important;
+          top: 14px !important;
+          right: 14px !important;
+          padding: 5px 12px !important;
+          border-radius: 9999px !important;
+          color: #ffffff !important;
+          font-size: 10.5px !important;
+          font-weight: 800 !important;
+          letter-spacing: 0.08em !important;
+          text-transform: uppercase !important;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+          z-index: 3 !important;
+        }
+
+        .service-card-icon-badge {
+          position: absolute !important;
+          top: 220px !important;
+          left: 28px !important;
+          transform: translateY(-50%) !important;
+          width: 62px !important;
+          height: 62px !important;
+          border-radius: 50% !important;
+          border: 4px solid #ffffff !important;
+          color: #ffffff !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          z-index: 5 !important;
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease !important;
+        }
+
+        .service-card-wrapper:hover .service-card-icon-badge {
+          transform: translateY(-50%) scale(1.1) !important;
+        }
+
+        .service-card-body {
+          padding: 44px 28px 28px 28px !important;
+          background: #ffffff !important;
+          display: flex !important;
+          flex-direction: column !important;
+          flex: 1 !important;
+          position: relative !important;
+        }
+
+        .service-card-title {
+          font-family: var(--font-heading, 'Outfit', sans-serif) !important;
+          font-size: 1.35rem !important;
+          font-weight: 700 !important;
+          color: #0d1b3e !important;
+          line-height: 1.25 !important;
+          margin: 0 0 12px 0 !important;
+          letter-spacing: -0.015em !important;
+          transition: color 0.25s ease !important;
+        }
+
+        .service-card-description {
+          font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif) !important;
+          font-size: 0.92rem !important;
+          color: #64748b !important;
+          line-height: 1.65 !important;
+          margin: 0 0 24px 0 !important;
+          flex: 1 !important;
+        }
+
+        .service-card-cta {
+          display: inline-flex !important;
+          align-items: center !important;
+          gap: 8px !important;
+          font-size: 0.92rem !important;
+          font-weight: 700 !important;
+          color: #0d1b3e !important;
+          text-decoration: none !important;
+          transition: color 0.25s ease !important;
+          margin-top: auto !important;
+        }
+
+        .service-card-wrapper.active-card .service-card-cta,
+        .service-card-wrapper:hover .service-card-cta {
+          color: #ef4444 !important;
+        }
+
+        .service-card-cta-arrow {
+          transition: transform 0.25s ease !important;
+        }
+
+        .service-card-wrapper:hover .service-card-cta-arrow {
+          transform: translateX(5px) !important;
+        }
+
+        .service-card-bottom-accent {
+          position: absolute !important;
+          bottom: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          height: 3.5px !important;
+          background: #ef4444 !important;
+          opacity: 0 !important;
+          transition: opacity 0.3s ease !important;
+        }
+
+        .service-card-wrapper.active-card .service-card-bottom-accent,
+        .service-card-wrapper:hover .service-card-bottom-accent {
+          opacity: 1 !important;
+        }
+
+        @media (max-width: 1024px) {
+          .services-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 28px !important;
           }
-          .modal-subservices-grid {
+
+          .service-card-wrapper:last-child {
+            grid-column: span 2 !important;
+            max-width: 560px !important;
+            margin: 0 auto !important;
+            width: 100% !important;
+          }
+        }
+
+        @media (max-width: 680px) {
+          .services-section-root {
+            padding: 70px 0 80px !important;
+          }
+
+          .services-header {
+            margin-bottom: 40px !important;
+          }
+
+          .services-grid {
             grid-template-columns: 1fr !important;
+            gap: 24px !important;
           }
-        }
 
-        @media (max-width: 520px) {
-          .services-capsule-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
-            max-width: 380px;
+          .service-card-wrapper:last-child {
+            grid-column: auto !important;
+            max-width: none !important;
+          }
+
+          .service-card {
+            clip-path: polygon(42px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 42px) !important;
+            -webkit-clip-path: polygon(42px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 42px) !important;
+            border-radius: 0 18px 18px 18px !important;
+          }
+
+          .service-card-image-wrap {
+            height: 190px !important;
+          }
+
+          .service-card-icon-badge {
+            top: 190px !important;
+            left: 22px !important;
+            width: 54px !important;
+            height: 54px !important;
+          }
+
+          .service-card-body {
+            padding: 38px 22px 24px 22px !important;
+          }
+
+          .service-card-title {
+            font-size: 1.22rem !important;
           }
         }
       `}</style>

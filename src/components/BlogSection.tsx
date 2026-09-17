@@ -47,8 +47,8 @@ export default function BlogSection() {
         <div style={{ textAlign: "center", marginBottom: "52px" }}>
           <h2
             style={{
-              fontSize: "clamp(1.8rem, 3vw, 2.6rem)",
-              fontWeight: 900,
+              fontSize: "clamp(2rem, 3.2vw, 2.75rem)",
+              fontWeight: 600,
               color: "#172554",
               letterSpacing: "-0.02em",
               marginBottom: "12px",

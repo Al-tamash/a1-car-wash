@@ -1,15 +1,20 @@
 "use client";
 
 import React, { useState } from "react";
-import { CheckCircle2, MapPin, Phone, Clock, MessageSquare } from "lucide-react";
+import { CheckCircle2, MessageSquare, MapPin, ExternalLink, Phone, Mail, Clock, Sparkles } from "lucide-react";
 import { StoreLocation, STORES_DATA } from "@/data/storesData";
 
 interface ContactBookingSectionProps {
   currentStoreSlug?: string;
   store?: StoreLocation;
+  showMap?: boolean;
 }
 
-export default function ContactBookingSection({ currentStoreSlug, store }: ContactBookingSectionProps = {}) {
+export default function ContactBookingSection({
+  currentStoreSlug,
+  store,
+  showMap = true,
+}: ContactBookingSectionProps = {}) {
   const activeStore = store || (currentStoreSlug ? STORES_DATA.find((s) => s.slug === currentStoreSlug) : undefined);
 
   const [formData, setFormData] = useState({
@@ -61,90 +66,147 @@ export default function ContactBookingSection({ currentStoreSlug, store }: Conta
       id="contact-section"
       style={{ background: "#ffffff", padding: "80px 0" }}
     >
-      <div className="container" style={{ padding: "0 24px", maxWidth: "1280px", margin: "0 auto" }}>
+      <div
+        className="container"
+        style={{
+          padding: "0 24px",
+          maxWidth: showMap ? "1280px" : "760px",
+          margin: "0 auto",
+        }}
+      >
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1.2fr",
-            gap: "50px",
-            alignItems: "center",
+            display: showMap ? "grid" : "block",
+            gridTemplateColumns: showMap ? "1.1fr 1fr" : undefined,
+            gap: "40px",
+            alignItems: "stretch",
           }}
-          className="contact-grid"
+          className={showMap ? "contact-grid" : undefined}
         >
-          {/* LEFT: Info & Location Box */}
-          <div>
-            <div
-              style={{
-                borderRadius: "20px",
-                overflow: "hidden",
-                boxShadow: "0 20px 50px rgba(15,23,42,0.12)",
-                aspectRatio: "16/10",
-                marginBottom: "24px",
-              }}
-            >
-              <img
-                src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=900&q=85"
-                alt="A1 Car Wash Specialist"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
-            </div>
-
-            <div
-              style={{
-                background: "#0f172a",
-                color: "#ffffff",
-                borderRadius: "16px",
-                padding: "24px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "18px",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
-                <MapPin size={20} style={{ color: "#ef4444", flexShrink: 0, marginTop: "3px" }} />
-                <div>
-                  <div style={{ fontSize: "11px", fontWeight: 700, color: "rgba(255,255,255,0.6)", textTransform: "uppercase" }}>
-                    Location / Address
+          {/* LEFT: Store Location Map (Only displayed when showMap is true) */}
+          {showMap && (
+            <div style={{ display: "flex", flexDirection: "column", height: "100%", minHeight: "560px" }}>
+              <div
+                style={{
+                  borderRadius: "20px",
+                  overflow: "hidden",
+                  boxShadow: "0 14px 40px rgba(15,23,42,0.10)",
+                  height: "100%",
+                  minHeight: "560px",
+                  border: "1.5px solid #e2e8f0",
+                  position: "relative",
+                }}
+              >
+                {/* Floating Store Identification Badge */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "14px",
+                    left: "14px",
+                    zIndex: 2,
+                    background: "rgba(255, 255, 255, 0.95)",
+                    backdropFilter: "blur(8px)",
+                    padding: "8px 14px",
+                    borderRadius: "12px",
+                    boxShadow: "0 4px 18px rgba(15, 23, 42, 0.15)",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    border: "1px solid rgba(220, 38, 38, 0.2)",
+                    maxWidth: "calc(100% - 28px)",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "32px",
+                      height: "32px",
+                      borderRadius: "8px",
+                      background: "#fee2e2",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#dc2626",
+                      flexShrink: 0,
+                    }}
+                  >
+                    <MapPin size={17} />
                   </div>
-                  <div style={{ fontSize: "13.5px", fontWeight: 700, marginTop: "2px", lineHeight: 1.45 }}>
-                    {activeStore
-                      ? activeStore.address
-                      : "Mehfil Restaurant, Raidurg, Darga Chowrasta, Film Nagar Road, Hyderabad, Telangana – 500104"}
-                  </div>
-                </div>
-              </div>
-
-              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                <Phone size={20} style={{ color: "#ef4444", flexShrink: 0 }} />
-                <div>
-                  <div style={{ fontSize: "11px", fontWeight: 700, color: "rgba(255,255,255,0.6)", textTransform: "uppercase" }}>
-                    Direct Phone / WhatsApp
+                  <div style={{ minWidth: 0, flex: 1 }}>
+                    <div
+                      style={{
+                        fontSize: "13.5px",
+                        fontWeight: 800,
+                        color: "#0f172a",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {activeStore ? activeStore.name : "A1 Car Wash - Hyderabad Hub"}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "11.5px",
+                        color: "#64748b",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {activeStore ? activeStore.address : "Hyderabad, Telangana"}
+                    </div>
                   </div>
                   <a
-                    href={`tel:${(activeStore?.phone || "7045282473").replace(/\s+/g, "")}`}
-                    style={{ fontSize: "17px", fontWeight: 900, color: "#ffffff", textDecoration: "none" }}
+                    href={activeStore?.googleMapsLink || "https://maps.app.goo.gl/T3178g94WL8t2NAC8"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      background: "#dc2626",
+                      color: "#ffffff",
+                      fontSize: "11.5px",
+                      fontWeight: 700,
+                      padding: "6px 12px",
+                      borderRadius: "8px",
+                      textDecoration: "none",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "4px",
+                      flexShrink: 0,
+                    }}
                   >
-                    +91 {activeStore ? activeStore.phone : "70452 82473"}
+                    <span>Directions</span>
+                    <ExternalLink size={12} />
                   </a>
                 </div>
-              </div>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                <Clock size={20} style={{ color: "#ef4444", flexShrink: 0 }} />
-                <div>
-                  <div style={{ fontSize: "11px", fontWeight: 700, color: "rgba(255,255,255,0.6)", textTransform: "uppercase" }}>
-                    Working Hours
-                  </div>
-                  <div style={{ fontSize: "13.5px", fontWeight: 700 }}>
-                    {activeStore ? activeStore.timing : "8:00 AM – 9:00 PM (Monday – Sunday)"}
-                  </div>
-                </div>
+                <iframe
+                  src={activeStore ? activeStore.mapEmbedUrl : STORES_DATA[0].mapEmbedUrl}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, width: "100%", height: "100%", minHeight: "560px", display: "block" }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title={`${activeStore?.name || "A1 Car Wash"} Map`}
+                />
               </div>
             </div>
-          </div>
+          )}
 
-          {/* RIGHT: Form */}
-          <div>
+          {/* Form */}
+          <div
+            style={
+              !showMap
+                ? {
+                    background: "#ffffff",
+                    border: "1.5px solid #e2e8f0",
+                    borderRadius: "24px",
+                    padding: "44px 36px",
+                    boxShadow: "0 10px 30px rgba(15, 23, 42, 0.06)",
+                  }
+                : undefined
+            }
+          >
             <div
               style={{
                 display: "inline-flex",
@@ -167,8 +229,8 @@ export default function ContactBookingSection({ currentStoreSlug, store }: Conta
 
             <h2
               style={{
-                fontSize: "clamp(1.8rem, 3vw, 2.6rem)",
-                fontWeight: 900,
+                fontSize: "clamp(2rem, 3.2vw, 2.75rem)",
+                fontWeight: 600,
                 color: "#172554",
                 letterSpacing: "-0.02em",
                 marginBottom: "8px",
@@ -322,12 +384,13 @@ export default function ContactBookingSection({ currentStoreSlug, store }: Conta
 
                 <button
                   type="submit"
+                  className="contact-submit-btn"
                   style={{
                     background: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
                     color: "#ffffff",
                     fontWeight: 800,
-                    fontSize: "15px",
-                    padding: "14px 36px",
+                    fontSize: "14.5px",
+                    padding: "14px 32px",
                     borderRadius: "8px",
                     border: "none",
                     cursor: "pointer",
@@ -336,7 +399,7 @@ export default function ContactBookingSection({ currentStoreSlug, store }: Conta
                     alignSelf: "flex-start",
                   }}
                 >
-                  Book on WhatsApp (Instant Confirmation)
+                  Book Service
                 </button>
               </form>
             )}
@@ -346,8 +409,15 @@ export default function ContactBookingSection({ currentStoreSlug, store }: Conta
 
       <style>{`
         @media (max-width: 860px) {
-          .contact-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+          .contact-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
           .form-row { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 640px) {
+          .contact-submit-btn {
+            width: 100% !important;
+            align-self: stretch !important;
+            text-align: center !important;
+          }
         }
       `}</style>
     </section>

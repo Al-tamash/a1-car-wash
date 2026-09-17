@@ -2,11 +2,10 @@
 
 import React from "react";
 import Navbar from "@/components/Navbar";
-import WhyChooseUs from "@/components/WhyChooseUs";
+import AboutSection from "@/components/AboutSection";
 import ContactBookingSection from "@/components/ContactBookingSection";
 import Footer from "@/components/Footer";
-import { Sparkles, ShieldCheck, Award, Users, Droplets, Clock, MapPin } from "lucide-react";
-import { STORES_DATA } from "@/data/storesData";
+import { Award } from "lucide-react";
 
 export default function AboutPage() {
   return (
@@ -15,7 +14,7 @@ export default function AboutPage() {
 
       {/* Hero Section */}
       <section style={{
-        padding: "70px 0 50px",
+        padding: "115px 0 45px",
         background: "linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%)",
         textAlign: "center"
       }}>
@@ -25,90 +24,280 @@ export default function AboutPage() {
             <span>EXCELLENCE IN AUTOMOTIVE CARE</span>
           </div>
           <h1 style={{
-            fontSize: "clamp(2.4rem, 4vw, 3.4rem)",
+            fontSize: "clamp(2rem, 3.2vw, 2.75rem)",
             fontWeight: 600,
             letterSpacing: "-0.02em",
             color: "#0f172a",
             marginBottom: "16px"
           }}>
-            Crafting Hyderabad's <span className="text-gradient">Cleanest Vehicles</span>
+            A1 CAR WASH — <span style={{ color: "#dc2626" }}>Quality Car Cleaning &amp; Detailing</span>
           </h1>
-          <p style={{ fontSize: "17px", color: "#475569", lineHeight: "1.6" }}>
-            Founded with a passion for automotive perfection, AutoCare Pro has grown into Hyderabad's most trusted 5-studio car wash and paint protection network.
-          </p>
         </div>
       </section>
 
-      {/* Story & Philosophy Section */}
-      <section className="section" style={{ background: "#ffffff", paddingTop: 0 }}>
-        <div className="container">
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "50px",
-            alignItems: "center"
-          }} className="about-grid">
-            
-            <div>
-              <div className="badge-pill" style={{ marginBottom: "14px" }}>
-                <span>OUR MISSION</span>
-              </div>
-              <h2 style={{ fontSize: "2rem", fontWeight: "800", color: "#0f172a", marginBottom: "20px" }}>
-                Redefining the Car Care Experience in Telangana
-              </h2>
-              <p style={{ fontSize: "15px", color: "#475569", lineHeight: "1.7", marginBottom: "16px" }}>
-                Traditional roadside washing centers often use high TDS mineral water, harsh household detergents, and abrasive wiping rags that damage vehicle clearcoats with unsightly swirls.
-              </p>
-              <p style={{ fontSize: "15px", color: "#475569", lineHeight: "1.7", marginBottom: "24px" }}>
-                At AutoCare Pro, we engineered a clinical, paint-safe ecosystem: 100% deionized RO softened water, German pH-neutral snow foam, dedicated grit-guard buckets, and dust-controlled cleanrooms for certified 9H ceramic coatings and self-healing TPU PPF film applications.
-              </p>
+      {/* Redesigned 2-Column About Section */}
+      <AboutSection />
 
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-                <div style={{ background: "#f8fafc", padding: "16px", borderRadius: "12px", border: "1px solid #e2e8f0" }}>
-                  <div style={{ fontSize: "28px", fontWeight: "900", color: "#0284c7" }}>50K+</div>
-                  <div style={{ fontSize: "13px", color: "#64748b", fontWeight: "600" }}>Vehicles Detailed</div>
-                </div>
-                <div style={{ background: "#f8fafc", padding: "16px", borderRadius: "12px", border: "1px solid #e2e8f0" }}>
-                  <div style={{ fontSize: "28px", fontWeight: "900", color: "#10b981" }}>4.9 ★</div>
-                  <div style={{ fontSize: "13px", color: "#64748b", fontWeight: "600" }}>Customer Rating</div>
-                </div>
-              </div>
+      {/* Dedicated Studio & Facility Showcase */}
+      <section style={{ padding: "70px 0 80px", background: "#ffffff" }}>
+        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 24px" }}>
+          <div style={{ textAlign: "center", marginBottom: "48px" }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                background: "#fef2f2",
+                color: "#dc2626",
+                border: "1px solid #fee2e2",
+                borderRadius: "9999px",
+                fontSize: "12px",
+                fontWeight: 800,
+                padding: "5px 16px",
+                marginBottom: "12px",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+              }}
+            >
+              REAL STUDIO &amp; WASH BAY PHOTOS
             </div>
+            <h2
+              style={{
+                fontSize: "clamp(1.8rem, 3vw, 2.5rem)",
+                fontWeight: 600,
+                letterSpacing: "-0.025em",
+                color: "#0f172a",
+                margin: "0 0 10px",
+              }}
+            >
+              Inside <span style={{ color: "#dc2626" }}>A1 Car Wash</span> Studio
+            </h2>
+            <p
+              style={{
+                fontSize: "15px",
+                color: "#64748b",
+                maxWidth: "640px",
+                margin: "0 auto",
+                lineHeight: 1.6,
+              }}
+            >
+              Take a look inside our flagship facility located at Mehfil Restaurant, Raidurg, Darga Chowrasta. Equipped with professional washing bays, studio LED detailing suites, and dedicated bike wash zones.
+            </p>
+          </div>
 
-            <div style={{ position: "relative" }}>
-              <div style={{
-                borderRadius: "24px",
+          {/* 3 Images Grid */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gap: "28px",
+            }}
+          >
+            {/* Image 1: Main Wash Bay with Rate Board */}
+            <div
+              style={{
+                background: "#ffffff",
+                borderRadius: "20px",
+                border: "1px solid #e2e8f0",
                 overflow: "hidden",
-                boxShadow: "0 25px 50px -12px rgba(14, 165, 233, 0.25)",
-                border: "1px solid #e2e8f0"
-              }}>
+                boxShadow: "0 4px 20px rgba(15, 23, 42, 0.05)",
+                display: "flex",
+                flexDirection: "column",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+              }}
+            >
+              <div style={{ position: "relative", height: "260px", overflow: "hidden" }}>
                 <img
-                  src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=1000&q=80"
-                  alt="Detailing Studio"
-                  style={{ width: "100%", height: "420px", objectFit: "cover" }}
+                  src="/gallery/about-bay-ratecard.jpg"
+                  alt="A1 Car Wash Main Wash Bay and Official Rate Card Board"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
                 />
+                <span
+                  style={{
+                    position: "absolute",
+                    top: "14px",
+                    left: "14px",
+                    background: "rgba(15, 23, 42, 0.8)",
+                    backdropFilter: "blur(6px)",
+                    color: "#ffffff",
+                    fontSize: "11px",
+                    fontWeight: 800,
+                    padding: "4px 12px",
+                    borderRadius: "9999px",
+                    border: "1px solid rgba(255,255,255,0.2)",
+                  }}
+                >
+                  MAIN WASH BAY
+                </span>
+                <span
+                  style={{
+                    position: "absolute",
+                    bottom: "14px",
+                    right: "14px",
+                    background: "#dc2626",
+                    color: "#ffffff",
+                    fontSize: "11px",
+                    fontWeight: 700,
+                    padding: "4px 10px",
+                    borderRadius: "6px",
+                  }}
+                >
+                  100% Rate Transparency
+                </span>
+              </div>
+              <div style={{ padding: "22px" }}>
+                <h3 style={{ fontSize: "19px", fontWeight: 700, color: "#0f172a", margin: "0 0 8px" }}>
+                  Active Wash Bay &amp; Official Tariff Board
+                </h3>
+                <p style={{ fontSize: "13.5px", color: "#64748b", lineHeight: 1.6, margin: 0 }}>
+                  Our spacious wash bay features high-pressure water spray guns, chemical storage racks, and our official price list board displayed openly so you always know what you pay.
+                </p>
               </div>
             </div>
 
+            {/* Image 2: Studio Detailing & LED Setup */}
+            <div
+              style={{
+                background: "#ffffff",
+                borderRadius: "20px",
+                border: "1px solid #e2e8f0",
+                overflow: "hidden",
+                boxShadow: "0 4px 20px rgba(15, 23, 42, 0.05)",
+                display: "flex",
+                flexDirection: "column",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+              }}
+            >
+              <div style={{ position: "relative", height: "260px", overflow: "hidden" }}>
+                <img
+                  src="/gallery/about-fortuner-studio.jpg"
+                  alt="Toyota Fortuner in Detailing Studio under Precision LED Lights"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                />
+                <span
+                  style={{
+                    position: "absolute",
+                    top: "14px",
+                    left: "14px",
+                    background: "rgba(15, 23, 42, 0.8)",
+                    backdropFilter: "blur(6px)",
+                    color: "#ffffff",
+                    fontSize: "11px",
+                    fontWeight: 800,
+                    padding: "4px 12px",
+                    borderRadius: "9999px",
+                    border: "1px solid rgba(255,255,255,0.2)",
+                  }}
+                >
+                  DETAILING STUDIO
+                </span>
+                <span
+                  style={{
+                    position: "absolute",
+                    bottom: "14px",
+                    right: "14px",
+                    background: "#0284c7",
+                    color: "#ffffff",
+                    fontSize: "11px",
+                    fontWeight: 700,
+                    padding: "4px 10px",
+                    borderRadius: "6px",
+                  }}
+                >
+                  Inspection LED Array
+                </span>
+              </div>
+              <div style={{ padding: "22px" }}>
+                <h3 style={{ fontSize: "19px", fontWeight: 700, color: "#0f172a", margin: "0 0 8px" }}>
+                  High-Precision Detailing &amp; Polish Suite
+                </h3>
+                <p style={{ fontSize: "13.5px", color: "#64748b", lineHeight: 1.6, margin: 0 }}>
+                  A clean, dust-controlled studio bay equipped with multi-row LED ceiling lights to identify micro-scratches, swirls, and ensure mirror-gloss Teflon and paint protection.
+                </p>
+              </div>
+            </div>
+
+            {/* Image 3: Royal Enfield Interceptor 650 Bike Wash */}
+            <div
+              style={{
+                background: "#ffffff",
+                borderRadius: "20px",
+                border: "1px solid #e2e8f0",
+                overflow: "hidden",
+                boxShadow: "0 4px 20px rgba(15, 23, 42, 0.05)",
+                display: "flex",
+                flexDirection: "column",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+              }}
+            >
+              <div style={{ position: "relative", height: "260px", overflow: "hidden" }}>
+                <img
+                  src="/gallery/about-interceptor-bike.jpg"
+                  alt="Royal Enfield Interceptor 650 Two-Wheeler Wash Bay"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                />
+                <span
+                  style={{
+                    position: "absolute",
+                    top: "14px",
+                    left: "14px",
+                    background: "rgba(15, 23, 42, 0.8)",
+                    backdropFilter: "blur(6px)",
+                    color: "#ffffff",
+                    fontSize: "11px",
+                    fontWeight: 800,
+                    padding: "4px 12px",
+                    borderRadius: "9999px",
+                    border: "1px solid rgba(255,255,255,0.2)",
+                  }}
+                >
+                  TWO-WHEELER BAY
+                </span>
+                <span
+                  style={{
+                    position: "absolute",
+                    bottom: "14px",
+                    right: "14px",
+                    background: "#16a34a",
+                    color: "#ffffff",
+                    fontSize: "11px",
+                    fontWeight: 700,
+                    padding: "4px 10px",
+                    borderRadius: "6px",
+                  }}
+                >
+                  Bullet &amp; Superbike Care
+                </span>
+              </div>
+              <div style={{ padding: "22px" }}>
+                <h3 style={{ fontSize: "19px", fontWeight: 700, color: "#0f172a", margin: "0 0 8px" }}>
+                  Cruiser &amp; Superbike Wash Zone
+                </h3>
+                <p style={{ fontSize: "13.5px", color: "#64748b", lineHeight: 1.6, margin: 0 }}>
+                  Specialized washing bay dedicated to motorcycles and heavy cruisers like Royal Enfield Interceptor and Classic Bullets, featuring diesel degrease and chrome polish.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
-
-      {/* Why Choose Us */}
-      <WhyChooseUs />
 
       {/* Booking Form */}
       <ContactBookingSection />
 
       <Footer />
-
-      <style>{`
-        @media (max-width: 900px) {
-          .about-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </main>
   );
 }

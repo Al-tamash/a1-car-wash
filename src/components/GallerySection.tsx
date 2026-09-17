@@ -1,791 +1,544 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { Sparkles, X, ZoomIn, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { ArrowRight, Eye, X, ChevronLeft, ChevronRight, ZoomIn, Play, Pause } from "lucide-react";
 
-interface GalleryCard {
-  id: number;
-  title: string;
-  category: string;
+interface GalleryItem {
+  id: string;
   image: string;
-  description: string;
+  alt: string;
 }
 
-// Row 1 items (Slides Left)
-const row1Cards: GalleryCard[] = [
+const ALL_WORKS_PHOTOS: GalleryItem[] = [
   {
-    id: 1,
-    title: "High-Pressure Snow Foam Cannon",
-    category: "Touchless Exterior Wash",
-    image: "/gallery/gallery-1.jpg",
-    description: "Thick pH-neutral snow foam cannon wash lifting dirt and road film without abrasive contact.",
+    id: "g-1",
+    image: "/gallery/real-foam-mercedes-suv.jpg",
+    alt: "Active snow foam wash on Mercedes SUV",
   },
   {
-    id: 2,
-    title: "Wheel & Brake Caliper Decon",
-    category: "Underbody & Alloy Care",
-    image: "/gallery/gallery-2.jpg",
-    description: "Deep wheel-well decontamination, metallic brake dust dissolution, and hydrophobic rim protection.",
+    id: "g-2",
+    image: "/gallery/interior-deep-cleaning-card.jpg",
+    alt: "Deep steam interior extraction and leather care",
   },
   {
-    id: 3,
-    title: "Dual-Action Paint Correction",
-    category: "Swirl & Scratch Removal",
-    image: "/gallery/gallery-3.jpg",
-    description: "Multi-stage rotary compound polishing eliminating 95%+ of fine swirls and clear coat imperfections.",
+    id: "g-3",
+    image: "/gallery/about-interceptor-bike.jpg",
+    alt: "Two wheeler foam wash and chain degreasing",
   },
   {
-    id: 4,
-    title: "Luxury Interior Cockpit Spa",
-    category: "Deep Sanitization",
-    image: "/gallery/gallery-4.jpg",
-    description: "High-temperature 140°C steam extraction, leather seat conditioning, and anti-bacterial cabin treatment.",
+    id: "g-4",
+    image: "/gallery/real-lift-mercedes.jpg",
+    alt: "Underbody mud wash on hydraulic ramp lift",
   },
   {
-    id: 5,
-    title: "Supercar Paint Protection Film",
-    category: "Self-Healing TPU Film",
-    image: "/gallery/gallery-5.jpg",
-    description: "Custom-cut self-healing PPF wrap guarding against stone chips, highway debris, and harsh UV rays.",
+    id: "g-5",
+    image: "/gallery/real-dual-lift-wide.jpg",
+    alt: "Dual hydraulic car wash station in Hyderabad studio",
   },
   {
-    id: 6,
-    title: "Hydrophobic Ceramic Shield",
-    category: "9H Nano Ceramic",
-    image: "/card-ceramic-beading.jpg",
-    description: "Extreme surface tension water-beading coat offering deep gloss and 3-year scratch resistance.",
+    id: "g-6",
+    image: "/gallery/about-fortuner-studio.jpg",
+    alt: "Toyota Fortuner 9H ceramic coating under studio lights",
   },
   {
-    id: 7,
-    title: "Exotic Coupe Final Shine",
-    category: "Concours Hand Finish",
-    image: "/hero-red-car.jpg",
-    description: "Final white-glove inspection with 360-degree LED paint lighting, tire dressing, and glass seal.",
+    id: "g-7",
+    image: "/gallery/real-wash-fortuner.jpg",
+    alt: "High pressure rinse on white SUV",
+  },
+  {
+    id: "g-8",
+    image: "/gallery/real-lift-seltos-red.png",
+    alt: "Red Kia Seltos Hydraulic Ramp Lift & Chassis Cleanse",
   },
 ];
-
-// Row 2 items (Slides Right)
-const row2Cards: GalleryCard[] = [
-  {
-    id: 8,
-    title: "Luxury Sedan Carnauba Glaze",
-    category: "Hand Wax Finish",
-    image: "/gallery/gallery-6.jpg",
-    description: "Hand-applied Brazilian carnauba glaze delivering deep wet-look reflections and rain repellency.",
-  },
-  {
-    id: 9,
-    title: "White Glove Studio Inspection",
-    category: "Showroom Delivery",
-    image: "/gallery/gallery-7.jpg",
-    description: "White-glove quality assurance in our climate-controlled detailing studio before vehicle handover.",
-  },
-  {
-    id: 10,
-    title: "Spotless Reverse Osmosis Rinse",
-    category: "Deionized Water Wash",
-    image: "/card-foam-wash.jpg",
-    description: "Mineral-free RO water rinse preventing calcium water spots even under hot Hyderabad afternoon sun.",
-  },
-  {
-    id: 11,
-    title: "Precision Engine Bay Detailing",
-    category: "Under-Hood Spa",
-    image: "/services/service-cleaning.jpg",
-    description: "Safe steam-cleaning, grease degreasing, and silicone-free matte dressing on engine bay components.",
-  },
-  {
-    id: 12,
-    title: "Premium Leather Conditioning",
-    category: "Interior Restoration",
-    image: "/images/indian_man_complete_wash.jpg",
-    description: "Deep pore leather extraction and UV-blocking conditioner restoring supple OEM texture.",
-  },
-  {
-    id: 13,
-    title: "Signature Supercar Ceramic Coat",
-    category: "Exotic Paint Shield",
-    image: "/hero-car.jpg",
-    description: "Multi-layer nano-ceramic coating with hydrophobic lotus effect applied to German & Italian exotics.",
-  },
-  {
-    id: 14,
-    title: "Studio Light Reflection Detailing",
-    category: "Precision Correction",
-    image: "/hero-detailing-studio.jpg",
-    description: "Precision micro-sanding and jewel polish under high CRI LED lighting for flawless mirror reflections.",
-  },
-];
-
-const allCards = [...row1Cards, ...row2Cards];
 
 export default function GallerySection() {
-  const [selectedCard, setSelectedCard] = useState<GalleryCard | null>(null);
-  const [isPaused, setIsPaused] = useState(false);
-
-  // Keyboard controls for modal navigation
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSelectedCard(null);
-      if (selectedCard) {
-        const currentIndex = allCards.findIndex((c) => c.id === selectedCard.id);
-        if (e.key === "ArrowLeft") {
-          const prevIndex = (currentIndex - 1 + allCards.length) % allCards.length;
-          setSelectedCard(allCards[prevIndex]);
-        } else if (e.key === "ArrowRight") {
-          const nextIndex = (currentIndex + 1) % allCards.length;
-          setSelectedCard(allCards[nextIndex]);
-        }
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedCard]);
-
-  const handlePrev = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (!selectedCard) return;
-    const currentIndex = allCards.findIndex((c) => c.id === selectedCard.id);
-    const prevIndex = (currentIndex - 1 + allCards.length) % allCards.length;
-    setSelectedCard(allCards[prevIndex]);
-  };
-
-  const handleNext = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (!selectedCard) return;
-    const currentIndex = allCards.findIndex((c) => c.id === selectedCard.id);
-    const nextIndex = (currentIndex + 1) % allCards.length;
-    setSelectedCard(allCards[nextIndex]);
-  };
+  const [lightboxImage, setLightboxImage] = useState<GalleryItem | null>(null);
 
   return (
-    <section
-      id="gallery-section"
-      style={{
-        background: "linear-gradient(180deg, #ea3a2a 0%, #e63222 50%, #dc2626 100%)",
-        color: "#ffffff",
-        padding: "68px 0 76px",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
+    <section id="gallery-section" className="gallery-ref-root">
+      <div className="gallery-ref-container">
+        {/* ── Profile/Studio Header ── */}
+        <div className="gallery-ref-header">
+          {/* Top Icon Badge */}
+          <div className="gallery-avatar-wrap">
+            <div className="gallery-avatar-inner">
+              <Sparkles size={20} color="#ffffff" />
+            </div>
+          </div>
+
+          <h2 className="gallery-ref-title">
+            Our Workshop <span style={{ color: "#ef4444" }}>Gallery</span>
+          </h2>
+          <p className="gallery-ref-subtitle">
+            Live snapshots from our hydraulic lift ramps, active snow foam bays, and detailing studio in Hyderabad.
+          </p>
+        </div>
+
+        {/* ── All Works Photo Mosaic Grid (Zero text overlay on images) ── */}
+        <div className="gallery-mosaic-wrap">
+          {/* Group 1: Asymmetric Split (Left Stack + Right Tall Portrait) */}
+          <div className="gallery-group-split">
+            {/* Left Column Stack */}
+            <div className="gallery-split-left-col">
+              {/* Top Medium Card */}
+              {ALL_WORKS_PHOTOS[0] && (
+                <div
+                  className="gallery-item-card card-top-med"
+                  onClick={() => setLightboxImage(ALL_WORKS_PHOTOS[0])}
+                >
+                  <img
+                    src={ALL_WORKS_PHOTOS[0].image}
+                    alt={ALL_WORKS_PHOTOS[0].alt}
+                    loading="lazy"
+                  />
+                  <div className="gallery-item-overlay">
+                    <div className="gallery-zoom-icon">
+                      <ZoomIn size={18} />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Bottom 2 Side-by-Side Cards */}
+              <div className="gallery-split-bottom-row">
+                {ALL_WORKS_PHOTOS[1] && (
+                  <div
+                    className="gallery-item-card card-half"
+                    onClick={() => setLightboxImage(ALL_WORKS_PHOTOS[1])}
+                  >
+                    <img
+                      src={ALL_WORKS_PHOTOS[1].image}
+                      alt={ALL_WORKS_PHOTOS[1].alt}
+                      loading="lazy"
+                    />
+                    <div className="gallery-item-overlay">
+                      <div className="gallery-zoom-icon">
+                        <ZoomIn size={18} />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {ALL_WORKS_PHOTOS[2] && (
+                  <div
+                    className="gallery-item-card card-half"
+                    onClick={() => setLightboxImage(ALL_WORKS_PHOTOS[2])}
+                  >
+                    <img
+                      src={ALL_WORKS_PHOTOS[2].image}
+                      alt={ALL_WORKS_PHOTOS[2].alt}
+                      loading="lazy"
+                    />
+                    <div className="gallery-item-overlay">
+                      <div className="gallery-zoom-icon">
+                        <ZoomIn size={18} />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Right Tall Column Card */}
+            {ALL_WORKS_PHOTOS[3] && (
+              <div
+                className="gallery-item-card card-tall-right"
+                onClick={() => setLightboxImage(ALL_WORKS_PHOTOS[3])}
+              >
+                <img
+                  src={ALL_WORKS_PHOTOS[3].image}
+                  alt={ALL_WORKS_PHOTOS[3].alt}
+                  loading="lazy"
+                />
+                <div className="gallery-item-overlay">
+                  <div className="gallery-zoom-icon">
+                    <ZoomIn size={18} />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Group 2: Full-Width Feature Panoramic Photo */}
+          {ALL_WORKS_PHOTOS[4] && (
+            <div
+              className="gallery-item-card card-full-wide"
+              onClick={() => setLightboxImage(ALL_WORKS_PHOTOS[4])}
+            >
+              <img
+                src={ALL_WORKS_PHOTOS[4].image}
+                alt={ALL_WORKS_PHOTOS[4].alt}
+                loading="lazy"
+              />
+              <div className="gallery-item-overlay">
+                <div className="gallery-zoom-icon">
+                  <ZoomIn size={18} />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Group 3: Balanced 2-Column Split */}
+          <div className="gallery-group-pair">
+            {ALL_WORKS_PHOTOS[5] && (
+              <div
+                className="gallery-item-card card-pair-item"
+                onClick={() => setLightboxImage(ALL_WORKS_PHOTOS[5])}
+              >
+                <img
+                  src={ALL_WORKS_PHOTOS[5].image}
+                  alt={ALL_WORKS_PHOTOS[5].alt}
+                  loading="lazy"
+                />
+                <div className="gallery-item-overlay">
+                  <div className="gallery-zoom-icon">
+                    <ZoomIn size={18} />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {ALL_WORKS_PHOTOS[6] && (
+              <div
+                className="gallery-item-card card-pair-item"
+                onClick={() => setLightboxImage(ALL_WORKS_PHOTOS[6])}
+              >
+                <img
+                  src={ALL_WORKS_PHOTOS[6].image}
+                  alt={ALL_WORKS_PHOTOS[6].alt}
+                  loading="lazy"
+                />
+                <div className="gallery-item-overlay">
+                  <div className="gallery-zoom-icon">
+                    <ZoomIn size={18} />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* ── CTA Button to Full Gallery Page ── */}
+        <div className="gallery-footer-cta">
+          <Link href="/gallery" className="gallery-btn-explore">
+            <span>View All Studio Photos</span>
+            <ArrowRight size={16} />
+          </Link>
+        </div>
+      </div>
+
+      {/* ── Lightbox Modal (Clean Full Image) ── */}
+      {lightboxImage && (
+        <div
+          className="gallery-lightbox-backdrop"
+          onClick={() => setLightboxImage(null)}
+        >
+          <div
+            className="gallery-lightbox-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="gallery-lightbox-close"
+              onClick={() => setLightboxImage(null)}
+              aria-label="Close image"
+            >
+              <X size={20} />
+            </button>
+            <img
+              src={lightboxImage.image}
+              alt={lightboxImage.alt}
+              className="gallery-lightbox-img"
+            />
+          </div>
+        </div>
+      )}
+
       <style>{`
-        @keyframes marqueeScrollLeft {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-
-        @keyframes marqueeScrollRight {
-          0% {
-            transform: translateX(-50%);
-          }
-          100% {
-            transform: translateX(0);
-          }
-        }
-
-        .gallery-marquee-track-left {
-          display: flex;
-          width: max-content;
-          gap: 13px;
-          animation: marqueeScrollLeft 36s linear infinite;
-          will-change: transform;
-        }
-
-        .gallery-marquee-track-right {
-          display: flex;
-          width: max-content;
-          gap: 13px;
-          animation: marqueeScrollRight 36s linear infinite;
-          will-change: transform;
-        }
-
-        .marquee-paused .gallery-marquee-track-left,
-        .marquee-paused .gallery-marquee-track-right,
-        .gallery-marquee-row:hover .gallery-marquee-track-left,
-        .gallery-marquee-row:hover .gallery-marquee-track-right {
-          animation-play-state: paused !important;
-        }
-
-        .gallery-card-item {
+        .gallery-ref-root {
           position: relative;
-          flex-shrink: 0;
-          width: clamp(140px, 13vw, 195px);
-          height: clamp(140px, 13vw, 195px);
-          border-radius: 14px;
+          background: #ffffff;
+          padding: 85px 20px 95px;
           overflow: hidden;
-          cursor: pointer;
-          background-color: #0f172a;
-          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
-          transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
-          border: 1.5px solid rgba(255, 255, 255, 0.2);
+          box-sizing: border-box;
+          border-top: 1px solid #f1f5f9;
         }
 
-        .gallery-card-item:hover {
-          transform: translateY(-3px) scale(1.04);
-          box-shadow: 0 14px 30px rgba(0, 0, 0, 0.38);
-          border-color: rgba(255, 255, 255, 0.8);
-          z-index: 10;
+        .gallery-ref-container {
+          max-width: 1040px;
+          margin: 0 auto;
         }
 
-        .gallery-card-overlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(to top, rgba(15, 23, 42, 0.94) 0%, rgba(15, 23, 42, 0.4) 60%, transparent 100%);
-          opacity: 0;
-          transition: opacity 0.3s ease;
+        /* ── Header ── */
+        .gallery-ref-header {
           display: flex;
           flex-direction: column;
-          justifyContent: flex-end;
-          padding: 12px;
+          align-items: center;
+          text-align: center;
+          margin-bottom: 36px;
         }
 
-        .gallery-card-item:hover .gallery-card-overlay {
-          opacity: 1;
+        .gallery-avatar-wrap {
+          margin-bottom: 14px;
         }
 
-        .gallery-card-item img {
+        .gallery-avatar-inner {
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
+        }
+
+        .gallery-ref-title {
+          font-size: clamp(2rem, 3.2vw, 2.75rem);
+          font-weight: 600;
+          color: #0f172a;
+          letter-spacing: -0.025em;
+          margin: 0 0 10px;
+          line-height: 1.2;
+        }
+
+        .gallery-ref-subtitle {
+          font-size: 15px;
+          color: #64748b;
+          max-width: 580px;
+          margin: 0;
+          line-height: 1.6;
+        }
+
+        /* ── Mosaic Wrap ── */
+        .gallery-mosaic-wrap {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        /* ── Base Card ── */
+        .gallery-item-card {
+          position: relative;
+          border-radius: 14px;
+          overflow: hidden;
+          background: #0f172a;
+          cursor: pointer;
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+          border: 1px solid #e2e8f0;
+          box-shadow: 0 3px 12px rgba(15, 23, 42, 0.05);
+        }
+
+        .gallery-item-card img {
           width: 100%;
           height: 100%;
           object-fit: cover;
           display: block;
-          transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .gallery-card-item:hover img {
-          transform: scale(1.08);
+        .gallery-item-card:hover img {
+          transform: scale(1.04);
+        }
+
+        .gallery-item-card:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 12px 28px rgba(239, 68, 68, 0.16);
+          border-color: #fca5a5;
+        }
+
+        /* Hover Overlay */
+        .gallery-item-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(180deg, transparent 50%, rgba(15, 23, 42, 0.6) 100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          transition: opacity 0.25s ease;
+        }
+
+        .gallery-item-card:hover .gallery-item-overlay {
+          opacity: 1;
+        }
+
+        .gallery-zoom-icon {
+          width: 42px;
+          height: 42px;
+          border-radius: 50%;
+          background: rgba(239, 68, 68, 0.9);
+          color: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+          transform: scale(0.85);
+          transition: transform 0.25s ease;
+        }
+
+        .gallery-item-card:hover .gallery-zoom-icon {
+          transform: scale(1);
+        }
+
+        /* ── Group 1: Asymmetric Split ── */
+        .gallery-group-split {
+          display: grid;
+          grid-template-columns: 1.15fr 0.85fr;
+          gap: 16px;
+          min-height: 440px;
+        }
+
+        .gallery-split-left-col {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .card-top-med {
+          height: 250px;
+        }
+
+        .gallery-split-bottom-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+          height: 174px;
+        }
+
+        .card-half {
+          height: 100%;
+        }
+
+        .card-tall-right {
+          height: 100%;
+          min-height: 440px;
+        }
+
+        /* ── Group 2: Full Panoramic ── */
+        .card-full-wide {
+          height: 310px;
+          width: 100%;
+        }
+
+        /* ── Group 3: Pair ── */
+        .gallery-group-pair {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+          height: 250px;
+        }
+
+        .card-pair-item {
+          height: 100%;
+        }
+
+        /* ── Footer CTA ── */
+        .gallery-footer-cta {
+          margin-top: 36px;
+          display: flex;
+          justify-content: center;
+        }
+
+        .gallery-btn-explore {
+          display: inline-flex;
+          align-items: center;
+          gap: 9px;
+          padding: 13px 28px;
+          background: #0f172a;
+          color: #ffffff;
+          font-size: 14px;
+          font-weight: 700;
+          border-radius: 999px;
+          text-decoration: none;
+          box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+          transition: all 0.25s ease;
+        }
+
+        .gallery-btn-explore:hover {
+          background: #dc2626;
+          box-shadow: 0 6px 20px rgba(220, 38, 38, 0.35);
+          transform: translateY(-2px);
+        }
+
+        /* ── Lightbox ── */
+        .gallery-lightbox-backdrop {
+          position: fixed;
+          inset: 0;
+          background: rgba(15, 23, 42, 0.94);
+          backdrop-filter: blur(10px);
+          z-index: 9999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+        }
+
+        .gallery-lightbox-modal {
+          position: relative;
+          max-width: 960px;
+          width: 100%;
+          max-height: 90vh;
+          border-radius: 16px;
+          overflow: hidden;
+          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          background: #000000;
+        }
+
+        .gallery-lightbox-close {
+          position: absolute;
+          top: 14px;
+          right: 14px;
+          z-index: 10;
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: rgba(0, 0, 0, 0.7);
+          border: 1px solid rgba(255, 255, 255, 0.25);
+          color: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .gallery-lightbox-close:hover {
+          background: #dc2626;
+        }
+
+        .gallery-lightbox-img {
+          width: 100%;
+          max-height: 85vh;
+          object-fit: contain;
+          display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+          .gallery-group-split {
+            grid-template-columns: 1fr;
+            min-height: auto;
+          }
+          .card-tall-right {
+            height: 250px;
+            min-height: 250px;
+          }
+          .card-full-wide {
+            height: 220px;
+          }
+          .gallery-group-pair {
+            grid-template-columns: 1fr;
+            height: auto;
+          }
+          .card-pair-item {
+            height: 220px;
+          }
         }
       `}</style>
-
-      {/* Background radial highlight glow */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: "0",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "900px",
-          height: "360px",
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
-
-      {/* ── Section Header (Matches Screenshot Layout) ── */}
-      <div
-        className="container"
-        style={{
-          maxWidth: "1400px",
-          margin: "0 auto",
-          padding: "0 28px",
-          marginBottom: "36px",
-          position: "relative",
-          zIndex: 2,
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            gap: "24px",
-          }}
-        >
-          {/* Title & Subtitle Left Side */}
-          <div style={{ maxWidth: "680px" }}>
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "6px",
-                background: "rgba(0, 0, 0, 0.18)",
-                backdropFilter: "blur(8px)",
-                WebkitBackdropFilter: "blur(8px)",
-                color: "#ffffff",
-                border: "1px solid rgba(255, 255, 255, 0.25)",
-                borderRadius: "9999px",
-                fontSize: "11px",
-                fontWeight: 800,
-                padding: "5px 14px",
-                marginBottom: "12px",
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-              }}
-            >
-              ✦ REAL TRANSFORMATIONS
-            </div>
-
-            <h2
-              style={{
-                fontSize: "clamp(2.2rem, 4.2vw, 3.4rem)",
-                fontWeight: 900,
-                letterSpacing: "-0.03em",
-                color: "#0a0a0a",
-                margin: "0 0 10px",
-                lineHeight: 1.1,
-              }}
-            >
-              Our Work
-            </h2>
-            <p
-              style={{
-                fontSize: "clamp(14px, 1.1vw, 16px)",
-                color: "rgba(10, 10, 10, 0.85)",
-                lineHeight: 1.6,
-                margin: 0,
-                fontWeight: 500,
-              }}
-            >
-              Take a look at our signature car detailing projects across Hyderabad. From deep snow foam wash rituals to
-              9H ceramic coatings and flawless self-healing PPF wraps.
-            </p>
-          </div>
-
-          {/* Right Side Actions: Pause/Play toggle + "See Details →" button */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "14px",
-              flexWrap: "wrap",
-            }}
-          >
-            {/* Pause / Resume Button */}
-            <button
-              onClick={() => setIsPaused(!isPaused)}
-              aria-label={isPaused ? "Resume movement" : "Pause movement"}
-              title={isPaused ? "Resume movement" : "Pause movement"}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "6px",
-                background: "rgba(0, 0, 0, 0.2)",
-                color: "#ffffff",
-                border: "1px solid rgba(255, 255, 255, 0.3)",
-                borderRadius: "9999px",
-                padding: "10px 16px",
-                fontSize: "13px",
-                fontWeight: 700,
-                cursor: "pointer",
-                transition: "all 0.2s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(0, 0, 0, 0.35)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "rgba(0, 0, 0, 0.2)";
-              }}
-            >
-              {isPaused ? <Play size={14} /> : <Pause size={14} />}
-              {isPaused ? "Play Motion" : "Pause"}
-            </button>
-
-            {/* Black Pill Button matching the screenshot: "See Details →" */}
-            <Link
-              href="/gallery"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                background: "#000000",
-                color: "#ffffff",
-                borderRadius: "9999px",
-                padding: "12px 26px",
-                fontSize: "14px",
-                fontWeight: 800,
-                letterSpacing: "0.02em",
-                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.28)",
-                transition: "all 0.25s ease",
-                border: "1px solid rgba(255, 255, 255, 0.15)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#18181b";
-                e.currentTarget.style.transform = "translateY(-2px)";
-                e.currentTarget.style.boxShadow = "0 12px 28px rgba(0, 0, 0, 0.38)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "#000000";
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.28)";
-              }}
-            >
-              See Details <ArrowRight size={16} />
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* ── Marquee Containers: Two Opposing Rows ── */}
-      <div
-        className={isPaused ? "marquee-paused" : ""}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "13px",
-          width: "100%",
-          position: "relative",
-        }}
-      >
-        {/* ROW 1: Slides LEFT */}
-        <div
-          className="gallery-marquee-row"
-          style={{
-            overflow: "hidden",
-            width: "100%",
-            display: "flex",
-            maskImage: "linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%)",
-          }}
-        >
-          <div className="gallery-marquee-track-left">
-            {/* Repeat array twice for continuous seamless loop */}
-            {[...row1Cards, ...row1Cards].map((card, idx) => (
-              <div
-                key={`r1-${card.id}-${idx}`}
-                className="gallery-card-item"
-                onClick={() => setSelectedCard(card)}
-              >
-                <img src={card.image} alt={card.title} loading="lazy" />
-                <div className="gallery-card-overlay">
-                  <span
-                    style={{
-                      display: "inline-block",
-                      fontSize: "9px",
-                      fontWeight: 800,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
-                      color: "#fca5a5",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    {card.category}
-                  </span>
-                  <h4
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: 800,
-                      color: "#ffffff",
-                      margin: "0 0 5px",
-                      lineHeight: 1.25,
-                      textShadow: "0 2px 4px rgba(0,0,0,0.8)",
-                    }}
-                  >
-                    {card.title}
-                  </h4>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "4px",
-                      fontSize: "10px",
-                      fontWeight: 700,
-                      color: "#ffffff",
-                    }}
-                  >
-                    <ZoomIn size={12} /> Click to View
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ROW 2: Slides RIGHT */}
-        <div
-          className="gallery-marquee-row"
-          style={{
-            overflow: "hidden",
-            width: "100%",
-            display: "flex",
-            maskImage: "linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%)",
-          }}
-        >
-          <div className="gallery-marquee-track-right">
-            {/* Repeat array twice for continuous seamless loop */}
-            {[...row2Cards, ...row2Cards].map((card, idx) => (
-              <div
-                key={`r2-${card.id}-${idx}`}
-                className="gallery-card-item"
-                onClick={() => setSelectedCard(card)}
-              >
-                <img src={card.image} alt={card.title} loading="lazy" />
-                <div className="gallery-card-overlay">
-                  <span
-                    style={{
-                      display: "inline-block",
-                      fontSize: "9px",
-                      fontWeight: 800,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
-                      color: "#fca5a5",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    {card.category}
-                  </span>
-                  <h4
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: 800,
-                      color: "#ffffff",
-                      margin: "0 0 5px",
-                      lineHeight: 1.25,
-                      textShadow: "0 2px 4px rgba(0,0,0,0.8)",
-                    }}
-                  >
-                    {card.title}
-                  </h4>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "4px",
-                      fontSize: "10px",
-                      fontWeight: 700,
-                      color: "#ffffff",
-                    }}
-                  >
-                    <ZoomIn size={12} /> Click to View
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ── Subtle bottom badge indicator ── */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "8px",
-          marginTop: "28px",
-          fontSize: "12px",
-          fontWeight: 700,
-          color: "rgba(255, 255, 255, 0.9)",
-          letterSpacing: "0.04em",
-        }}
-      >
-        <span>✦ Hover over any photo to pause and inspect details</span>
-      </div>
-
-      {/* ── Fullscreen Lightbox Modal ── */}
-      {selectedCard && (
-        <div
-          onClick={() => setSelectedCard(null)}
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 9999,
-            backgroundColor: "rgba(8, 10, 15, 0.94)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "24px",
-            animation: "fadeIn 0.25s ease",
-          }}
-        >
-          {/* Close button */}
-          <button
-            onClick={() => setSelectedCard(null)}
-            aria-label="Close image modal"
-            style={{
-              position: "absolute",
-              top: "24px",
-              right: "24px",
-              width: "44px",
-              height: "44px",
-              borderRadius: "50%",
-              background: "rgba(255, 255, 255, 0.12)",
-              border: "1px solid rgba(255, 255, 255, 0.2)",
-              color: "#ffffff",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-              transition: "all 0.2s ease",
-              zIndex: 10,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "#dc2626";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "rgba(255, 255, 255, 0.12)";
-            }}
-          >
-            <X size={22} />
-          </button>
-
-          {/* Modal Container */}
-          <div
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              maxWidth: "920px",
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            {/* Image Preview */}
-            <div
-              style={{
-                position: "relative",
-                width: "100%",
-                maxHeight: "68vh",
-                borderRadius: "20px",
-                overflow: "hidden",
-                boxShadow: "0 25px 60px rgba(0, 0, 0, 0.65)",
-                border: "1px solid rgba(255, 255, 255, 0.15)",
-                backgroundColor: "#000000",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <img
-                src={selectedCard.image}
-                alt={selectedCard.title}
-                style={{
-                  maxWidth: "100%",
-                  maxHeight: "68vh",
-                  objectFit: "contain",
-                  display: "block",
-                }}
-              />
-
-              {/* Prev Button */}
-              <button
-                onClick={handlePrev}
-                aria-label="Previous image"
-                style={{
-                  position: "absolute",
-                  left: "16px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  width: "42px",
-                  height: "42px",
-                  borderRadius: "50%",
-                  background: "rgba(0, 0, 0, 0.6)",
-                  border: "1px solid rgba(255, 255, 255, 0.25)",
-                  color: "#ffffff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  cursor: "pointer",
-                  transition: "all 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "#dc2626";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(0, 0, 0, 0.6)";
-                }}
-              >
-                <ChevronLeft size={20} />
-              </button>
-
-              {/* Next Button */}
-              <button
-                onClick={handleNext}
-                aria-label="Next image"
-                style={{
-                  position: "absolute",
-                  right: "16px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  width: "42px",
-                  height: "42px",
-                  borderRadius: "50%",
-                  background: "rgba(0, 0, 0, 0.6)",
-                  border: "1px solid rgba(255, 255, 255, 0.25)",
-                  color: "#ffffff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  cursor: "pointer",
-                  transition: "all 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "#dc2626";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(0, 0, 0, 0.6)";
-                }}
-              >
-                <ChevronRight size={20} />
-              </button>
-            </div>
-
-            {/* Description & Details Info Bar */}
-            <div
-              style={{
-                width: "100%",
-                marginTop: "18px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                flexWrap: "wrap",
-                gap: "14px",
-                color: "#ffffff",
-              }}
-            >
-              <div>
-                <span
-                  style={{
-                    display: "inline-block",
-                    fontSize: "11px",
-                    fontWeight: 800,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.1em",
-                    color: "#f87171",
-                    marginBottom: "4px",
-                  }}
-                >
-                  {selectedCard.category}
-                </span>
-                <h3 style={{ fontSize: "20px", fontWeight: 800, margin: "0 0 4px" }}>
-                  {selectedCard.title}
-                </h3>
-                <p style={{ fontSize: "14px", color: "rgba(255, 255, 255, 0.75)", margin: 0 }}>
-                  {selectedCard.description}
-                </p>
-              </div>
-
-              <Link
-                href="/booking"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  background: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
-                  color: "#ffffff",
-                  padding: "10px 22px",
-                  borderRadius: "9999px",
-                  fontWeight: 700,
-                  fontSize: "13px",
-                  boxShadow: "0 4px 15px rgba(220, 38, 38, 0.4)",
-                }}
-              >
-                Book This Service <ArrowRight size={14} />
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }

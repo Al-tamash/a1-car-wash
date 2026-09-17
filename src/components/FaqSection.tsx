@@ -20,7 +20,7 @@ const faqs = [
     id: "appointment",
     question: "Do I have to make an appointment for a car wash?",
     answer:
-      "Walk-ins are always welcome for our Express 25-minute bays. However, for full interior detailing, deep steam wash, or 9H ceramic coatings, we recommend booking a slot in advance to avoid waiting."
+      "Walk-ins are always welcome for our Body Wash bays. However, for 7-Seater or 5-Seater Full Car Wash (with Jack Lift, Oil & Diesel Wash), Interior Deep Cleaning, Teflon Coating, or Underbody Anti-Rust Treatment, we recommend booking in advance or messaging us on WhatsApp (70452 82473) for prompt bay allocation."
   },
   {
     id: "contact",
@@ -55,8 +55,8 @@ export default function FaqSection() {
         {/* Section Heading */}
         <h2
           style={{
-            fontSize: "clamp(2rem, 3.5vw, 2.8rem)",
-            fontWeight: 900,
+            fontSize: "clamp(2rem, 3.2vw, 2.75rem)",
+            fontWeight: 600,
             color: "#172554",
             textAlign: "center",
             letterSpacing: "-0.02em",
