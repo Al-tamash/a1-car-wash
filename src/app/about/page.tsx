@@ -5,6 +5,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HowItWorks from "@/components/HowItWorks";
+import StoreLocator from "@/components/StoreLocator";
 import "@/components/AboutSection.css";
 import {
   MapPin,
@@ -72,12 +73,12 @@ export default function AboutPage() {
           {/* Heading: About A1 Car Wash */}
           <h1
             style={{
-              fontSize: "clamp(2.4rem, 4.2vw, 3.4rem)",
-              fontWeight: 800,
-              letterSpacing: "-0.03em",
+              fontSize: "clamp(2rem, 3.2vw, 2.75rem)",
+              fontWeight: 600,
+              letterSpacing: "-0.02em",
               color: "#0f172a",
               marginBottom: "16px",
-              lineHeight: 1.15,
+              lineHeight: 1.2,
             }}
           >
             About <span style={{ color: "#dc2626" }}>A1 Car Wash</span>
@@ -201,9 +202,9 @@ export default function AboutPage() {
               <h2
                 style={{
                   fontSize: "clamp(2rem, 3.2vw, 2.75rem)",
-                  fontWeight: 800,
+                  fontWeight: 600,
                   color: "#0f172a",
-                  letterSpacing: "-0.025em",
+                  letterSpacing: "-0.02em",
                   lineHeight: 1.2,
                   marginBottom: "18px",
                 }}
@@ -351,6 +352,9 @@ export default function AboutPage() {
 
       {/* ── 3. HOW IT WORKS SECTION ── */}
       <HowItWorks />
+
+      {/* ── 4. STORE LOCATIONS SECTION ── */}
+      <StoreLocator />
 
       <Footer />
 
