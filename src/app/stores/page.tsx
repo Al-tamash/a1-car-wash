@@ -4,6 +4,7 @@ import React from "react";
 import Navbar from "@/components/Navbar";
 import ServicesSection from "@/components/ServicesSection";
 import AboutSection from "@/components/AboutSection";
+import PricingSection from "@/components/PricingSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FaqSection from "@/components/FaqSection";
 import VirtualToolsSection from "@/components/VirtualToolsSection";
@@ -48,6 +49,9 @@ export default function StoresPage() {
 
       {/* About Section */}
       <AboutSection />
+
+      {/* Pricing & Packages Section */}
+      <PricingSection />
 
       {/* Reviews (Testimonials) Section */}
       <TestimonialsSection />

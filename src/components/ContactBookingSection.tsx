@@ -179,16 +179,28 @@ export default function ContactBookingSection({
                   </a>
                 </div>
 
-                <iframe
-                  src={activeStore ? activeStore.mapEmbedUrl : STORES_DATA[0].mapEmbedUrl}
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0, width: "100%", height: "100%", minHeight: "560px", display: "block" }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title={`${activeStore?.name || "A1 Car Wash"} Map`}
-                />
+                {/* Map iframe wrapped with offset so Google Maps native top-left box ("No reviews") is clipped out */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "-110px",
+                    left: 0,
+                    width: "100%",
+                    height: "calc(100% + 110px)",
+                    overflow: "hidden",
+                  }}
+                >
+                  <iframe
+                    src={activeStore ? activeStore.mapEmbedUrl : STORES_DATA[0].mapEmbedUrl}
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0, width: "100%", height: "100%", display: "block" }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title={`${activeStore?.name || "A1 Car Wash"} Map`}
+                  />
+                </div>
               </div>
             </div>
           )}

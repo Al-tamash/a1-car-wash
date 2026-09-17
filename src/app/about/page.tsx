@@ -1,303 +1,374 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
-import AboutSection from "@/components/AboutSection";
-import ContactBookingSection from "@/components/ContactBookingSection";
 import Footer from "@/components/Footer";
-import { Award } from "lucide-react";
+import HowItWorks from "@/components/HowItWorks";
+import "@/components/AboutSection.css";
+import {
+  MapPin,
+  CheckCircle2,
+  ChevronRight,
+  ArrowRight,
+  Sparkles,
+} from "lucide-react";
 
 export default function AboutPage() {
   return (
-    <main style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+    <main style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "#ffffff" }}>
       <Navbar />
 
-      {/* Hero Section */}
-      <section style={{
-        padding: "115px 0 45px",
-        background: "linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%)",
-        textAlign: "center"
-      }}>
-        <div className="container" style={{ maxWidth: "800px" }}>
-          <div className="badge-pill badge-glow" style={{ marginBottom: "14px" }}>
-            <Award size={14} style={{ color: "#0284c7" }} />
-            <span>EXCELLENCE IN AUTOMOTIVE CARE</span>
-          </div>
-          <h1 style={{
-            fontSize: "clamp(2rem, 3.2vw, 2.75rem)",
-            fontWeight: 600,
-            letterSpacing: "-0.02em",
-            color: "#0f172a",
-            marginBottom: "16px"
-          }}>
-            A1 CAR WASH — <span style={{ color: "#dc2626" }}>Quality Car Cleaning &amp; Detailing</span>
-          </h1>
-        </div>
-      </section>
+      {/* ── 1. OUR STORY HERO BANNER ── */}
+      <section
+        style={{
+          padding: "125px 20px 50px",
+          background: "linear-gradient(180deg, #fef2f2 0%, #fff7ed 40%, #ffffff 100%)",
+          textAlign: "center",
+          position: "relative",
+          overflow: "hidden",
+          borderBottom: "1px solid #f1f5f9",
+        }}
+      >
+        {/* Subtle decorative glow */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            top: "-40px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "600px",
+            height: "220px",
+            background: "radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, transparent 70%)",
+            filter: "blur(40px)",
+            pointerEvents: "none",
+          }}
+        />
 
-      {/* Redesigned 2-Column About Section */}
-      <AboutSection />
-
-      {/* Dedicated Studio & Facility Showcase */}
-      <section style={{ padding: "70px 0 80px", background: "#ffffff" }}>
-        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 24px" }}>
-          <div style={{ textAlign: "center", marginBottom: "48px" }}>
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "6px",
-                background: "#fef2f2",
-                color: "#dc2626",
-                border: "1px solid #fee2e2",
-                borderRadius: "9999px",
-                fontSize: "12px",
-                fontWeight: 800,
-                padding: "5px 16px",
-                marginBottom: "12px",
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-              }}
-            >
-              REAL STUDIO &amp; WASH BAY PHOTOS
-            </div>
-            <h2
-              style={{
-                fontSize: "clamp(1.8rem, 3vw, 2.5rem)",
-                fontWeight: 600,
-                letterSpacing: "-0.025em",
-                color: "#0f172a",
-                margin: "0 0 10px",
-              }}
-            >
-              Inside <span style={{ color: "#dc2626" }}>A1 Car Wash</span> Studio
-            </h2>
-            <p
-              style={{
-                fontSize: "15px",
-                color: "#64748b",
-                maxWidth: "640px",
-                margin: "0 auto",
-                lineHeight: 1.6,
-              }}
-            >
-              Take a look inside our flagship facility located at Mehfil Restaurant, Raidurg, Darga Chowrasta. Equipped with professional washing bays, studio LED detailing suites, and dedicated bike wash zones.
-            </p>
-          </div>
-
-          {/* 3 Images Grid */}
+        <div style={{ maxWidth: "860px", margin: "0 auto", position: "relative", zIndex: 1 }}>
+          {/* Badge: OUR STORY */}
           <div
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-              gap: "28px",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              background: "#fee2e2",
+              color: "#dc2626",
+              border: "1px solid rgba(220, 38, 38, 0.22)",
+              borderRadius: "9999px",
+              fontSize: "12px",
+              fontWeight: 800,
+              padding: "5px 18px",
+              marginBottom: "16px",
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              boxShadow: "0 2px 8px rgba(220, 38, 38, 0.08)",
             }}
           >
-            {/* Image 1: Main Wash Bay with Rate Board */}
-            <div
-              style={{
-                background: "#ffffff",
-                borderRadius: "20px",
-                border: "1px solid #e2e8f0",
-                overflow: "hidden",
-                boxShadow: "0 4px 20px rgba(15, 23, 42, 0.05)",
-                display: "flex",
-                flexDirection: "column",
-                transition: "transform 0.3s ease, box-shadow 0.3s ease",
-              }}
-            >
-              <div style={{ position: "relative", height: "260px", overflow: "hidden" }}>
-                <img
-                  src="/gallery/about-bay-ratecard.jpg"
-                  alt="A1 Car Wash Main Wash Bay and Official Rate Card Board"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-                <span
-                  style={{
-                    position: "absolute",
-                    top: "14px",
-                    left: "14px",
-                    background: "rgba(15, 23, 42, 0.8)",
-                    backdropFilter: "blur(6px)",
-                    color: "#ffffff",
-                    fontSize: "11px",
-                    fontWeight: 800,
-                    padding: "4px 12px",
-                    borderRadius: "9999px",
-                    border: "1px solid rgba(255,255,255,0.2)",
-                  }}
-                >
-                  MAIN WASH BAY
-                </span>
-                <span
-                  style={{
-                    position: "absolute",
-                    bottom: "14px",
-                    right: "14px",
-                    background: "#dc2626",
-                    color: "#ffffff",
-                    fontSize: "11px",
-                    fontWeight: 700,
-                    padding: "4px 10px",
-                    borderRadius: "6px",
-                  }}
-                >
-                  100% Rate Transparency
-                </span>
-              </div>
-              <div style={{ padding: "22px" }}>
-                <h3 style={{ fontSize: "19px", fontWeight: 700, color: "#0f172a", margin: "0 0 8px" }}>
-                  Active Wash Bay &amp; Official Tariff Board
-                </h3>
-                <p style={{ fontSize: "13.5px", color: "#64748b", lineHeight: 1.6, margin: 0 }}>
-                  Our spacious wash bay features high-pressure water spray guns, chemical storage racks, and our official price list board displayed openly so you always know what you pay.
-                </p>
-              </div>
-            </div>
+            <span>OUR STORY</span>
+          </div>
 
-            {/* Image 2: Studio Detailing & LED Setup */}
-            <div
+          {/* Heading: About A1 Car Wash */}
+          <h1
+            style={{
+              fontSize: "clamp(2.4rem, 4.2vw, 3.4rem)",
+              fontWeight: 800,
+              letterSpacing: "-0.03em",
+              color: "#0f172a",
+              marginBottom: "16px",
+              lineHeight: 1.15,
+            }}
+          >
+            About <span style={{ color: "#dc2626" }}>A1 Car Wash</span>
+          </h1>
+
+          {/* Subtitle */}
+          <p
+            style={{
+              fontSize: "clamp(15px, 1.5vw, 17.5px)",
+              color: "#475569",
+              maxWidth: "680px",
+              margin: "0 auto 22px",
+              lineHeight: 1.65,
+              fontWeight: 400,
+            }}
+          >
+            We are more than a car wash service — we are your trusted automotive care and detailing partners in Hyderabad.
+          </p>
+
+          {/* Breadcrumbs: Home > About Us */}
+          <nav
+            aria-label="Breadcrumb"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              fontSize: "13.5px",
+              color: "#64748b",
+              background: "rgba(255, 255, 255, 0.85)",
+              backdropFilter: "blur(8px)",
+              padding: "6px 18px",
+              borderRadius: "9999px",
+              border: "1px solid #e2e8f0",
+              boxShadow: "0 2px 8px rgba(15, 23, 42, 0.04)",
+            }}
+          >
+            <Link
+              href="/"
               style={{
-                background: "#ffffff",
-                borderRadius: "20px",
-                border: "1px solid #e2e8f0",
-                overflow: "hidden",
-                boxShadow: "0 4px 20px rgba(15, 23, 42, 0.05)",
-                display: "flex",
-                flexDirection: "column",
-                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                color: "#dc2626",
+                textDecoration: "none",
+                fontWeight: 600,
+                display: "inline-flex",
+                alignItems: "center",
+                transition: "color 0.2s",
               }}
             >
-              <div style={{ position: "relative", height: "260px", overflow: "hidden" }}>
+              Home
+            </Link>
+            <ChevronRight size={14} style={{ color: "#94a3b8" }} />
+            <span style={{ color: "#0f172a", fontWeight: 600 }}>About Us</span>
+          </nav>
+        </div>
+      </section>
+
+      {/* ── 2. WHO WE ARE & WELCOME SECTION (WITH COMPOSITE IMAGE + PRESERVED ABOUT CONTENT) ── */}
+      <section style={{ padding: "80px 20px 95px", background: "#ffffff", overflow: "hidden" }}>
+        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 12px" }}>
+          <div className="about-custom-grid">
+            {/* ──── LEFT: LAYERED COMPOSITE IMAGE (FORTUNER + INSET BIKE + 25K+ POPUP) ──── */}
+            <div className="about-new-visual-wrap" style={{ margin: "0 auto" }}>
+              {/* Main Chamfered Corner Image */}
+              <div className="about-new-main-img-box">
                 <img
                   src="/gallery/about-fortuner-studio.jpg"
-                  alt="Toyota Fortuner in Detailing Studio under Precision LED Lights"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
+                  alt="A1 Car Detailing Studio Under Inspection Lights"
+                  loading="lazy"
                 />
-                <span
-                  style={{
-                    position: "absolute",
-                    top: "14px",
-                    left: "14px",
-                    background: "rgba(15, 23, 42, 0.8)",
-                    backdropFilter: "blur(6px)",
-                    color: "#ffffff",
-                    fontSize: "11px",
-                    fontWeight: 800,
-                    padding: "4px 12px",
-                    borderRadius: "9999px",
-                    border: "1px solid rgba(255,255,255,0.2)",
-                  }}
-                >
-                  DETAILING STUDIO
-                </span>
-                <span
-                  style={{
-                    position: "absolute",
-                    bottom: "14px",
-                    right: "14px",
-                    background: "#0284c7",
-                    color: "#ffffff",
-                    fontSize: "11px",
-                    fontWeight: 700,
-                    padding: "4px 10px",
-                    borderRadius: "6px",
-                  }}
-                >
-                  Inspection LED Array
-                </span>
               </div>
-              <div style={{ padding: "22px" }}>
-                <h3 style={{ fontSize: "19px", fontWeight: 700, color: "#0f172a", margin: "0 0 8px" }}>
-                  High-Precision Detailing &amp; Polish Suite
-                </h3>
-                <p style={{ fontSize: "13.5px", color: "#64748b", lineHeight: 1.6, margin: 0 }}>
-                  A clean, dust-controlled studio bay equipped with multi-row LED ceiling lights to identify micro-scratches, swirls, and ensure mirror-gloss Teflon and paint protection.
-                </p>
+
+              {/* Inset Top-Right Floating Photo */}
+              <div className="about-new-inset-card">
+                <img
+                  src="/gallery/about-interceptor-bike.jpg"
+                  alt="Master Detailer Foam Washing Two-Wheeler"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Bottom-Left Floating Stat Card */}
+              <div className="about-new-stat-card">
+                <div className="about-stat-top-row">
+                  <span className="about-stat-label">Happy Clients</span>
+                  <div className="about-stat-icon-wrap">
+                    <Sparkles size={16} />
+                  </div>
+                </div>
+                <div className="about-stat-number">25k +</div>
+                <div className="about-stat-bottom-text">
+                  <span>↑ 99%</span>
+                  <span>Satisfaction Rate</span>
+                </div>
               </div>
             </div>
 
-            {/* Image 3: Royal Enfield Interceptor 650 Bike Wash */}
-            <div
-              style={{
-                background: "#ffffff",
-                borderRadius: "20px",
-                border: "1px solid #e2e8f0",
-                overflow: "hidden",
-                boxShadow: "0 4px 20px rgba(15, 23, 42, 0.05)",
-                display: "flex",
-                flexDirection: "column",
-                transition: "transform 0.3s ease, box-shadow 0.3s ease",
-              }}
-            >
-              <div style={{ position: "relative", height: "260px", overflow: "hidden" }}>
-                <img
-                  src="/gallery/about-interceptor-bike.jpg"
-                  alt="Royal Enfield Interceptor 650 Two-Wheeler Wash Bay"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-                <span
-                  style={{
-                    position: "absolute",
-                    top: "14px",
-                    left: "14px",
-                    background: "rgba(15, 23, 42, 0.8)",
-                    backdropFilter: "blur(6px)",
-                    color: "#ffffff",
-                    fontSize: "11px",
-                    fontWeight: 800,
-                    padding: "4px 12px",
-                    borderRadius: "9999px",
-                    border: "1px solid rgba(255,255,255,0.2)",
-                  }}
-                >
-                  TWO-WHEELER BAY
-                </span>
-                <span
-                  style={{
-                    position: "absolute",
-                    bottom: "14px",
-                    right: "14px",
-                    background: "#16a34a",
-                    color: "#ffffff",
-                    fontSize: "11px",
-                    fontWeight: 700,
-                    padding: "4px 10px",
-                    borderRadius: "6px",
-                  }}
-                >
-                  Bullet &amp; Superbike Care
-                </span>
+            {/* ──── RIGHT: PRESERVED ABOUT CONTENT ──── */}
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+              {/* Badge: WHO WE ARE */}
+              <div
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  background: "#fee2e2",
+                  color: "#dc2626",
+                  border: "1px solid rgba(220, 38, 38, 0.22)",
+                  borderRadius: "9999px",
+                  fontSize: "12px",
+                  fontWeight: 800,
+                  padding: "5px 16px",
+                  marginBottom: "14px",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  alignSelf: "flex-start",
+                }}
+              >
+                <span>WHO WE ARE</span>
               </div>
-              <div style={{ padding: "22px" }}>
-                <h3 style={{ fontSize: "19px", fontWeight: 700, color: "#0f172a", margin: "0 0 8px" }}>
-                  Cruiser &amp; Superbike Wash Zone
-                </h3>
-                <p style={{ fontSize: "13.5px", color: "#64748b", lineHeight: 1.6, margin: 0 }}>
-                  Specialized washing bay dedicated to motorcycles and heavy cruisers like Royal Enfield Interceptor and Classic Bullets, featuring diesel degrease and chrome polish.
-                </p>
+
+              {/* Heading: Welcome to A1 Car Wash Service */}
+              <h2
+                style={{
+                  fontSize: "clamp(2rem, 3.2vw, 2.75rem)",
+                  fontWeight: 800,
+                  color: "#0f172a",
+                  letterSpacing: "-0.025em",
+                  lineHeight: 1.2,
+                  marginBottom: "18px",
+                }}
+              >
+                Welcome to <span style={{ color: "#dc2626" }}>A1 Car Wash</span> Service
+              </h2>
+
+              {/* Story Paragraphs */}
+              <p style={{ fontSize: "15.5px", color: "#475569", lineHeight: 1.75, marginBottom: "14px" }}>
+                Founded in Hyderabad, <strong style={{ color: "#0f172a" }}>A1 Car Wash</strong> was born from a simple belief: everyone deserves clean, showroom-perfect vehicles without the hassle, long wait times, or inflated prices. What started as a dedicated high-pressure wash bay has grown into Hyderabad&apos;s trusted network of 6 multi-bay detailing studios.
+              </p>
+
+              <p style={{ fontSize: "15px", color: "#475569", lineHeight: 1.7, marginBottom: "26px" }}>
+                From daily commuter hatchbacks and luxury SUVs to performance superbikes, every vehicle is treated with obsessive care. Equipped with heavy-duty hydraulic jack lifts, automated RO soft-water plants, and touchless pH-neutral snow foam, we protect your vehicle&apos;s clear coat while delivering an immaculate mirror shine.
+              </p>
+
+              {/* 4 Feature Highlights in 2x2 Grid */}
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))",
+                  gap: "14px",
+                  marginBottom: "32px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "10px",
+                    padding: "14px 16px",
+                    background: "#f8fafc",
+                    borderRadius: "14px",
+                    border: "1px solid #e2e8f0",
+                  }}
+                >
+                  <CheckCircle2 size={18} style={{ color: "#dc2626", marginTop: "2px", flexShrink: 0 }} />
+                  <div>
+                    <div style={{ fontSize: "13.5px", fontWeight: 700, color: "#0f172a" }}>100% RO Soft Water</div>
+                    <div style={{ fontSize: "12px", color: "#64748b" }}>Zero chalky mineral marks or hard water spots.</div>
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "10px",
+                    padding: "14px 16px",
+                    background: "#f8fafc",
+                    borderRadius: "14px",
+                    border: "1px solid #e2e8f0",
+                  }}
+                >
+                  <CheckCircle2 size={18} style={{ color: "#dc2626", marginTop: "2px", flexShrink: 0 }} />
+                  <div>
+                    <div style={{ fontSize: "13.5px", fontWeight: 700, color: "#0f172a" }}>Hydraulic Jack Lifts</div>
+                    <div style={{ fontSize: "12px", color: "#64748b" }}>Deep 360° underbody chassis mud extraction.</div>
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "10px",
+                    padding: "14px 16px",
+                    background: "#f8fafc",
+                    borderRadius: "14px",
+                    border: "1px solid #e2e8f0",
+                  }}
+                >
+                  <CheckCircle2 size={18} style={{ color: "#dc2626", marginTop: "2px", flexShrink: 0 }} />
+                  <div>
+                    <div style={{ fontSize: "13.5px", fontWeight: 700, color: "#0f172a" }}>Teflon &amp; 9H Ceramic</div>
+                    <div style={{ fontSize: "12px", color: "#64748b" }}>Advanced hydrophobic gloss &amp; paint protection.</div>
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "10px",
+                    padding: "14px 16px",
+                    background: "#f8fafc",
+                    borderRadius: "14px",
+                    border: "1px solid #e2e8f0",
+                  }}
+                >
+                  <CheckCircle2 size={18} style={{ color: "#dc2626", marginTop: "2px", flexShrink: 0 }} />
+                  <div>
+                    <div style={{ fontSize: "13.5px", fontWeight: 700, color: "#0f172a" }}>6 Hubs in Hyderabad</div>
+                    <div style={{ fontSize: "12px", color: "#64748b" }}>Convenient locations with quick WhatsApp slots.</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div style={{ display: "flex", alignItems: "center", gap: "14px", flexWrap: "wrap" }}>
+                <Link
+                  href="/services"
+                  style={{
+                    background: "#dc2626",
+                    color: "#ffffff",
+                    fontWeight: 700,
+                    fontSize: "14.5px",
+                    padding: "12px 24px",
+                    borderRadius: "12px",
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    boxShadow: "0 6px 20px rgba(220, 38, 38, 0.28)",
+                  }}
+                >
+                  <span>Explore Our Services</span>
+                  <ArrowRight size={16} />
+                </Link>
+
+                <Link
+                  href="/stores"
+                  style={{
+                    background: "#ffffff",
+                    color: "#0f172a",
+                    fontWeight: 700,
+                    fontSize: "14.5px",
+                    padding: "12px 22px",
+                    borderRadius: "12px",
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    border: "1.5px solid #e2e8f0",
+                  }}
+                >
+                  <MapPin size={16} style={{ color: "#dc2626" }} />
+                  <span>Our 6 Locations</span>
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Booking Form */}
-      <ContactBookingSection />
+      {/* ── 3. HOW IT WORKS SECTION ── */}
+      <HowItWorks />
 
       <Footer />
+
+      <style jsx>{`
+        .about-custom-grid {
+          display: grid;
+          grid-template-columns: 1fr 1.2fr;
+          gap: 56px;
+          align-items: center;
+        }
+
+        @media (max-width: 960px) {
+          .about-custom-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+          }
+        }
+      `}</style>
     </main>
   );
 }
