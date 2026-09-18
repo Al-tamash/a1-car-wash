@@ -155,7 +155,7 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
       },
       {
         id: "sports-bike-wash",
-        name: "Sports Bike & Super Bike Detailing",
+        name: "Super Bike Detailing",
         image: "/gallery/real-r15-sports-detailing.jpg",
         badge: "Performance Detailing",
         features: [

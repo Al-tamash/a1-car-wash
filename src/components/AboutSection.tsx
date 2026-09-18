@@ -34,15 +34,17 @@ export default function AboutSection() {
             {/* Bottom-Left Floating Stat Card */}
             <div className="about-new-stat-card">
               <div className="about-stat-top-row">
-                <span className="about-stat-label">Happy Clients</span>
+                <span className="about-stat-label">Est. Since</span>
                 <div className="about-stat-icon-wrap">
                   <Sparkles size={16} />
                 </div>
               </div>
-              <div className="about-stat-number">25k +</div>
+              <div className="about-stat-number">
+                <span style={{ color: "#e53935", fontWeight: 800 }}>1997</span>
+              </div>
               <div className="about-stat-bottom-text">
-                <span>↑ 99%</span>
-                <span>Satisfaction Rate</span>
+                <span>★</span>
+                <span>Trusted for 28+ Years</span>
               </div>
             </div>
           </div>

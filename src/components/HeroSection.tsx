@@ -177,7 +177,7 @@ export default function HeroSection({
 
   const bookingHref =
     primaryButtonHref ||
-    (store ? `/stores/${store.slug}#booking` : "/#contact-booking");
+    (store ? `/stores/${store.slug}#booking` : "/contact");
 
   return (
     <section id="hero" className="cinematic-hero-root">

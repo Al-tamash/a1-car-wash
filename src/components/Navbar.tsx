@@ -554,7 +554,7 @@ export default function Navbar({ currentStoreSlug, solid }: NavbarProps) {
             >
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <MapPin size={16} style={{ color: "#ef4444" }} />
-                <span>Our Studios ({STORES_DATA.length})</span>
+                <span>Our Stores ({STORES_DATA.length})</span>
               </div>
               <ChevronDown
                 size={16}

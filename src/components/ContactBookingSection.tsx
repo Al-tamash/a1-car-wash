@@ -210,12 +210,12 @@ export default function ContactBookingSection({
             style={
               !showMap
                 ? {
-                    background: "#ffffff",
-                    border: "1.5px solid #e2e8f0",
-                    borderRadius: "24px",
-                    padding: "44px 36px",
-                    boxShadow: "0 10px 30px rgba(15, 23, 42, 0.06)",
-                  }
+                  background: "#ffffff",
+                  border: "1.5px solid #e2e8f0",
+                  borderRadius: "24px",
+                  padding: "44px 36px",
+                  boxShadow: "0 10px 30px rgba(15, 23, 42, 0.06)",
+                }
                 : undefined
             }
           >
