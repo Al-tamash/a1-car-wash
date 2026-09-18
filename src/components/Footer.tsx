@@ -155,6 +155,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
+                    className="footer-nav-link"
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -162,10 +163,10 @@ export default function Footer() {
                       fontSize: "14px",
                       color: "#9ca3af",
                       textDecoration: "none",
-                      transition: "color 0.2s"
+                      transition: "all 0.2s ease"
                     }}
                   >
-                    <ChevronRight size={15} style={{ color: "#d97706" }} />
+                    <ChevronRight size={15} style={{ color: "#ef4444", flexShrink: 0 }} />
                     {link.label}
                   </Link>
                 </li>
@@ -196,6 +197,7 @@ export default function Footer() {
                 <li key={service}>
                   <Link
                     href="/services"
+                    className="footer-nav-link"
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -203,10 +205,10 @@ export default function Footer() {
                       fontSize: "14px",
                       color: "#9ca3af",
                       textDecoration: "none",
-                      transition: "color 0.2s"
+                      transition: "all 0.2s ease"
                     }}
                   >
-                    <ChevronRight size={15} style={{ color: "#d97706" }} />
+                    <ChevronRight size={15} style={{ color: "#ef4444", flexShrink: 0 }} />
                     {service}
                   </Link>
                 </li>
@@ -228,20 +230,20 @@ export default function Footer() {
             </h4>
             <div style={{ display: "flex", flexDirection: "column", gap: "16px", fontSize: "14px", color: "#9ca3af" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                <Phone size={18} style={{ color: "#eab308", flexShrink: 0 }} />
+                <Phone size={18} style={{ color: "#ef4444", flexShrink: 0 }} />
                 <a href="tel:7045282473" style={{ color: "#ffffff", fontWeight: 600, textDecoration: "none" }}>
                   +91 70452 82473
                 </a>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                <Mail size={18} style={{ color: "#eab308", flexShrink: 0 }} />
-                <a href="mailto:care@a1carwash.in" style={{ color: "#9ca3af", textDecoration: "none" }}>
+                <Mail size={18} style={{ color: "#ef4444", flexShrink: 0 }} />
+                <a href="mailto:care@a1carwash.in" style={{ color: "#ffffff", textDecoration: "none" }}>
                   care@a1carwash.in
                 </a>
               </div>
               <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
-                <MapPin size={18} style={{ color: "#eab308", flexShrink: 0, marginTop: "2px" }} />
-                <span>Mehfil Restaurant, Raidurg, Darga Chowrasta, Film Nagar Road, Hyderabad, Telangana – 500104</span>
+                <MapPin size={18} style={{ color: "#ef4444", flexShrink: 0, marginTop: "2px" }} />
+                <span style={{ color: "#d1d5db" }}>Mehfil Restaurant, Raidurg, Darga Chowrasta, Film Nagar Road, Hyderabad, Telangana – 500104</span>
               </div>
             </div>
           </div>
@@ -268,6 +270,10 @@ export default function Footer() {
       </div>
 
       <style>{`
+        .footer-nav-link:hover {
+          color: #ffffff !important;
+          transform: translateX(4px);
+        }
         @media (max-width: 900px) {
           .footer-columns-grid {
             grid-template-columns: 1fr 1fr !important;
