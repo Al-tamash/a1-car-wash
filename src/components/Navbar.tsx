@@ -393,9 +393,7 @@ export default function Navbar({ currentStoreSlug, solid }: NavbarProps) {
           className="desktop-actions"
         >
           <a
-            href="https://wa.me/917045282473?text=Hi%20A1%20Car%20Wash!%20I%20would%20like%20to%20book%20a%20car%20wash%20service%20in%20Hyderabad."
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/contact"
             style={{
               background: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
               color: "#ffffff",
