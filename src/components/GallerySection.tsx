@@ -7,54 +7,80 @@ import Link from "next/link";
 interface GalleryItem {
   id: string;
   image: string;
+  title: string;
   alt: string;
 }
 
 const ALL_WORKS_PHOTOS: GalleryItem[] = [
   {
     id: "g-1",
-    image: "/gallery/real-foam-mercedes-suv.jpg",
-    alt: "Active snow foam wash on Mercedes SUV",
+    image: "/gallery/about-interceptor-bike.jpg",
+    title: "Royal Enfield Interceptor 650",
+    alt: "Royal Enfield Interceptor 650",
   },
   {
     id: "g-2",
-    image: "/gallery/interior-deep-cleaning-card.jpg",
-    alt: "Deep steam interior extraction and leather care",
+    image: "/gallery/real-bullet-pressure-wash.jpg",
+    title: "Royal Enfield Bullet Pressure Wash",
+    alt: "Royal Enfield Bullet Pressure Wash",
   },
   {
     id: "g-3",
-    image: "/gallery/about-interceptor-bike.jpg",
-    alt: "Two wheeler foam wash and chain degreasing",
+    image: "/gallery/real-r15-sports-detailing.jpg",
+    title: "Yamaha & Superbike Detailing",
+    alt: "Yamaha & Superbike Detailing",
   },
   {
     id: "g-4",
-    image: "/gallery/real-lift-mercedes.jpg",
-    alt: "Underbody mud wash on hydraulic ramp lift",
+    image: "/gallery/real-cruiser-bike-wash.jpg",
+    title: "Royal Enfield Precision Bike Spa",
+    alt: "Royal Enfield Precision Bike Spa",
   },
   {
     id: "g-5",
-    image: "/gallery/real-dual-lift-wide.jpg",
-    alt: "Dual hydraulic car wash station in Hyderabad studio",
+    image: "/gallery/real-bike-wash.jpg",
+    title: "Dedicated Two-Wheeler Wash Bay",
+    alt: "Dedicated Two-Wheeler Wash Bay",
   },
   {
     id: "g-6",
-    image: "/gallery/about-fortuner-studio.jpg",
-    alt: "Toyota Fortuner 9H ceramic coating under studio lights",
+    image: "/gallery/real-ktm-rc-wash.jpg",
+    title: "KTM RC Sports Bike Wash",
+    alt: "KTM RC Sports Bike Wash",
   },
   {
     id: "g-7",
-    image: "/gallery/real-wash-fortuner.jpg",
-    alt: "High pressure rinse on white SUV",
-  },
-  {
-    id: "g-8",
-    image: "/gallery/real-lift-seltos-red.png",
-    alt: "Red Kia Seltos Hydraulic Ramp Lift & Chassis Cleanse",
+    image: "/gallery/real-scooters-foam.jpg",
+    title: "Activa & Scooter Foam Treatment",
+    alt: "Activa & Scooter Foam Treatment",
   },
 ];
 
 export default function GallerySection() {
   const [lightboxImage, setLightboxImage] = useState<GalleryItem | null>(null);
+
+  const renderCard = (photo: GalleryItem, extraClass: string) => (
+    <div
+      className={`gallery-item-card ${extraClass}`}
+      onClick={() => setLightboxImage(photo)}
+    >
+      <img
+        src={photo.image}
+        alt={photo.alt}
+        loading="lazy"
+      />
+      {/* Bottom gradient overlay for text readability */}
+      <div className="gallery-card-gradient" />
+
+      {/* Card Info & Red Zoom Badge */}
+      <div className="gallery-card-content">
+        <span className="gallery-card-title">{photo.title}</span>
+        <div className="gallery-zoom-badge">
+          <ZoomIn size={14} color="#ffffff" />
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <section id="gallery-section" className="gallery-ref-root">
@@ -76,147 +102,33 @@ export default function GallerySection() {
           </p>
         </div>
 
-        {/* ── All Works Photo Mosaic Grid (Zero text overlay on images) ── */}
+        {/* ── All Works Photo Mosaic Grid ── */}
         <div className="gallery-mosaic-wrap">
           {/* Group 1: Asymmetric Split (Left Stack + Right Tall Portrait) */}
           <div className="gallery-group-split">
             {/* Left Column Stack */}
             <div className="gallery-split-left-col">
               {/* Top Medium Card */}
-              {ALL_WORKS_PHOTOS[0] && (
-                <div
-                  className="gallery-item-card card-top-med"
-                  onClick={() => setLightboxImage(ALL_WORKS_PHOTOS[0])}
-                >
-                  <img
-                    src={ALL_WORKS_PHOTOS[0].image}
-                    alt={ALL_WORKS_PHOTOS[0].alt}
-                    loading="lazy"
-                  />
-                  <div className="gallery-item-overlay">
-                    <div className="gallery-zoom-icon">
-                      <ZoomIn size={18} />
-                    </div>
-                  </div>
-                </div>
-              )}
+              {ALL_WORKS_PHOTOS[0] && renderCard(ALL_WORKS_PHOTOS[0], "card-top-med")}
 
               {/* Bottom 2 Side-by-Side Cards */}
               <div className="gallery-split-bottom-row">
-                {ALL_WORKS_PHOTOS[1] && (
-                  <div
-                    className="gallery-item-card card-half"
-                    onClick={() => setLightboxImage(ALL_WORKS_PHOTOS[1])}
-                  >
-                    <img
-                      src={ALL_WORKS_PHOTOS[1].image}
-                      alt={ALL_WORKS_PHOTOS[1].alt}
-                      loading="lazy"
-                    />
-                    <div className="gallery-item-overlay">
-                      <div className="gallery-zoom-icon">
-                        <ZoomIn size={18} />
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {ALL_WORKS_PHOTOS[2] && (
-                  <div
-                    className="gallery-item-card card-half"
-                    onClick={() => setLightboxImage(ALL_WORKS_PHOTOS[2])}
-                  >
-                    <img
-                      src={ALL_WORKS_PHOTOS[2].image}
-                      alt={ALL_WORKS_PHOTOS[2].alt}
-                      loading="lazy"
-                    />
-                    <div className="gallery-item-overlay">
-                      <div className="gallery-zoom-icon">
-                        <ZoomIn size={18} />
-                      </div>
-                    </div>
-                  </div>
-                )}
+                {ALL_WORKS_PHOTOS[1] && renderCard(ALL_WORKS_PHOTOS[1], "card-half")}
+                {ALL_WORKS_PHOTOS[2] && renderCard(ALL_WORKS_PHOTOS[2], "card-half")}
               </div>
             </div>
 
             {/* Right Tall Column Card */}
-            {ALL_WORKS_PHOTOS[3] && (
-              <div
-                className="gallery-item-card card-tall-right"
-                onClick={() => setLightboxImage(ALL_WORKS_PHOTOS[3])}
-              >
-                <img
-                  src={ALL_WORKS_PHOTOS[3].image}
-                  alt={ALL_WORKS_PHOTOS[3].alt}
-                  loading="lazy"
-                />
-                <div className="gallery-item-overlay">
-                  <div className="gallery-zoom-icon">
-                    <ZoomIn size={18} />
-                  </div>
-                </div>
-              </div>
-            )}
+            {ALL_WORKS_PHOTOS[3] && renderCard(ALL_WORKS_PHOTOS[3], "card-tall-right")}
           </div>
 
           {/* Group 2: Full-Width Feature Panoramic Photo */}
-          {ALL_WORKS_PHOTOS[4] && (
-            <div
-              className="gallery-item-card card-full-wide"
-              onClick={() => setLightboxImage(ALL_WORKS_PHOTOS[4])}
-            >
-              <img
-                src={ALL_WORKS_PHOTOS[4].image}
-                alt={ALL_WORKS_PHOTOS[4].alt}
-                loading="lazy"
-              />
-              <div className="gallery-item-overlay">
-                <div className="gallery-zoom-icon">
-                  <ZoomIn size={18} />
-                </div>
-              </div>
-            </div>
-          )}
+          {ALL_WORKS_PHOTOS[4] && renderCard(ALL_WORKS_PHOTOS[4], "card-full-wide")}
 
           {/* Group 3: Balanced 2-Column Split */}
           <div className="gallery-group-pair">
-            {ALL_WORKS_PHOTOS[5] && (
-              <div
-                className="gallery-item-card card-pair-item"
-                onClick={() => setLightboxImage(ALL_WORKS_PHOTOS[5])}
-              >
-                <img
-                  src={ALL_WORKS_PHOTOS[5].image}
-                  alt={ALL_WORKS_PHOTOS[5].alt}
-                  loading="lazy"
-                />
-                <div className="gallery-item-overlay">
-                  <div className="gallery-zoom-icon">
-                    <ZoomIn size={18} />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {ALL_WORKS_PHOTOS[6] && (
-              <div
-                className="gallery-item-card card-pair-item"
-                onClick={() => setLightboxImage(ALL_WORKS_PHOTOS[6])}
-              >
-                <img
-                  src={ALL_WORKS_PHOTOS[6].image}
-                  alt={ALL_WORKS_PHOTOS[6].alt}
-                  loading="lazy"
-                />
-                <div className="gallery-item-overlay">
-                  <div className="gallery-zoom-icon">
-                    <ZoomIn size={18} />
-                  </div>
-                </div>
-              </div>
-            )}
+            {ALL_WORKS_PHOTOS[5] && renderCard(ALL_WORKS_PHOTOS[5], "card-pair-item")}
+            {ALL_WORKS_PHOTOS[6] && renderCard(ALL_WORKS_PHOTOS[6], "card-pair-item")}
           </div>
         </div>
 
@@ -349,38 +261,61 @@ export default function GallerySection() {
           border-color: #fca5a5;
         }
 
-        /* Hover Overlay */
-        .gallery-item-overlay {
+        /* ── Card Gradient Overlay & Content ── */
+        .gallery-card-gradient {
           position: absolute;
           inset: 0;
-          background: linear-gradient(180deg, transparent 50%, rgba(15, 23, 42, 0.6) 100%);
+          background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0) 75%);
+          pointer-events: none;
+          transition: background 0.3s ease;
+        }
+
+        .gallery-item-card:hover .gallery-card-gradient {
+          background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.5) 45%, rgba(0, 0, 0, 0.05) 80%);
+        }
+
+        .gallery-card-content {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          padding: 12px 14px;
           display: flex;
-          align-items: center;
-          justify-content: center;
-          opacity: 0;
-          transition: opacity 0.25s ease;
+          align-items: flex-end;
+          justify-content: space-between;
+          gap: 8px;
+          z-index: 2;
+          pointer-events: none;
         }
 
-        .gallery-item-card:hover .gallery-item-overlay {
-          opacity: 1;
-        }
-
-        .gallery-zoom-icon {
-          width: 42px;
-          height: 42px;
-          border-radius: 50%;
-          background: rgba(239, 68, 68, 0.9);
+        .gallery-card-title {
+          font-size: 13px;
+          font-weight: 700;
           color: #ffffff;
+          line-height: 1.25;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+          letter-spacing: -0.01em;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        .gallery-zoom-badge {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
           display: flex;
           align-items: center;
           justify-content: center;
-          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
-          transform: scale(0.85);
+          flex-shrink: 0;
+          box-shadow: 0 3px 8px rgba(239, 68, 68, 0.5);
           transition: transform 0.25s ease;
         }
 
-        .gallery-item-card:hover .gallery-zoom-icon {
-          transform: scale(1);
+        .gallery-item-card:hover .gallery-zoom-badge {
+          transform: scale(1.12);
         }
 
         /* ── Group 1: Asymmetric Split ── */
@@ -388,7 +323,8 @@ export default function GallerySection() {
           display: grid;
           grid-template-columns: 1.15fr 0.85fr;
           gap: 16px;
-          min-height: 440px;
+          height: 440px;
+          align-items: stretch;
         }
 
         .gallery-split-left-col {
@@ -399,6 +335,10 @@ export default function GallerySection() {
 
         .card-top-med {
           height: 250px;
+        }
+
+        .card-top-med .gallery-card-title {
+          font-size: 15px;
         }
 
         .gallery-split-bottom-row {
@@ -412,15 +352,26 @@ export default function GallerySection() {
           height: 100%;
         }
 
+        .card-half .gallery-card-title {
+          font-size: 12px;
+        }
+
         .card-tall-right {
           height: 100%;
-          min-height: 440px;
+        }
+
+        .card-tall-right .gallery-card-title {
+          font-size: 15px;
         }
 
         /* ── Group 2: Full Panoramic ── */
         .card-full-wide {
           height: 310px;
           width: 100%;
+        }
+
+        .card-full-wide .gallery-card-title {
+          font-size: 16px;
         }
 
         /* ── Group 3: Pair ── */
@@ -433,6 +384,10 @@ export default function GallerySection() {
 
         .card-pair-item {
           height: 100%;
+        }
+
+        .card-pair-item .gallery-card-title {
+          font-size: 14px;
         }
 
         /* ── Footer CTA ── */
@@ -517,25 +472,144 @@ export default function GallerySection() {
           display: block;
         }
 
-        /* Responsive */
+        /* ── MOBILE VIEW: Matches Reference Second Image ── */
         @media (max-width: 768px) {
+          .gallery-ref-root {
+            padding: 50px 12px 60px;
+          }
+
+          .gallery-mosaic-wrap {
+            gap: 10px;
+          }
+
+          /* Group 1: 2-column split — left stack + right tall */
           .gallery-group-split {
-            grid-template-columns: 1fr;
-            min-height: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            height: auto !important;
+            min-height: auto !important;
+            align-items: stretch;
           }
+
+          .gallery-split-left-col {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+          }
+
+          /* Top wide card on left */
+          .card-top-med {
+            height: 175px !important;
+            border-radius: 14px;
+            flex-shrink: 0;
+          }
+
+          .card-top-med .gallery-card-content {
+            padding: 10px 10px;
+          }
+
+          .card-top-med .gallery-card-title {
+            font-size: 12px;
+          }
+
+          /* Bottom 2 mini cards */
+          .gallery-split-bottom-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            height: 145px !important;
+            flex-shrink: 0;
+          }
+
+          .card-half {
+            height: 100% !important;
+            border-radius: 12px;
+          }
+
+          .card-half .gallery-card-content {
+            padding: 6px 6px;
+            gap: 4px;
+          }
+
+          .card-half .gallery-card-title {
+            font-size: 9px;
+            font-weight: 700;
+            line-height: 1.2;
+          }
+
+          .card-half .gallery-zoom-badge {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+          }
+
+          .card-half .gallery-zoom-badge svg {
+            width: 10px;
+            height: 10px;
+          }
+
+          /* Right tall portrait card — spans full left column height */
           .card-tall-right {
-            height: 250px;
-            min-height: 250px;
+            height: 330px !important;
+            min-height: unset !important;
+            border-radius: 14px;
+            align-self: stretch;
           }
+
+          .card-tall-right .gallery-card-content {
+            padding: 12px 10px;
+          }
+
+          .card-tall-right .gallery-card-title {
+            font-size: 13px;
+          }
+
+          /* Group 2: Full Panoramic Wide Card */
           .card-full-wide {
-            height: 220px;
+            height: 190px !important;
+            border-radius: 14px;
           }
+
+          .card-full-wide .gallery-card-content {
+            padding: 12px 14px;
+          }
+
+          .card-full-wide .gallery-card-title {
+            font-size: 14px;
+          }
+
+          /* Group 3: 2 Equal Cards Side-by-Side */
           .gallery-group-pair {
-            grid-template-columns: 1fr;
-            height: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            height: 185px !important;
           }
+
           .card-pair-item {
-            height: 220px;
+            height: 100% !important;
+            border-radius: 14px;
+          }
+
+          .card-pair-item .gallery-card-content {
+            padding: 10px 10px;
+          }
+
+          .card-pair-item .gallery-card-title {
+            font-size: 12px;
+          }
+
+          /* Zoom badge size on mobile */
+          .gallery-zoom-badge {
+            width: 26px;
+            height: 26px;
+            flex-shrink: 0;
+          }
+
+          .gallery-zoom-badge svg {
+            width: 13px;
+            height: 13px;
           }
         }
       `}</style>
