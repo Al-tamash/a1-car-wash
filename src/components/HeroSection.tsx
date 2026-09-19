@@ -101,12 +101,14 @@ export default function HeroSection({
   const [startX, setStartX] = useState(0);
   const [scrollLeftState, setScrollLeftState] = useState(0);
 
-  // Repeat gallery items for smooth continuous infinite horizontal scrolling
-  const loopedItems = [...HERO_GALLERY_ITEMS, ...HERO_GALLERY_ITEMS, ...HERO_GALLERY_ITEMS];
-
-  // Keep hero fixed on selected image without unexpected automatic switching
-
-  // Keep hero and thumbnails steady and responsive to user clicks
+  // Auto-cycle through hero images automatically every 4 seconds like previous
+  useEffect(() => {
+    if (isVideoModalOpen || isDragging || isPaused) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % HERO_GALLERY_ITEMS.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [isVideoModalOpen, isDragging, isPaused]);
 
   // Mouse drag to scroll handlers
   const handleMouseDown = (e: React.MouseEvent) => {
