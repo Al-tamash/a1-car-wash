@@ -93,7 +93,7 @@ export default function HeroSection({
   primaryButtonText,
   primaryButtonHref,
 }: HeroSectionProps = {}) {
-  const [activeIndex, setActiveIndex] = useState(2);
+  const [activeIndex, setActiveIndex] = useState(4);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const thumbnailsRef = useRef<HTMLDivElement>(null);
