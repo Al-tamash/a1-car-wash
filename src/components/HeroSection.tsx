@@ -101,12 +101,12 @@ export default function HeroSection({
   const [startX, setStartX] = useState(0);
   const [scrollLeftState, setScrollLeftState] = useState(0);
 
-  // Auto-cycle through hero images automatically every 4 seconds like previous
+  // Auto-cycle through hero images automatically every 2 seconds
   useEffect(() => {
     if (isVideoModalOpen || isDragging || isPaused) return;
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % HERO_GALLERY_ITEMS.length);
-    }, 4000);
+    }, 2000);
     return () => clearInterval(interval);
   }, [isVideoModalOpen, isDragging, isPaused]);
 
