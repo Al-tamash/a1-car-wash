@@ -115,24 +115,25 @@
   color: #e2e8f0;
 }
 
-/* Headline (NO red text glow) */
+/* Headline */
 .hero-headline {
   font-family: var(--font-heading, 'Outfit', sans-serif);
-  font-size: clamp(2rem, 3.2vw, 2.75rem);
-  font-weight: 600;
-  line-height: 1.12;
-  letter-spacing: -0.025em;
+  font-size: clamp(2.3rem, 4vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
   color: #ffffff;
   margin: 0 0 18px 0;
   text-transform: uppercase;
 }
 
 .hero-headline-accent {
-  background: linear-gradient(135deg, #ff4d4d 0%, #ef4444 50%, #dc2626 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #ef4444;
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: #ef4444;
   display: inline-block;
-  font-weight: 600;
+  font-weight: 800;
 }
 
 .hero-description {
