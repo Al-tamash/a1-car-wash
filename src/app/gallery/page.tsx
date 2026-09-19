@@ -4,14 +4,14 @@ import GalleryClient from "./GalleryClient";
 import { BreadcrumbJsonLd } from "@/components/StructuredData";
 
 export const metadata: Metadata = {
-  title: "Photo Gallery | A1 Car Wash Studio & Detailing Bays Hyderabad",
+  title: "Photo Gallery",
   description:
-    "View live photos of A1 Car Wash in Hyderabad: Hydraulic Jack Lift wash bays, thick active snow foam baths, Fortuner SUV detailing, two-wheeler washes & ceramic gloss finishes.",
+    "View real photos from A1 Car Wash Hyderabad: Hydraulic jack lift wash bays, snow foam shampoo baths, SUV detailing and superbike cleaning in our studios.",
   alternates: {
     canonical: "https://a1carwash.in/gallery",
   },
   openGraph: {
-    title: "Photo Gallery | A1 Car Wash Studio & Detailing Bays Hyderabad",
+    title: "Photo Gallery | A1 Car Wash",
     description:
       "Explore real photos of vehicles being washed on hydraulic jack lifts, snow foam baths & Teflon detailing at A1 Car Wash Hyderabad.",
     url: "https://a1carwash.in/gallery",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Photo Gallery | A1 Car Wash Studio & Detailing Bays Hyderabad",
+    title: "Photo Gallery | A1 Car Wash",
     description:
       "Live photos from our multi-bay hydraulic jack lift car wash stations in Hyderabad.",
     images: ["/gallery/real-fortuner-studio-lights.png"],

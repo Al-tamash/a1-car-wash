@@ -4,16 +4,16 @@ import AboutClient from "./AboutClient";
 import { BreadcrumbJsonLd } from "@/components/StructuredData";
 
 export const metadata: Metadata = {
-  title: "About Us | A1 Car Wash — Hyderabad Detailing Network",
+  title: "About Us",
   description:
-    "Learn about A1 Car Wash in Hyderabad: 6 multi-bay detailing studios equipped with hydraulic jack lifts, automated RO soft-water plants, and touchless pH-neutral snow foam.",
+    "A1 Car Wash operates 6 multi-bay detailing studios in Hyderabad with hydraulic jack lifts, automated RO soft-water plants & Teflon coating. Call 70452 82473.",
   alternates: {
     canonical: "https://a1carwash.in/about",
   },
   openGraph: {
-    title: "About Us | A1 Car Wash — Hyderabad Detailing Network",
+    title: "About Us | A1 Car Wash",
     description:
-      "Founded in Hyderabad, A1 Car Wash operates 6 multi-bay detailing studios providing showroom-grade car cleaning and Teflon paint protection.",
+      "A1 Car Wash operates 6 multi-bay detailing studios in Hyderabad with hydraulic jack lifts, automated RO soft-water plants & Teflon coating. Call 70452 82473.",
     url: "https://a1carwash.in/about",
     siteName: "A1 Car Wash",
     locale: "en_IN",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "About Us | A1 Car Wash — Hyderabad Detailing Network",
+    title: "About Us | A1 Car Wash",
     description:
       "6 multi-bay detailing studios across Hyderabad with hydraulic jack lifts and RO soft water. Call 70452 82473.",
     images: ["/gallery/about-fortuner-studio.jpg"],

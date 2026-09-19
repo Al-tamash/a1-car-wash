@@ -4,14 +4,14 @@ import ContactClient from "./ContactClient";
 import { BreadcrumbJsonLd } from "@/components/StructuredData";
 
 export const metadata: Metadata = {
-  title: "Contact & Slot Booking | A1 Car Wash Hyderabad",
+  title: "Contact & Slot Booking",
   description:
-    "Contact A1 Car Wash in Hyderabad. Book your Hydraulic Jack Lift wash, interior steam cleaning, or Teflon detailing bay via phone (70452 82473), WhatsApp, or online booking form.",
+    "Book your car wash slot at A1 Car Wash Hyderabad. Call 70452 82473 or message on WhatsApp for hydraulic jack lift wash, interior steam cleaning & detailing.",
   alternates: {
     canonical: "https://a1carwash.in/contact",
   },
   openGraph: {
-    title: "Contact & Slot Booking | A1 Car Wash Hyderabad",
+    title: "Contact & Slot Booking | A1 Car Wash",
     description:
       "Get in touch with A1 Car Wash central desk or message us on WhatsApp at 70452 82473 for instant bay booking in Hyderabad.",
     url: "https://a1carwash.in/contact",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact & Slot Booking | A1 Car Wash Hyderabad",
+    title: "Contact & Slot Booking | A1 Car Wash",
     description:
       "Call 70452 82473 or book your car wash bay online at A1 Car Wash Hyderabad.",
     images: ["/gallery/real-fortuner-studio-lights.png"],

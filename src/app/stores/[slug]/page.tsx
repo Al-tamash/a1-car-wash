@@ -26,8 +26,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const store = getStoreBySlug(slug) || STORES_DATA[0];
 
-  const title = `${store.name} | Car Wash & Detailing ${store.area}`;
-  const description = `${store.heroHeadline} at ${store.name}, ${store.address}. Hydraulic Jack Lift wash, touchless snow foam, RO soft water & Teflon coating. Call ${store.phone}.`;
+  const title = `${store.shortName} Studio`;
+  const description = `Visit ${store.name} in Hyderabad for hydraulic jack lift car washes, RO soft water foam cleaning, and Teflon detailing. Call ${store.phone}.`;
   const canonicalUrl = `https://a1carwash.in/stores/${store.slug}`;
 
   return {
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       canonical: canonicalUrl,
     },
     openGraph: {
-      title,
+      title: `${title} | A1 Car Wash`,
       description,
       url: canonicalUrl,
       siteName: "A1 Car Wash",
@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: `${title} | A1 Car Wash`,
       description,
       images: [store.image || "/gallery/real-fortuner-studio-lights.png"],
     },

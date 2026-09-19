@@ -4,16 +4,16 @@ import ServicesClient from "./ServicesClient";
 import { BreadcrumbJsonLd } from "@/components/StructuredData";
 
 export const metadata: Metadata = {
-  title: "Car & Bike Wash Services & Detailing Packages | A1 Car Wash Hyderabad",
+  title: "Services & Pricing",
   description:
-    "Explore A1 Car Wash services in Hyderabad: Full Car Wash with Hydraulic Jack Lift & Diesel Wash, Snow Foam Body Wash, Interior Deep Cleaning Spa, Teflon Coating, Underbody Anti-Rust Coating, and Bike Detailing.",
+    "Explore A1 Car Wash services in Hyderabad: Hydraulic Jack Lift wash, snow foam body bath, interior deep cleaning, Teflon coating & bike wash. Call 70452 82473.",
   alternates: {
     canonical: "https://a1carwash.in/services",
   },
   openGraph: {
-    title: "Car & Bike Wash Services & Detailing Packages | A1 Car Wash Hyderabad",
+    title: "Services & Pricing | A1 Car Wash",
     description:
-      "Showroom-grade car and bike cleaning with hydraulic jack lifts, touchless snow foam, RO soft-water & Teflon protection in Hyderabad.",
+      "Explore A1 Car Wash services in Hyderabad: Hydraulic Jack Lift wash, snow foam body bath, interior deep cleaning, Teflon coating & bike wash. Call 70452 82473.",
     url: "https://a1carwash.in/services",
     siteName: "A1 Car Wash",
     locale: "en_IN",
@@ -29,9 +29,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Car & Bike Wash Services & Detailing Packages | A1 Car Wash Hyderabad",
+    title: "Services & Pricing | A1 Car Wash",
     description:
-      "Jack Lift Car Wash, Interior Deep Cleaning Spa, Teflon Coating & Bike Detailing in Hyderabad. Call 70452 82473.",
+      "Explore A1 Car Wash services in Hyderabad: Hydraulic Jack Lift wash, snow foam body bath, interior deep cleaning & Teflon coating.",
     images: ["/gallery/real-lift-mercedes.jpg"],
   },
 };
