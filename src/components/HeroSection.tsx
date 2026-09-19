@@ -39,29 +39,11 @@ interface HeroGalleryItem {
 
 const HERO_GALLERY_ITEMS: HeroGalleryItem[] = [
   {
-    id: "exterior",
-    title: "High-Pressure Exterior Wash",
-    subtitle: "Precision water jets & deep grime removal",
-    image: "/hero/hero-indian-pressure-wash.jpg",
-    alt: "Indian car wash technician pressure washing car with snow foam",
-    tag: "EXTERIOR FOAM WASH",
-    accentText: "Snow Foam & Jet",
-  },
-  {
-    id: "foam",
-    title: "Active Snow Foam Therapy",
-    subtitle: "Thick touchless foam encapsulates dirt safely",
-    image: "/hero/hero-indian-foam-wash.jpg",
-    alt: "Indian technician applying thick snow foam on SUV",
-    tag: "ACTIVE SNOW FOAM",
-    accentText: "pH Neutral Foam",
-  },
-  {
     id: "wheels",
     title: "Wheel & Alloy Detailing",
     subtitle: "Iron-decon, alloy scrub & tire gloss coating",
     image: "/hero/hero-indian-wheel-detailing.jpg",
-    alt: "Indian car wash worker scrubbing alloy wheel of SUV",
+    alt: "Car wash technician scrubbing alloy wheel of SUV",
     tag: "WHEEL & UNDERBODY",
     accentText: "Alloy Detailing",
   },
@@ -70,7 +52,7 @@ const HERO_GALLERY_ITEMS: HeroGalleryItem[] = [
     title: "Two-Wheeler Precision Wash",
     subtitle: "Safe foam wash, chain lube & full bike shine",
     image: "/hero/hero-indian-bike-wash.jpg",
-    alt: "Indian technician pressure washing Royal Enfield motorcycle",
+    alt: "Technician pressure washing Royal Enfield motorcycle with foam",
     tag: "SUPERBIKE WASH",
     accentText: "2-Wheeler Spa",
   },
@@ -79,9 +61,27 @@ const HERO_GALLERY_ITEMS: HeroGalleryItem[] = [
     title: "Deep Interior Steam Sanitization",
     subtitle: "Leather conditioning, vacuum & germ disinfection",
     image: "/hero/hero-indian-interior-steam.jpg",
-    alt: "Indian car detailing professional steam cleaning car interior",
+    alt: "Car detailing professional steam cleaning car interior",
     tag: "INTERIOR DETAILING",
     accentText: "Steam Spa",
+  },
+  {
+    id: "exterior",
+    title: "High-Pressure Exterior Wash",
+    subtitle: "Precision water jets & deep grime removal",
+    image: "/hero/hero-indian-pressure-wash.jpg",
+    alt: "Car wash technician pressure washing car with snow foam",
+    tag: "EXTERIOR FOAM WASH",
+    accentText: "Snow Foam & Jet",
+  },
+  {
+    id: "foam",
+    title: "Active Snow Foam Therapy",
+    subtitle: "Thick touchless foam encapsulates dirt safely",
+    image: "/hero/hero-indian-foam-wash.jpg",
+    alt: "Technician applying thick snow foam on SUV in detailing bay",
+    tag: "ACTIVE SNOW FOAM",
+    accentText: "pH Neutral Foam",
   },
 ];
 
@@ -93,7 +93,7 @@ export default function HeroSection({
   primaryButtonText,
   primaryButtonHref,
 }: HeroSectionProps = {}) {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(4);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const thumbnailsRef = useRef<HTMLDivElement>(null);
@@ -346,16 +346,15 @@ export default function HeroSection({
               }
             }}
           >
-            {loopedItems.map((item, index) => {
-              const realIndex = index % HERO_GALLERY_ITEMS.length;
-              const isSelected = realIndex === activeIndex;
+            {HERO_GALLERY_ITEMS.map((item, index) => {
+              const isSelected = index === activeIndex;
               return (
                 <div
-                  key={`${item.id}-${index}`}
+                  key={item.id}
                   className={`hero-thumb-item ${isSelected ? "active" : ""}`}
                   onClick={() => {
                     if (!isDragging) {
-                      setActiveIndex(realIndex);
+                      setActiveIndex(index);
                     }
                   }}
                 >
