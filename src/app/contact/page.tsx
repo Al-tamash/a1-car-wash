@@ -1,46 +1,51 @@
-"use client";
-
 import React from "react";
-import Navbar from "@/components/Navbar";
-import ContactBookingSection from "@/components/ContactBookingSection";
-import Footer from "@/components/Footer";
-import { Phone } from "lucide-react";
+import type { Metadata } from "next";
+import ContactClient from "./ContactClient";
+import { BreadcrumbJsonLd } from "@/components/StructuredData";
+
+export const metadata: Metadata = {
+  title: "Contact & Slot Booking | A1 Car Wash Hyderabad",
+  description:
+    "Contact A1 Car Wash in Hyderabad. Book your Hydraulic Jack Lift wash, interior steam cleaning, or Teflon detailing bay via phone (70452 82473), WhatsApp, or online booking form.",
+  alternates: {
+    canonical: "https://a1carwash.in/contact",
+  },
+  openGraph: {
+    title: "Contact & Slot Booking | A1 Car Wash Hyderabad",
+    description:
+      "Get in touch with A1 Car Wash central desk or message us on WhatsApp at 70452 82473 for instant bay booking in Hyderabad.",
+    url: "https://a1carwash.in/contact",
+    siteName: "A1 Car Wash",
+    locale: "en_IN",
+    type: "website",
+    images: [
+      {
+        url: "/gallery/real-fortuner-studio-lights.png",
+        width: 1200,
+        height: 630,
+        alt: "Contact A1 Car Wash Hyderabad",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact & Slot Booking | A1 Car Wash Hyderabad",
+    description:
+      "Call 70452 82473 or book your car wash bay online at A1 Car Wash Hyderabad.",
+    images: ["/gallery/real-fortuner-studio-lights.png"],
+  },
+};
 
 export default function ContactPage() {
   return (
-    <main style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-      <Navbar />
-
-      {/* Header */}
-      <section style={{
-        padding: "115px 0 35px",
-        background: "linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%)",
-        textAlign: "center"
-      }}>
-        <div className="container" style={{ maxWidth: "800px" }}>
-          <div className="badge-pill badge-glow" style={{ marginBottom: "14px" }}>
-            <Phone size={14} style={{ color: "#0284c7" }} />
-            <span>CONNECT WITH OUR DETAILING MASTERS</span>
-          </div>
-          <h1 style={{
-            fontSize: "clamp(2rem, 3.2vw, 2.75rem)",
-            fontWeight: 600,
-            letterSpacing: "-0.03em",
-            color: "#0f172a",
-            marginBottom: "16px"
-          }}>
-            Contact <span className="text-gradient">Our Team</span>
-          </h1>
-          <p style={{ fontSize: "16px", color: "#475569", lineHeight: "1.6" }}>
-            Have questions about services, pricing, or want to book a detailing slot? Call our central desk or send us a message below.
-          </p>
-        </div>
-      </section>
-
-      {/* Contact & Booking Section (No Map) */}
-      <ContactBookingSection showMap={false} />
-
-      <Footer />
-    </main>
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: "https://a1carwash.in" },
+          { name: "Contact", url: "https://a1carwash.in/contact" },
+        ]}
+      />
+      <ContactClient />
+    </>
   );
 }

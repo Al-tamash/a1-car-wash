@@ -236,7 +236,7 @@ export default function PricingSection() {
                     <div className="pricing-card-image-wrap">
                       <img
                         src={plan.image}
-                        alt={plan.name}
+                        alt={`${plan.name} at A1 Car Wash Hyderabad`}
                         loading="lazy"
                         className="pricing-card-img"
                       />
@@ -332,7 +332,7 @@ export default function PricingSection() {
                       <div className="pricing-add-img-wrap">
                         <img
                           src={add.image}
-                          alt={add.name}
+                          alt={`${add.name} at A1 Car Wash Hyderabad`}
                           loading="lazy"
                           className="pricing-add-img"
                         />
@@ -398,7 +398,7 @@ export default function PricingSection() {
                   <div className="pricing-card-image-wrap">
                     <img
                       src={bike.image}
-                      alt={bike.name}
+                      alt={`${bike.name} Detailing at A1 Car Wash Hyderabad`}
                       loading="lazy"
                       className="pricing-card-img"
                     />

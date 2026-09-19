@@ -101,7 +101,7 @@ export default function ServicesSection() {
                   <div className="service-card-image-wrap">
                     <img
                       src={service.image}
-                      alt={service.title}
+                      alt={`${service.title} Package at A1 Car Wash Hyderabad`}
                       className="service-card-image"
                       loading="lazy"
                     />
