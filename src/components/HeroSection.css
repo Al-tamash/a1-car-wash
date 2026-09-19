@@ -370,22 +370,13 @@
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  gap: 14px;
+  gap: 16px;
   width: 100%;
   padding: 6px 4px;
   box-sizing: border-box;
   cursor: grab;
   user-select: none;
   scroll-behavior: auto;
-}
-
-@media (min-width: 1024px) {
-  .hero-thumbnails-row {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    overflow-x: visible;
-    cursor: default;
-  }
 }
 
 .hero-thumbnails-row::-webkit-scrollbar {
@@ -398,9 +389,9 @@
 
 .hero-thumb-item {
   position: relative;
-  flex: 0 0 clamp(200px, 18vw, 240px);
+  flex: 0 0 clamp(210px, 20vw, 255px);
   scroll-snap-align: start;
-  height: clamp(110px, 9.5vw, 126px);
+  height: clamp(105px, 9.5vw, 120px);
   border-radius: 18px;
   overflow: hidden;
   cursor: pointer;
@@ -409,13 +400,6 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
-}
-
-@media (min-width: 1024px) {
-  .hero-thumb-item {
-    flex: unset;
-    width: 100%;
-  }
 }
 
 .hero-thumb-item:hover {

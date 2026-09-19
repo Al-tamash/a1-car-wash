@@ -100,6 +100,13 @@ export default function HeroSection({
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeftState, setScrollLeftState] = useState(0);
+  // Repeat gallery items for smooth continuous infinite horizontal marquee scrolling
+  const loopedItems = [
+    ...HERO_GALLERY_ITEMS,
+    ...HERO_GALLERY_ITEMS,
+    ...HERO_GALLERY_ITEMS,
+    ...HERO_GALLERY_ITEMS,
+  ];
 
   // Auto-cycle through hero images automatically every 2 seconds
   useEffect(() => {
@@ -109,6 +116,32 @@ export default function HeroSection({
     }, 2000);
     return () => clearInterval(interval);
   }, [isVideoModalOpen, isDragging, isPaused]);
+
+  // Smooth continuous automatic marquee scroll loop
+  useEffect(() => {
+    const el = thumbnailsRef.current;
+    if (!el) return;
+
+    let animationFrameId: number;
+    const scrollSpeed = 0.75; // smooth marquee pixels per frame
+
+    const autoScrollLoop = () => {
+      if (!isPaused && !isDragging && el) {
+        el.scrollLeft += scrollSpeed;
+        // Seamless marquee loop reset
+        if (el.scrollLeft >= (el.scrollWidth - el.clientWidth) / 2) {
+          el.scrollLeft = 0;
+        }
+      }
+      animationFrameId = requestAnimationFrame(autoScrollLoop);
+    };
+
+    animationFrameId = requestAnimationFrame(autoScrollLoop);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isPaused, isDragging]);
 
   // Mouse drag to scroll handlers
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -317,15 +350,16 @@ export default function HeroSection({
               }
             }}
           >
-            {HERO_GALLERY_ITEMS.map((item, index) => {
-              const isSelected = index === activeIndex;
+            {loopedItems.map((item, index) => {
+              const realIndex = index % HERO_GALLERY_ITEMS.length;
+              const isSelected = realIndex === activeIndex;
               return (
                 <div
-                  key={item.id}
+                  key={`${item.id}-${index}`}
                   className={`hero-thumb-item ${isSelected ? "active" : ""}`}
                   onClick={() => {
                     if (!isDragging) {
-                      setActiveIndex(index);
+                      setActiveIndex(realIndex);
                     }
                   }}
                 >
