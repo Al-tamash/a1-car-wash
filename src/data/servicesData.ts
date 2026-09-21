@@ -42,7 +42,7 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
       {
         id: "full-car-wash",
         name: "Full Car Wash (Jack Lift & Diesel Wash)",
-        image: "/gallery/real-lift-mercedes.jpg",
+        image: "/services/full-car-wash-clean.jpg",
         badge: "Flagship Service",
         features: [
           "Hydraulic Jack Lift Underbody Wash",
@@ -58,7 +58,7 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
       {
         id: "body-wash",
         name: "Body Wash (Exterior & Vacuum)",
-        image: "/gallery/real-wash-fortuner.jpg",
+        image: "/services/body-wash-clean.jpg",
         badge: "Express Clean",
         features: [
           "High-Pressure Snow Foam Bath",
@@ -74,7 +74,7 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
       {
         id: "interior-deep-cleaning",
         name: "Interior Deep Cleaning Spa",
-        image: "/gallery/interior-deep-cleaning-card.jpg",
+        image: "/services/interior-steam-clean.jpg",
         badge: "Deep Rejuvenation",
         features: [
           "Fabric & Leather Seat Shampoo Extraction",
@@ -90,7 +90,7 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
       {
         id: "underbody-coating",
         name: "Underbody Anti-Rust + Silencer Spray",
-        image: "/gallery/real-lift-ford.jpg",
+        image: "/services/underbody-coating-clean.jpg",
         badge: "Chassis Armor",
         features: [
           "Heavy-Duty Chassis Anti-Rust Layer",
