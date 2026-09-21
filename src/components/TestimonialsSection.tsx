@@ -172,14 +172,8 @@ export default function TestimonialsSection() {
                   <p className="testi-ref-card-text">{item.review}</p>
 
                   <div className="testi-ref-author">
-                    <div className="testi-ref-author-avatar">
-                      <span>{item.initials}</span>
-                    </div>
                     <div className="testi-ref-author-info">
                       <h3 className="testi-ref-author-name">{item.name}</h3>
-                      <p className="testi-ref-author-meta">
-                        {item.vehicle} • {item.location}
-                      </p>
                     </div>
                   </div>
                 </div>
@@ -220,14 +214,8 @@ export default function TestimonialsSection() {
                       <p className="testi-ref-card-text">{item.review}</p>
 
                       <div className="testi-ref-author">
-                        <div className="testi-ref-author-avatar">
-                          <span>{item.initials}</span>
-                        </div>
                         <div className="testi-ref-author-info">
                           <h3 className="testi-ref-author-name">{item.name}</h3>
-                          <p className="testi-ref-author-meta">
-                            {item.vehicle} • {item.location}
-                          </p>
                         </div>
                       </div>
                     </div>

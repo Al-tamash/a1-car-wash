@@ -30,7 +30,7 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
     tagline: "Hydraulic Jack Lift Washes, Snow Foam Bath, Interior Deep Cleaning & Underbody Protection",
     description:
       "Complete four-wheeler care powered by heavy hydraulic jack lift ramps, RO soft water foam baths, diesel chassis degreasing, and interior deep extraction.",
-    image: "/gallery/real-dual-lift-wide.jpg",
+    image: "/services/full-car-wash-clean.jpg",
     highlights: [
       "Hydraulic Jack Lift Elevation",
       "Underbody Oil & Diesel Degreasing",
@@ -43,7 +43,6 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
         id: "full-car-wash",
         name: "Full Car Wash (Jack Lift & Diesel Wash)",
         image: "/services/full-car-wash-clean.jpg",
-        badge: "Flagship Service",
         features: [
           "Hydraulic Jack Lift Underbody Wash",
           "Oil & Diesel Engine Degrease",
@@ -59,7 +58,6 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
         id: "body-wash",
         name: "Body Wash (Exterior & Vacuum)",
         image: "/services/body-wash-clean.jpg",
-        badge: "Express Clean",
         features: [
           "High-Pressure Snow Foam Bath",
           "Microfiber Scratch-Free Hand Scrub",
@@ -75,7 +73,6 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
         id: "interior-deep-cleaning",
         name: "Interior Deep Cleaning Spa",
         image: "/services/interior-steam-clean.jpg",
-        badge: "Deep Rejuvenation",
         features: [
           "Fabric & Leather Seat Shampoo Extraction",
           "Door Panel & Armrest Scrubbing",
@@ -91,7 +88,6 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
         id: "underbody-coating",
         name: "Underbody Anti-Rust + Silencer Spray",
         image: "/services/underbody-coating-clean.jpg",
-        badge: "Chassis Armor",
         features: [
           "Heavy-Duty Chassis Anti-Rust Layer",
           "Black Colour Protective Underside Coat",
@@ -114,7 +110,7 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
     tagline: "Snow Foam Bath, Diesel Engine & Chain Degreasing for Normal, Bullet & Sports Bikes",
     description:
       "Specialized two-wheeler care designed for commuter motorcycles, Royal Enfield Bullets, and high-performance sports bikes.",
-    image: "/gallery/bike-wash-card.jpg",
+    image: "/services/standard-bike-wash.jpg",
     highlights: [
       "High-Pressure Snow Foam Wash",
       "Heavy Diesel Engine & Chain Degrease",
@@ -125,9 +121,8 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
     subServices: [
       {
         id: "normal-bike-wash",
-        name: "Scooty Wash",
-        image: "/gallery/real-scooter-foam-bay.jpg",
-        badge: "Everyday Care",
+        name: "Normal Bike Wash",
+        image: "/services/normal-bike-wash-clean.jpg",
         features: [
           "High-Pressure Snow Foam Bath",
           "Engine Mud & Road Grime Cleansing",
@@ -140,9 +135,8 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
       },
       {
         id: "bullet-wash",
-        name: "Sports Bike Wash",
-        image: "/gallery/real-bullet-pressure-wash.jpg",
-        badge: "Heavy Cruiser Care",
+        name: "Standard Bike Wash",
+        image: "/services/standard-bike-wash.jpg",
         features: [
           "Heavy Diesel Engine Degreasing",
           "Thick Snow Foam Soak & Agitation",
@@ -155,9 +149,8 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
       },
       {
         id: "sports-bike-wash",
-        name: "Super Bike Detailing",
-        image: "/gallery/real-r15-sports-detailing.jpg",
-        badge: "Performance Detailing",
+        name: "Sports Bike Wash",
+        image: "/services/sports-bike-wash-clean.jpg",
         features: [
           "Gentle pH-Neutral Foam Bath",
           "Delicate Fairing & Acrylic Care",
@@ -179,7 +172,7 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
     tagline: "High-Gloss Paint Protection, Minor Swirl Defense & UV Rejuvenation",
     description:
       "Advanced fluoropolymer protective shield that enhances paint depth, eliminates fine swirl marks, and repels dust and water.",
-    image: "/card-ceramic-beading.jpg",
+    image: "/services/teflon-coating-service.jpg",
     highlights: [
       "Fluoropolymer Protective Shield",
       "Deep Mirror High Gloss Reflections",
@@ -191,8 +184,7 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
       {
         id: "teflon-paint-shield",
         name: "Teflon Paint Protection Coating",
-        image: "/card-ceramic-beading.jpg",
-        badge: "Mirror Reflection",
+        image: "/services/teflon-coating-service.jpg",
         features: [
           "Multi-Layer Fluoropolymer Coat",
           "Deep Wet-Look Showroom Gloss",
@@ -207,8 +199,7 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
       {
         id: "machine-buffing-polishing",
         name: "Machine Paint Buffing & Polishing",
-        image: "/services/service-polishing.jpg",
-        badge: "Scratch Correction",
+        image: "/services/machine-buffing-polishing-clean.jpg",
         features: [
           "Dual-Action Rotary Machine Buffing",
           "Paint Oxidation & Dullness Removal",
@@ -222,8 +213,7 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
       {
         id: "interior-uv-coating",
         name: "Dashboard & Interior Trim UV Coating",
-        image: "/gallery/gallery-7.jpg",
-        badge: "Interior Shield",
+        image: "/services/interior-uv-coating-clean.jpg",
         features: [
           "Anti-Static Satin Dressing",
           "Harsh Sun UV Blocking Formula",

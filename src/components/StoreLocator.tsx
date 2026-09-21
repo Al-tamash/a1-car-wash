@@ -97,7 +97,7 @@ export default function StoreLocator({ currentStoreSlug }: StoreLocatorProps = {
             <span>FIND US • 6 HYDERABAD HUBS</span>
           </div>
 
-          {/* Heading: Store Locations (RED THEME) */}
+          {/* Heading: Our Branch Locations (RED THEME) */}
           <h2
             style={{
               fontSize: "clamp(2rem, 3.2vw, 2.75rem)",
@@ -107,7 +107,7 @@ export default function StoreLocator({ currentStoreSlug }: StoreLocatorProps = {
               letterSpacing: "-0.02em",
             }}
           >
-            <span style={{ color: "#0f172a" }}>Store </span>
+            <span style={{ color: "#0f172a" }}>Our Branch </span>
             <span style={{ color: "#dc2626" }}>Locations</span>
           </h2>
 

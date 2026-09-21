@@ -207,7 +207,7 @@ export default function Navbar({ currentStoreSlug, solid }: NavbarProps) {
                 storesDropdownOpen ? "#ef4444" : (isSolid ? "#0f172a" : "rgba(255, 255, 255, 0.95)"))
               }
             >
-              <span>{currentStore ? currentStore.shortName : "Stores"}</span>
+              <span>{currentStore ? currentStore.shortName : "Our Branches"}</span>
               <ChevronDown
                 size={14}
                 style={{
@@ -552,7 +552,7 @@ export default function Navbar({ currentStoreSlug, solid }: NavbarProps) {
             >
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <MapPin size={16} style={{ color: "#ef4444" }} />
-                <span>Our Stores ({STORES_DATA.length})</span>
+                <span>Our Branches ({STORES_DATA.length})</span>
               </div>
               <ChevronDown
                 size={16}
@@ -661,7 +661,7 @@ export default function Navbar({ currentStoreSlug, solid }: NavbarProps) {
               justifyContent: "space-between",
             }}
           >
-            <span>Contact & Location</span>
+            <span>Contact</span>
             <span style={{ fontSize: "12px", color: "#94a3b8" }}>→</span>
           </Link>
 

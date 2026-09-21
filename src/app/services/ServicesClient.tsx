@@ -141,7 +141,7 @@ export default function ServicesClient() {
                 <Star key={i} size={12} fill="#ef4444" stroke="none" />
               ))}
             </div>
-            <span style={{ fontSize: "12px", fontWeight: 600, color: "#ffffff" }}>4.9 &nbsp;·&nbsp; 500+ Happy Customers</span>
+            <span style={{ fontSize: "12px", fontWeight: 600, color: "#ffffff" }}>4.9 &nbsp;·&nbsp; 2 Lakh+ Happy Customers</span>
           </div>
 
           {/* Headline */}
@@ -247,7 +247,7 @@ export default function ServicesClient() {
             }}
           >
             {[
-              { icon: <Users size={20} />, value: "500+", label: "Happy Customers" },
+              { icon: <Users size={20} />, value: "2 Lakh+", label: "Happy Customers" },
               { icon: <Car size={20} />, value: "Jack Lift", label: "Car Wash" },
               { icon: <Award size={20} />, value: "Teflon", label: "& Ceramic Coat" },
               { icon: <Clock size={20} />, value: "6 Days", label: "A Week Open" },

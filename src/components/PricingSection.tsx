@@ -110,12 +110,11 @@ const ADDITIONAL_COATING_SERVICES = [
 const BIKE_SERVICES = [
   {
     id: "normal-bike",
-    name: "Commuter Bike & Scooter",
+    name: "Normal Bike Wash",
     category: "Splendor, Shine, Activa, Jupiter, Pulsar",
-    image: "/gallery/real-scooter-foam-bay.jpg",
+    image: "/services/normal-bike-wash-clean.jpg",
     foamPrice: "₹150",
     dieselPrice: "₹180",
-    badge: "EXPRESS CARE",
     features: [
       "High-Pressure Snow Foam Bath",
       "Diesel Engine Cleansing & Degrease",
@@ -125,12 +124,11 @@ const BIKE_SERVICES = [
   },
   {
     id: "bullet",
-    name: "Royal Enfield & Heavy Cruiser",
+    name: "Standard Bike Wash",
     category: "Classic 350, Meteor, Hunter, Jawa, Yezdi",
-    image: "/gallery/real-bullet-pressure-wash.jpg",
+    image: "/services/standard-bike-wash.jpg",
     foamPrice: "₹180",
     dieselPrice: "₹250",
-    badge: "CRUISER CARE",
     features: [
       "Heavy Snow Foam Body Wash",
       "Engine Bay Diesel Degreasing",
@@ -141,12 +139,11 @@ const BIKE_SERVICES = [
   },
   {
     id: "sport-bikes",
-    name: "Performance & Superbikes",
+    name: "Sports Bike Wash",
     category: "KTM RC/Duke, Yamaha R15/MT15, Ninja, Dominar",
-    image: "/pricing/pricing-bike-wash.jpg",
+    image: "/services/sports-bike-wash-clean.jpg",
     foamPrice: "₹200",
     dieselPrice: "₹250",
-    badge: "SUPERBIKE SPA",
     features: [
       "Fairing-Safe pH-Neutral Foam Bath",
       "Swingarm & Diesel Engine Clean",
@@ -241,19 +238,6 @@ export default function PricingSection() {
                         className="pricing-card-img"
                       />
                       <div className="pricing-card-img-overlay" />
-                      
-                      {/* Floating Badge */}
-                      {plan.badge && (
-                        <div className={`pricing-floating-badge ${plan.popular ? "badge-popular" : "badge-normal"}`}>
-                          <Sparkles size={12} />
-                          <span>{plan.badge}</span>
-                        </div>
-                      )}
-
-                      {/* Vehicle Category Chip on bottom-right of image */}
-                      <div className="pricing-img-chip">
-                        {vehicleLabel}
-                      </div>
                     </div>
 
                     {/* Card Body */}
@@ -327,57 +311,59 @@ export default function PricingSection() {
                     selectedCategory === "7seater" ? add.price7Seater : add.price5Seater;
 
                   return (
-                    <div key={add.id} className="pricing-add-card">
-                      {/* Left/Top Image Banner */}
-                      <div className="pricing-add-img-wrap">
+                    <div key={add.id} className="pricing-card-box">
+                      {/* Top Image Banner */}
+                      <div className="pricing-card-image-wrap">
                         <img
                           src={add.image}
                           alt={`${add.name} at A1 Car Wash Hyderabad`}
                           loading="lazy"
-                          className="pricing-add-img"
+                          className="pricing-card-img"
                         />
-                        <div className="pricing-add-img-overlay" />
-                        <div className="pricing-add-badge">{add.badge}</div>
+                        <div className="pricing-card-img-overlay" />
                       </div>
 
-                      {/* Content */}
-                      <div className="pricing-add-body">
-                        <div>
-                          <div className="pricing-add-card-top">
-                            <h4 className="pricing-add-card-name">{add.name}</h4>
-                            <div className="pricing-add-card-price">
-                              <span className="price-num">{price}</span>
-                              <span className="price-sub">{vehicleLabel}</span>
-                            </div>
-                          </div>
-
-                          <p className="pricing-add-desc">{add.description}</p>
-
-                          <div className="pricing-add-features">
-                            {add.features.map((f, fi) => (
-                              <div key={fi} className="pricing-add-feat-item">
-                                <div className="pricing-add-check-dot">
-                                  <Check size={11} strokeWidth={3} />
-                                </div>
-                                <span>{f}</span>
-                              </div>
-                            ))}
+                      {/* Card Body */}
+                      <div className="pricing-card-body">
+                        <div className="pricing-card-header">
+                          <h3 className="pricing-card-title">{add.name}</h3>
+                          <p className="pricing-card-tagline">{add.description}</p>
+                          
+                          {/* Price Display */}
+                          <div className="pricing-price-row">
+                            <span className="pricing-price-val">{price}</span>
+                            <span className="pricing-price-unit">/ all-inclusive</span>
                           </div>
                         </div>
 
+                        <div className="pricing-card-divider" />
+
+                        {/* Feature Checklist */}
+                        <div className="pricing-checklist">
+                          {add.features.map((feat, i) => (
+                            <div key={i} className="pricing-check-item">
+                              <div className="pricing-check-icon">
+                                <Check size={13} strokeWidth={3} />
+                              </div>
+                              <span className="pricing-check-text">{feat}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* CTA Booking Button */}
                         <button
                           type="button"
-                          className="pricing-add-btn"
+                          className="pricing-btn-action btn-normal"
                           onClick={() => {
-                            const msg = `Hi A1 Car Wash! I would like to book *${vehicleLabel} ${add.name}* (${price}) at Raidurg, Hyderabad.`;
+                            const msg = `Hi A1 Car Wash! I would like to book the *${vehicleLabel} ${add.name}* (${price}) at Raidurg, Hyderabad.`;
                             window.open(
                               `https://wa.me/917045282473?text=${encodeURIComponent(msg)}`,
                               "_blank"
                             );
                           }}
                         >
-                          <span>Book {add.name} ({price})</span>
-                          <ArrowRight size={15} />
+                          <span>Book {add.name}</span>
+                          <ArrowRight size={16} />
                         </button>
                       </div>
                     </div>
@@ -403,15 +389,6 @@ export default function PricingSection() {
                       className="pricing-card-img"
                     />
                     <div className="pricing-card-img-overlay" />
-                    
-                    {bike.badge && (
-                      <div className="pricing-floating-badge badge-normal">
-                        <Sparkles size={12} />
-                        <span>{bike.badge}</span>
-                      </div>
-                    )}
-
-                    <div className="pricing-img-chip">Two-Wheeler Spa</div>
                   </div>
 
                   {/* Body */}
@@ -927,8 +904,9 @@ export default function PricingSection() {
 
         .pricing-additional-grid {
           display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 24px;
+          grid-template-columns: repeat(2, minmax(0, 380px));
+          justify-content: center;
+          gap: 28px;
         }
 
         .pricing-add-card {

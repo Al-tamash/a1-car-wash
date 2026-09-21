@@ -8,8 +8,6 @@ interface ServiceCardItem {
   id: string;
   slug: string;
   title: string;
-  badge: string;
-  badgeColor: string;
   description: string;
   image: string;
   accentGradient: string;
@@ -22,11 +20,9 @@ const SERVICES_DATA: ServiceCardItem[] = [
     id: "car-wash",
     slug: "car-wash",
     title: "Car Wash",
-    badge: "MOST POPULAR",
-    badgeColor: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
     description:
       "Complete four-wheeler care powered by heavy hydraulic jack lift ramps, RO soft water foam baths, chassis degreasing, and interior deep extraction.",
-    image: "/gallery/real-dual-lift-wide.jpg",
+    image: "/services/full-car-wash-clean.jpg",
     accentGradient: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
     shadowColor: "rgba(239, 68, 68, 0.4)",
     icon: <Car size={26} strokeWidth={2.2} />,
@@ -35,11 +31,9 @@ const SERVICES_DATA: ServiceCardItem[] = [
     id: "bike-wash",
     slug: "bike-wash",
     title: "Bike Wash",
-    badge: "EXPRESS CARE",
-    badgeColor: "linear-gradient(135deg, #1e3a8a 0%, #0d1b3e 100%)",
     description:
       "Specialized pressure cleaning, touchless snow foam wash, chain degreasing & lube, and scratch-free detailing for all commuter, sports, and cruiser bikes.",
-    image: "/gallery/bike-wash-card.jpg",
+    image: "/services/standard-bike-wash.jpg",
     accentGradient: "linear-gradient(135deg, #1e3a8a 0%, #0d1b3e 100%)",
     shadowColor: "rgba(13, 27, 62, 0.4)",
     icon: <Bike size={26} strokeWidth={2.2} />,
@@ -48,11 +42,9 @@ const SERVICES_DATA: ServiceCardItem[] = [
     id: "teflon-coating",
     slug: "teflon-coating",
     title: "Teflon Coating",
-    badge: "9H CERAMIC SHIELD",
-    badgeColor: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
     description:
       "Professional machine compounding, swirl and scratch removal, high-gloss Teflon sealants, and ceramic protection layers to safeguard showroom shine.",
-    image: "/gallery/about-fortuner-studio.jpg",
+    image: "/services/teflon-coating-service.jpg",
     accentGradient: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
     shadowColor: "rgba(239, 68, 68, 0.4)",
     icon: <ShieldCheck size={26} strokeWidth={2.2} />,
@@ -106,14 +98,6 @@ export default function ServicesSection() {
                       loading="lazy"
                     />
                     <div className="service-card-image-overlay" />
-
-                    {/* Floating Service Badge Chip */}
-                    <span 
-                      className="service-card-top-chip"
-                      style={{ background: service.badgeColor }}
-                    >
-                      {service.badge}
-                    </span>
                   </div>
 
                   {/* Floating Circular Icon Badge */}
