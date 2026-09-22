@@ -43,7 +43,7 @@ const SERVICES_DATA: ServiceCardItem[] = [
     slug: "teflon-coating",
     title: "Teflon Coating",
     description:
-      "Professional machine compounding, swirl and scratch removal, high-gloss Teflon sealants, and ceramic protection layers to safeguard showroom shine.",
+      "Professional machine compounding, swirl and scratch removal, high-gloss Teflon sealants, underbody anti-rust protection, and ceramic layers.",
     image: "/services/teflon-coating-service.jpg",
     accentGradient: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
     shadowColor: "rgba(239, 68, 68, 0.4)",

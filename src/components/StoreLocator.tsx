@@ -83,16 +83,6 @@ export default function StoreLocator({ currentStoreSlug }: StoreLocatorProps = {
               border: "1px solid rgba(220, 38, 38, 0.2)",
             }}
           >
-            <span
-              style={{
-                width: "7px",
-                height: "7px",
-                borderRadius: "50%",
-                background: "#dc2626",
-                boxShadow: "0 0 0 3px rgba(220, 38, 38, 0.25)",
-                display: "inline-block",
-              }}
-            />
             <MapPin size={14} style={{ color: "#dc2626" }} />
             <span>FIND US • 6 HYDERABAD HUBS</span>
           </div>

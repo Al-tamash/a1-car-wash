@@ -17,26 +17,38 @@ export default function ContactBookingSection({
 }: ContactBookingSectionProps = {}) {
   const activeStore = store || (currentStoreSlug ? STORES_DATA.find((s) => s.slug === currentStoreSlug) : undefined);
 
+  const defaultLocation = activeStore ? `${activeStore.shortName} (${activeStore.area.split('/')[0].trim()})` : "Banjara Hills (Road No. 12)";
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
+    location: defaultLocation,
     service: "7-Seater Full Car Wash — ₹1,200",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [lastSubmittedUrl, setLastSubmittedUrl] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const msg =
-      `*A1 CAR WASH — NEW BOOKING REQUEST*%0A` +
-      (activeStore ? `📍 Studio: ${activeStore.name}%0A` : "") +
-      `👤 Name: ${formData.name}%0A` +
-      `📞 Phone: ${formData.phone}%0A` +
-      `📧 Email: ${formData.email}%0A` +
-      `🚗 Service Selected: ${formData.service}%0A` +
-      `💬 Details: ${formData.message || "Ready for booking"}`;
-    window.open(`https://wa.me/${activeStore?.whatsapp || "917045282473"}?text=${msg}`, "_blank");
+    const phoneNum = activeStore?.whatsapp || "917045282473";
+    const cleanPhone = phoneNum.replace(/\D/g, "");
+    const formattedPhone = cleanPhone.startsWith("91") ? cleanPhone : `91${cleanPhone}`;
+
+    const textMessage =
+      `*🚘 A1 CAR WASH — NEW BOOKING REQUEST*\n\n` +
+      `📍 *Preferred Studio Location:* ${formData.location}\n` +
+      `👤 *Customer Name:* ${formData.name.trim()}\n` +
+      `📞 *Phone Number:* ${formData.phone.trim()}\n` +
+      (formData.email.trim() ? `📧 *Email:* ${formData.email.trim()}\n` : "") +
+      `✨ *Package / Service:* ${formData.service}\n` +
+      `📝 *Vehicle / Details / Preferred Time:* ${formData.message.trim() || "Standard slot requested"}\n\n` +
+      `_Sent via A1 Car Wash Online Portal_`;
+
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${formattedPhone}&text=${encodeURIComponent(textMessage)}`;
+    setLastSubmittedUrl(whatsappUrl);
+    window.open(whatsappUrl, "_blank");
     setSubmitted(true);
   };
 
@@ -264,30 +276,81 @@ export default function ContactBookingSection({
             {submitted ? (
               <div
                 style={{
-                  background: "#fef2f2",
-                  border: "1px solid #fecaca",
-                  borderRadius: "12px",
-                  padding: "28px",
+                  background: "#f0fdf4",
+                  border: "1.5px solid #bbf7d0",
+                  borderRadius: "16px",
+                  padding: "32px 24px",
                   textAlign: "center",
                 }}
               >
-                <CheckCircle2
-                  size={44}
-                  style={{ color: "#dc2626", margin: "0 auto 14px" }}
-                />
+                <div
+                  style={{
+                    width: "54px",
+                    height: "54px",
+                    borderRadius: "50%",
+                    background: "#22c55e",
+                    color: "#ffffff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    margin: "0 auto 16px",
+                  }}
+                >
+                  <CheckCircle2 size={30} />
+                </div>
                 <h4
                   style={{
-                    fontSize: "18px",
+                    fontSize: "20px",
                     fontWeight: 800,
-                    color: "#172554",
+                    color: "#166534",
                     marginBottom: "8px",
                   }}
                 >
-                  Booking Request Initiated!
+                  Booking Sent to WhatsApp!
                 </h4>
-                <p style={{ fontSize: "14px", color: "#64748b" }}>
-                  Thank you. WhatsApp has been opened with your booking details. We look forward to serving you at A1 Car Wash Raidurg!
+                <p style={{ fontSize: "14px", color: "#374151", marginBottom: "20px", lineHeight: "1.6" }}>
+                  Your booking request for <strong>{formData.name}</strong> ({formData.service} at <strong>{formData.location}</strong>) has been generated and redirected to our WhatsApp desk.
                 </p>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "center" }}>
+                  <a
+                    href={lastSubmittedUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      background: "#25D366",
+                      color: "#ffffff",
+                      fontWeight: 800,
+                      fontSize: "14.5px",
+                      padding: "12px 26px",
+                      borderRadius: "8px",
+                      textDecoration: "none",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      boxShadow: "0 4px 14px rgba(37, 211, 102, 0.35)",
+                    }}
+                  >
+                    <MessageSquare size={16} />
+                    Open WhatsApp Chat Now
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => setSubmitted(false)}
+                    style={{
+                      background: "transparent",
+                      border: "none",
+                      color: "#64748b",
+                      fontSize: "13px",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      textDecoration: "underline",
+                      marginTop: "6px",
+                    }}
+                  >
+                    Edit Details / Submit Another Request
+                  </button>
+                </div>
               </div>
             ) : (
               <form
@@ -299,7 +362,7 @@ export default function ContactBookingSection({
                   className="form-row"
                 >
                   <div>
-                    <label style={labelStyle}>Your Name</label>
+                    <label style={labelStyle}>Your Name *</label>
                     <input
                       type="text"
                       required
@@ -312,7 +375,7 @@ export default function ContactBookingSection({
                     />
                   </div>
                   <div>
-                    <label style={labelStyle}>Phone Number</label>
+                    <label style={labelStyle}>Phone Number *</label>
                     <input
                       type="tel"
                       required
@@ -331,19 +394,24 @@ export default function ContactBookingSection({
                   className="form-row"
                 >
                   <div>
-                    <label style={labelStyle}>Email (Optional)</label>
-                    <input
-                      type="email"
-                      placeholder="your.email@example.com"
-                      value={formData.email}
+                    <label style={labelStyle}>Select Location *</label>
+                    <select
+                      value={formData.location}
                       onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
+                        setFormData({ ...formData, location: e.target.value })
                       }
-                      style={inputStyle}
-                    />
+                      style={{ ...inputStyle, cursor: "pointer", fontWeight: 600 }}
+                    >
+                      <option value="Banjara Hills (Road No. 12)">Banjara Hills (Road No. 12)</option>
+                      <option value="Film Nagar (Darga Chowrasta)">Film Nagar (Darga Chowrasta)</option>
+                      <option value="Narsingi (Main Road)">Narsingi (Main Road)</option>
+                      <option value="Shaikpet (Sathya Colony)">Shaikpet (Sathya Colony)</option>
+                      <option value="Nanal Nagar (Mehdipatnam)">Nanal Nagar (Mehdipatnam)</option>
+                      <option value="Himayat (Himayat Sagar Rd)">Himayat (Himayat Sagar Rd)</option>
+                    </select>
                   </div>
                   <div>
-                    <label style={labelStyle}>Select Package / Service</label>
+                    <label style={labelStyle}>Select Package / Service *</label>
                     <select
                       value={formData.service}
                       onChange={(e) =>
@@ -382,6 +450,19 @@ export default function ContactBookingSection({
                 </div>
 
                 <div>
+                  <label style={labelStyle}>Email (Optional)</label>
+                  <input
+                    type="email"
+                    placeholder="your.email@example.com"
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                    style={inputStyle}
+                  />
+                </div>
+
+                <div>
                   <label style={labelStyle}>Vehicle Model & Preferred Time</label>
                   <textarea
                     rows={3}
@@ -411,7 +492,7 @@ export default function ContactBookingSection({
                     alignSelf: "flex-start",
                   }}
                 >
-                  Book Service
+                  Book Now
                 </button>
               </form>
             )}

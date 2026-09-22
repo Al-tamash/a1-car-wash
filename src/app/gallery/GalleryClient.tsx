@@ -3,40 +3,78 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Car, Bike, Sparkles, LayoutGrid } from "lucide-react";
 
-// Curated studio gallery images
+// Curated studio gallery images with verified categories
 const GALLERY_PHOTOS = [
-  { id: 1, image: "/gallery/real-fortuner-studio-lights.png", alt: "White Toyota Fortuner in Detailing Studio under LED Lights at A1 Car Wash" },
-  { id: 2, image: "/gallery/real-lift-seltos-red.png", alt: "Red Kia Seltos Hydraulic Ramp Lift & Chassis Cleanse at A1 Car Wash" },
-  { id: 3, image: "/gallery/real-cruiser-bike-wash.jpg", alt: "Cruiser Motorcycle High-Pressure Foam & Mist Wash at A1 Car Wash" },
-  { id: 4, image: "/gallery/real-foam-sedan-thick.png", alt: "Sedan Active White Snow Foam Shampoo Bath at A1 Car Wash" },
-  { id: 5, image: "/gallery/real-foam-black-suv.jpg", alt: "Black SUV Active Foam Wash & High-Pressure Hose Rinse at A1 Car Wash" },
-  { id: 6, image: "/gallery/real-gleam-nissan-suv.jpg", alt: "Brand New Black Nissan SUV Delivery Detailing & Shine at A1 Car Wash" },
-  { id: 7, image: "/gallery/real-foam-mercedes-suv.jpg", alt: "Mercedes-Benz Luxury SUV Active Snow Foam Bath at A1 Car Wash" },
-  { id: 8, image: "/gallery/bike-wash-card.jpg", alt: "Honda H'ness CB350 Bike Wash & Pressure Spray Bay at A1 Car Wash" },
-  { id: 9, image: "/gallery/real-scooters-foam.jpg", alt: "Activa Scooters & Bikes Active Foam Wash inside Studio at A1 Car Wash" },
-  { id: 10, image: "/gallery/real-outdoor-ramp-wash.jpg", alt: "Dual Hydraulic Ramp Outdoor Chassis Jet Wash at A1 Car Wash" },
-  { id: 11, image: "/gallery/real-lift-ford.jpg", alt: "Ford Figo Underbody Chassis Wash on Hydraulic Lift at A1 Car Wash" },
-  { id: 12, image: "/gallery/interior-deep-cleaning-card.jpg", alt: "Maruti Baleno Interior Deep Cleaning & Vacuuming on Ramp at A1 Car Wash" },
-  { id: 13, image: "/gallery/real-bay-sedan-wash.jpg", alt: "Sedan Pressure Jet Rinse & Wash Bay Service Board at A1 Car Wash" },
-  { id: 14, image: "/gallery/real-bikes-lineup.jpg", alt: "Two-Wheeler Commuter Bike Service Bay at A1 Car Wash" },
-  { id: 15, image: "/gallery/real-lift-nano.png", alt: "Yellow Hatchback Hydraulic Ramp Wash Bay at A1 Car Wash" },
-  { id: 16, image: "/gallery/real-dual-lift-wide.jpg", alt: "Dual Car Hydraulic Jack Lift Wash Station at A1 Car Wash" },
-  { id: 17, image: "/gallery/real-foam-ertiga.jpg", alt: "Maruti Suzuki Ertiga Active Snow Foam Shampoo Bath at A1 Car Wash" },
-  { id: 18, image: "/gallery/real-dual-lift-close.jpg", alt: "Dual Hydraulic Lifts Underbody Pressure Wash at A1 Car Wash" },
-  { id: 19, image: "/gallery/real-foam-ertiga-blue.jpg", alt: "Blue Ertiga Full Body Foam Wash & Detailing at A1 Car Wash" },
-  { id: 20, image: "/gallery/real-lift-mercedes.jpg", alt: "Mercedes-Benz on Hydraulic Jack Lift Wash at A1 Car Wash" },
-  { id: 21, image: "/gallery/real-lift-xuv700.png", alt: "Mahindra XUV700 Hydraulic Ramp Underbody Wash at A1 Car Wash" },
-  { id: 22, image: "/gallery/real-lift-fortuner.png", alt: "Toyota Fortuner on Hydraulic Jack Lift Station at A1 Car Wash" },
-  { id: 23, image: "/gallery/real-wash-fortuner.jpg", alt: "Toyota Fortuner High-Pressure Foam & Water Wash at A1 Car Wash" },
-  { id: 24, image: "/gallery/real-wash-tata.png", alt: "Tata Hatchback Active Foam Wash inside Wash Bay at A1 Car Wash" },
-  { id: 25, image: "/gallery/real-wash-nexon.jpg", alt: "Tata Nexon Exterior Detailing and Microfiber Finish at A1 Car Wash" },
-  { id: 26, image: "/gallery/real-storefront.png", alt: "A1 Car Wash Studio Front & Detailing Center in Hyderabad" },
+  // ── CAR WASH PHOTOS (Cars, SUVs, Lifts, Foam Bays) ──
+  { id: 1, category: "car-wash", image: "/gallery/real-fortuner-studio-lights.png", alt: "White Toyota Fortuner in Detailing Studio under LED Lights at A1 Car Wash" },
+  { id: 2, category: "car-wash", image: "/gallery/real-lift-seltos-red.png", alt: "Red Kia Seltos Hydraulic Ramp Lift & Chassis Cleanse at A1 Car Wash" },
+  { id: 3, category: "car-wash", image: "/gallery/real-foam-audi-coupe.jpg", alt: "Audi Active Foam Wash at A1 Car Wash" },
+  { id: 4, category: "car-wash", image: "/gallery/real-foam-sedan-thick.png", alt: "Sedan Active White Snow Foam Shampoo Bath at A1 Car Wash" },
+  { id: 5, category: "car-wash", image: "/gallery/real-foam-black-suv.jpg", alt: "Black SUV Active Foam Wash & High-Pressure Hose Rinse at A1 Car Wash" },
+  { id: 6, category: "car-wash", image: "/gallery/real-gleam-nissan-suv.jpg", alt: "Brand New Black Nissan SUV Delivery Detailing & Shine at A1 Car Wash" },
+  { id: 7, category: "car-wash", image: "/gallery/real-foam-mercedes-suv.jpg", alt: "Mercedes-Benz Luxury SUV Active Snow Foam Bath at A1 Car Wash" },
+  { id: 8, category: "car-wash", image: "/gallery/real-foam-ecosport.png", alt: "Ford EcoSport Active Foam Wash inside Studio at A1 Car Wash" },
+  { id: 9, category: "car-wash", image: "/gallery/real-outdoor-ramp-wash.jpg", alt: "Dual Hydraulic Ramp Outdoor Chassis Jet Wash at A1 Car Wash" },
+  { id: 10, category: "car-wash", image: "/gallery/real-lift-ford.jpg", alt: "Ford Figo Underbody Chassis Wash on Hydraulic Lift at A1 Car Wash" },
+  { id: 11, category: "car-wash", image: "/gallery/interior-deep-cleaning-card.jpg", alt: "Maruti Baleno Interior Deep Cleaning & Vacuuming on Ramp at A1 Car Wash" },
+  { id: 12, category: "car-wash", image: "/gallery/real-bay-sedan-wash.jpg", alt: "Sedan Pressure Jet Rinse & Wash Bay Service Board at A1 Car Wash" },
+  { id: 13, category: "car-wash", image: "/gallery/real-foam-i10-lift.jpg", alt: "Hyundai Grand i10 Hydraulic Lift Wash at A1 Car Wash" },
+  { id: 14, category: "car-wash", image: "/gallery/real-lift-nano.png", alt: "Yellow Hatchback Hydraulic Ramp Wash Bay at A1 Car Wash" },
+  { id: 15, category: "car-wash", image: "/gallery/real-dual-lift-wide.jpg", alt: "Dual Car Hydraulic Jack Lift Wash Station at A1 Car Wash" },
+  { id: 16, category: "car-wash", image: "/gallery/real-foam-ertiga.jpg", alt: "Maruti Suzuki Ertiga Active Snow Foam Shampoo Bath at A1 Car Wash" },
+  { id: 17, category: "car-wash", image: "/gallery/real-dual-lift-close.jpg", alt: "Dual Hydraulic Lifts Underbody Pressure Wash at A1 Car Wash" },
+  { id: 18, category: "car-wash", image: "/gallery/real-foam-ertiga-blue.jpg", alt: "Blue Ertiga Full Body Foam Wash & Detailing at A1 Car Wash" },
+  { id: 19, category: "car-wash", image: "/gallery/real-lift-mercedes.jpg", alt: "Mercedes-Benz on Hydraulic Jack Lift Wash at A1 Car Wash" },
+  { id: 20, category: "car-wash", image: "/gallery/real-lift-xuv700.png", alt: "Mahindra XUV700 Hydraulic Ramp Underbody Wash at A1 Car Wash" },
+  { id: 21, category: "car-wash", image: "/gallery/real-lift-fortuner.png", alt: "Toyota Fortuner on Hydraulic Jack Lift Station at A1 Car Wash" },
+  { id: 22, category: "car-wash", image: "/gallery/real-wash-fortuner.jpg", alt: "Toyota Fortuner High-Pressure Foam & Water Wash at A1 Car Wash" },
+  { id: 23, category: "car-wash", image: "/gallery/real-wash-tata.png", alt: "Tata Hatchback Active Foam Wash inside Wash Bay at A1 Car Wash" },
+  { id: 24, category: "car-wash", image: "/gallery/real-wash-nexon.jpg", alt: "Tata Nexon Exterior Detailing and Microfiber Finish at A1 Car Wash" },
+  { id: 25, category: "car-wash", image: "/gallery/real-brezza-wash.jpg", alt: "Maruti Brezza Wash Bay at A1 Car Wash" },
+  { id: 26, category: "car-wash", image: "/gallery/real-venue-interior-boot.jpg", alt: "Hyundai Venue Boot & Interior Vacuuming at A1 Car Wash" },
+  { id: 27, category: "car-wash", image: "/gallery/real-lift-creta-black.jpg", alt: "Hyundai Creta Black Hydraulic Lift Wash at A1 Car Wash" },
+  { id: 28, category: "car-wash", image: "/gallery/real-interior-baleno.jpg", alt: "Baleno Interior Detailing at A1 Car Wash" },
+  { id: 29, category: "car-wash", image: "/gallery/real-interior-thar-brown.png", alt: "Mahindra Thar Interior Deep Cleaning at A1 Car Wash" },
+  { id: 30, category: "car-wash", image: "/gallery/real-lift-thar-grey.jpg", alt: "Mahindra Thar Ramp Wash at A1 Car Wash" },
+  { id: 31, category: "car-wash", image: "/gallery/real-gleam-tata-harrier.jpg", alt: "Tata Harrier Studio Detailing at A1 Car Wash" },
+  { id: 32, category: "car-wash", image: "/gallery/real-storefront.png", alt: "A1 Car Wash Studio Front & Detailing Center in Hyderabad" },
+
+  // ── TEFLON COATING PHOTOS ──
+  { id: 33, category: "teflon-coating", image: "/gallery/teflon-mercedes-eclass.png", alt: "Mercedes-Benz E-Class Teflon Coating Finish at A1 Car Wash" },
+  { id: 41, category: "teflon-coating", image: "/gallery/teflon-tata-nexon-black.png", alt: "Tata Nexon Black Teflon Protective Coating at A1 Car Wash" },
+  { id: 42, category: "teflon-coating", image: "/gallery/teflon-tata-nexon-white.png", alt: "White Tata Nexon Teflon Protective Coating at A1 Car Wash" },
+  { id: 43, category: "teflon-coating", image: "/gallery/teflon-porsche-blue.png", alt: "Blue Porsche Cayman High-Gloss Teflon Coating at A1 Car Wash" },
+  { id: 44, category: "teflon-coating", image: "/gallery/teflon-skoda-superb-black.png", alt: "Skoda Superb Black Teflon Paint Protection at A1 Car Wash" },
+  { id: 45, category: "teflon-coating", image: "/gallery/underbody-antirust-coating.jpg", alt: "Underbody Anti-Rust Coating at A1 Car Wash" },
+  { id: 46, category: "teflon-coating", image: "/gallery/underbody-antirust-work.jpg", alt: "Underbody Anti-Rust Treatment Work at A1 Car Wash" },
+
+  // ── BIKE WASH PHOTOS (100% Genuine Two-Wheelers) ──
+  { id: 34, category: "bike-wash", image: "/gallery/royal-enfield-bullet-military.png", alt: "Royal Enfield Bullet Military Green Detailing at A1 Car Wash" },
+  { id: 35, category: "bike-wash", image: "/gallery/royal-enfield-interceptor-650.png", alt: "Royal Enfield Interceptor 650 Detailing at A1 Car Wash" },
+  { id: 36, category: "bike-wash", image: "/gallery/bike-wash-card.jpg", alt: "Honda H'ness CB350 Bike Wash & Pressure Spray Bay at A1 Car Wash" },
+  { id: 37, category: "bike-wash", image: "/gallery/real-bullet-pressure-wash.jpg", alt: "Royal Enfield Bullet Pressure Jet Wash at A1 Car Wash" },
+  { id: 38, category: "bike-wash", image: "/gallery/real-r15-sports-detailing.jpg", alt: "Yamaha R15 Sports Bike Detailing at A1 Car Wash" },
+  { id: 39, category: "bike-wash", image: "/gallery/real-ktm-rc-wash.jpg", alt: "Sports Bike Active Foam Wash at A1 Car Wash" },
+  { id: 40, category: "bike-wash", image: "/gallery/real-scooter-foam-bay.jpg", alt: "Royal Enfield & Scooters Active Foam Wash Bay at A1 Car Wash" },
+];
+
+const CATEGORIES = [
+  { id: "all", label: "All Photos", icon: <LayoutGrid size={15} /> },
+  { id: "car-wash", label: "Car Wash", icon: <Car size={15} /> },
+  { id: "bike-wash", label: "Bike Wash", icon: <Bike size={15} /> },
+  { id: "teflon-coating", label: "Teflon Coating", icon: <Sparkles size={15} /> },
 ];
 
 export default function GalleryClient() {
+  const [activeCategory, setActiveCategory] = useState<string>("all");
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
+
+  // Filtered photos based on active category
+  const filteredPhotos = activeCategory === "all"
+    ? GALLERY_PHOTOS
+    : GALLERY_PHOTOS.filter((photo) => photo.category === activeCategory);
 
   // Keyboard navigation for lightbox
   useEffect(() => {
@@ -46,26 +84,88 @@ export default function GalleryClient() {
         setSelectedPhotoIndex(null);
       } else if (e.key === "ArrowLeft") {
         setSelectedPhotoIndex((prev) =>
-          prev !== null ? (prev - 1 + GALLERY_PHOTOS.length) % GALLERY_PHOTOS.length : null
+          prev !== null ? (prev - 1 + filteredPhotos.length) % filteredPhotos.length : null
         );
       } else if (e.key === "ArrowRight") {
         setSelectedPhotoIndex((prev) =>
-          prev !== null ? (prev + 1) % GALLERY_PHOTOS.length : null
+          prev !== null ? (prev + 1) % filteredPhotos.length : null
         );
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedPhotoIndex]);
+  }, [selectedPhotoIndex, filteredPhotos]);
 
   return (
     <main style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "#ffffff" }}>
       {/* 1. Navbar */}
       <Navbar />
 
-      {/* Pure Gallery Images Grid — Zero text on images */}
-      <section style={{ padding: "105px 0 72px", background: "#f8fafc", flex: 1 }}>
+      {/* Gallery Section with Category Filter */}
+      <section style={{ padding: "100px 0 72px", background: "#f8fafc", flex: 1 }}>
         <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 24px" }}>
+          
+          {/* Category Filter Tabs */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "10px",
+              marginBottom: "32px",
+              flexWrap: "wrap",
+            }}
+          >
+            {CATEGORIES.map((cat) => {
+              const isActive = activeCategory === cat.id;
+              const count = cat.id === "all"
+                ? GALLERY_PHOTOS.length
+                : GALLERY_PHOTOS.filter((p) => p.category === cat.id).length;
+
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => {
+                    setActiveCategory(cat.id);
+                    setSelectedPhotoIndex(null);
+                  }}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    padding: "10px 22px",
+                    borderRadius: "9999px",
+                    fontSize: "14px",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    transition: "all 0.25s ease",
+                    border: isActive ? "1.5px solid #dc2626" : "1.5px solid #e2e8f0",
+                    background: isActive ? "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)" : "#ffffff",
+                    color: isActive ? "#ffffff" : "#334155",
+                    boxShadow: isActive ? "0 6px 18px rgba(220, 38, 38, 0.3)" : "0 2px 8px rgba(15, 23, 42, 0.04)",
+                  }}
+                >
+                  {cat.icon}
+                  <span>{cat.label}</span>
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      fontWeight: 800,
+                      padding: "2px 7px",
+                      borderRadius: "9999px",
+                      background: isActive ? "rgba(255, 255, 255, 0.25)" : "#f1f5f9",
+                      color: isActive ? "#ffffff" : "#64748b",
+                    }}
+                  >
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Pure Gallery Images Grid */}
           <div
             style={{
               display: "grid",
@@ -73,7 +173,7 @@ export default function GalleryClient() {
               gap: "16px",
             }}
           >
-            {GALLERY_PHOTOS.map((photo, idx) => (
+            {filteredPhotos.map((photo, idx) => (
               <div
                 key={photo.id}
                 onClick={() => setSelectedPhotoIndex(idx)}
@@ -181,7 +281,7 @@ export default function GalleryClient() {
               onClick={(e) => {
                 e.stopPropagation();
                 setSelectedPhotoIndex(
-                  (selectedPhotoIndex - 1 + GALLERY_PHOTOS.length) % GALLERY_PHOTOS.length
+                  (selectedPhotoIndex - 1 + filteredPhotos.length) % filteredPhotos.length
                 );
               }}
               aria-label="Previous image"
@@ -217,7 +317,7 @@ export default function GalleryClient() {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                setSelectedPhotoIndex((selectedPhotoIndex + 1) % GALLERY_PHOTOS.length);
+                setSelectedPhotoIndex((selectedPhotoIndex + 1) % filteredPhotos.length);
               }}
               aria-label="Next image"
               style={{
@@ -258,16 +358,18 @@ export default function GalleryClient() {
                 background: "#000000",
               }}
             >
-              <img
-                src={GALLERY_PHOTOS[selectedPhotoIndex].image}
-                alt={GALLERY_PHOTOS[selectedPhotoIndex].alt}
-                style={{
-                  maxWidth: "100%",
-                  maxHeight: "82vh",
-                  objectFit: "contain",
-                  display: "block",
-                }}
-              />
+              {filteredPhotos[selectedPhotoIndex] && (
+                <img
+                  src={filteredPhotos[selectedPhotoIndex].image}
+                  alt={filteredPhotos[selectedPhotoIndex].alt}
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "82vh",
+                    objectFit: "contain",
+                    display: "block",
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>

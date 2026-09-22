@@ -12,7 +12,6 @@ import {
   CheckCircle2,
   ChevronRight,
   ArrowRight,
-  Sparkles,
 } from "lucide-react";
 
 export default function AboutClient() {
@@ -162,9 +161,6 @@ export default function AboutClient() {
               <div className="about-new-stat-card">
                 <div className="about-stat-top-row">
                   <span className="about-stat-label">Est. Since</span>
-                  <div className="about-stat-icon-wrap">
-                    <Sparkles size={16} />
-                  </div>
                 </div>
                 <div className="about-stat-number">
                   <span style={{ color: "#e53935", fontWeight: 800 }}>1997</span>

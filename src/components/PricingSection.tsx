@@ -77,7 +77,7 @@ const ADDITIONAL_COATING_SERVICES = [
     id: "teflon",
     name: "9H Teflon Gloss Coating",
     badge: "MIRROR SHIELD",
-    image: "/gallery/about-fortuner-studio.jpg",
+    image: "/services/teflon-coating-service.jpg",
     price7Seater: "₹4,000",
     price5Seater: "₹3,500",
     description:

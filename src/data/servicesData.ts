@@ -36,7 +36,7 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
       "Underbody Oil & Diesel Degreasing",
       "Outside Snow Foam Wash & Microfiber Cleanse",
       "Interior Deep Vacuum & Dashboard Polish",
-      "Underbody Anti-Rust + Silencer Spray",
+      "Tyre Rim Deep Dressing & Shine",
     ],
     subServices: [
       {
@@ -83,21 +83,6 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
         ],
         description:
           "Complete interior rejuvenation removing stains, mud, dust, spills, and odors with professional extraction machines and UV protectant conditioners.",
-      },
-      {
-        id: "underbody-coating",
-        name: "Underbody Anti-Rust + Silencer Spray",
-        image: "/services/underbody-coating-clean.jpg",
-        features: [
-          "Heavy-Duty Chassis Anti-Rust Layer",
-          "Black Colour Protective Underside Coat",
-          "High-Temperature Silencer Zinc Spray",
-          "Monsoon, Mud & Road Salt Shield",
-          "Suspension & Floor Pan Protection",
-          "Vibration & Noise Damping",
-        ],
-        description:
-          "Long-lasting bitumen and wax-based rustproofing compound protecting chassis metal against Hyderabad monsoons, waterlogging, and underbody corrosion.",
       },
     ],
   },
@@ -175,10 +160,10 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
     image: "/services/teflon-coating-service.jpg",
     highlights: [
       "Fluoropolymer Protective Shield",
+      "Underbody Anti-Rust + Silencer Spray",
       "Deep Mirror High Gloss Reflections",
       "Minor Swirl & Scratch Defense",
       "Hydrophobic Water-Beading Barrier",
-      "Dual-Action Machine Buffing",
     ],
     subServices: [
       {
@@ -195,6 +180,21 @@ export const THREE_MAIN_SERVICES: MainServiceCategory[] = [
         ],
         description:
           "Advanced protective sealant bonding to vehicle clear coat, providing incredible gloss, UV protection, and surface slickness.",
+      },
+      {
+        id: "underbody-coating",
+        name: "Underbody Anti-Rust + Silencer Spray",
+        image: "/services/underbody-coating-clean.jpg",
+        features: [
+          "Heavy-Duty Chassis Anti-Rust Layer",
+          "Black Colour Protective Underside Coat",
+          "High-Temperature Silencer Zinc Spray",
+          "Monsoon, Mud & Road Salt Shield",
+          "Suspension & Floor Pan Protection",
+          "Vibration & Noise Damping",
+        ],
+        description:
+          "Long-lasting bitumen and wax-based rustproofing compound protecting chassis metal against Hyderabad monsoons, waterlogging, and underbody corrosion.",
       },
       {
         id: "machine-buffing-polishing",

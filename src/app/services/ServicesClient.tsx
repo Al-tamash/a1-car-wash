@@ -234,18 +234,11 @@ export default function ServicesClient() {
             background: "rgba(8,13,21,0.7)",
             backdropFilter: "blur(16px)",
             borderTop: "1px solid rgba(255,255,255,0.08)",
+            overflow: "hidden",
           }}
         >
-          <div
-            style={{
-              maxWidth: "1280px",
-              margin: "0 auto",
-              padding: "0 32px",
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gap: "0",
-            }}
-          >
+          {/* Desktop Static 4-Column Grid */}
+          <div className="services-stats-desktop">
             {[
               { icon: <Users size={20} />, value: "2 Lakh+", label: "Happy Customers" },
               { icon: <Car size={20} />, value: "Jack Lift", label: "Car Wash" },
@@ -283,6 +276,59 @@ export default function ServicesClient() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Mobile Smooth Auto-Moving Ticker */}
+          <div className="services-stats-mobile-marquee">
+            <div className="services-stats-track">
+              {[
+                { icon: <Users size={20} />, value: "2 Lakh+", label: "Happy Customers" },
+                { icon: <Car size={20} />, value: "Jack Lift", label: "Car Wash" },
+                { icon: <Award size={20} />, value: "Teflon", label: "& Ceramic Coat" },
+                { icon: <Clock size={20} />, value: "6 Days", label: "A Week Open" },
+                { icon: <Users size={20} />, value: "2 Lakh+", label: "Happy Customers" },
+                { icon: <Car size={20} />, value: "Jack Lift", label: "Car Wash" },
+                { icon: <Award size={20} />, value: "Teflon", label: "& Ceramic Coat" },
+                { icon: <Clock size={20} />, value: "6 Days", label: "A Week Open" },
+                { icon: <Users size={20} />, value: "2 Lakh+", label: "Happy Customers" },
+                { icon: <Car size={20} />, value: "Jack Lift", label: "Car Wash" },
+                { icon: <Award size={20} />, value: "Teflon", label: "& Ceramic Coat" },
+                { icon: <Clock size={20} />, value: "6 Days", label: "A Week Open" },
+              ].map((stat, i) => (
+                <div
+                  key={i}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    padding: "14px 20px",
+                    borderRight: "1px solid rgba(255,255,255,0.08)",
+                    whiteSpace: "nowrap",
+                    flexShrink: 0,
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "36px",
+                      height: "36px",
+                      borderRadius: "10px",
+                      background: "rgba(239,68,68,0.15)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#ef4444",
+                      flexShrink: 0,
+                    }}
+                  >
+                    {stat.icon}
+                  </div>
+                  <div>
+                    <div style={{ fontSize: "14px", fontWeight: 700, color: "#ffffff", lineHeight: 1.2 }}>{stat.value}</div>
+                    <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.55)", marginTop: "2px" }}>{stat.label}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -504,6 +550,50 @@ export default function ServicesClient() {
       <PricingSection />
 
       <Footer />
+
+      <style>{`
+        .services-stats-desktop {
+          max-width: 1280px;
+          margin: 0 auto;
+          padding: 0 32px;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 0;
+        }
+        .services-stats-mobile-marquee {
+          display: none;
+        }
+        @media (max-width: 860px) {
+          .services-stats-desktop {
+            display: none !important;
+          }
+          .services-stats-mobile-marquee {
+            display: flex !important;
+            overflow: hidden;
+            width: 100%;
+            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+          }
+          .services-stats-track {
+            display: flex;
+            align-items: center;
+            width: max-content;
+            animation: servicesStatsScroll 18s linear infinite;
+          }
+          .services-stats-track:hover,
+          .services-stats-track:active {
+            animation-play-state: paused;
+          }
+        }
+        @keyframes servicesStatsScroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-33.333333%);
+          }
+        }
+      `}</style>
     </main>
   );
 }

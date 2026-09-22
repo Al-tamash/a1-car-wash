@@ -249,7 +249,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar matching reference image */}
+        {/* Bottom Bar */}
         <div
           style={{
             borderTop: "1px solid #1f2937",
@@ -260,11 +260,14 @@ export default function Footer() {
             flexWrap: "wrap",
             gap: "12px",
             fontSize: "13px",
-            color: "#6b7280"
+            color: "#9ca3af"
           }}
         >
           <div>
             © {new Date().getFullYear()} A1 Car Wash. All rights reserved.
+          </div>
+          <div>
+            Designed &amp; Developed by <span style={{ color: "#ffffff", fontWeight: 600 }}>Edone Solutions</span>
           </div>
         </div>
       </div>

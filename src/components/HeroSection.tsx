@@ -12,6 +12,7 @@ import {
   ChevronRight,
   Play,
   X,
+  Users,
 } from "lucide-react";
 import "./HeroSection.css";
 
@@ -241,6 +242,14 @@ export default function HeroSection({
                 <div className="hero-exp-text">
                   <span className="hero-exp-sub">EXPERIENCE SINCE</span>
                   <span className="hero-exp-year">1997</span>
+                </div>
+              </div>
+
+              <div className="hero-experience-badge">
+                <Users size={16} style={{ color: "#ef4444" }} />
+                <div className="hero-exp-text">
+                  <span className="hero-exp-sub">HAPPY CUSTOMERS</span>
+                  <span className="hero-exp-year">2 Lakh+</span>
                 </div>
               </div>
             </div>

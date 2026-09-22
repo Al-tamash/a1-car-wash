@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Check, ArrowRight, Sparkles } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 import "./AboutSection.css";
 
 export default function AboutSection() {
@@ -35,9 +35,6 @@ export default function AboutSection() {
             <div className="about-new-stat-card">
               <div className="about-stat-top-row">
                 <span className="about-stat-label">Est. Since</span>
-                <div className="about-stat-icon-wrap">
-                  <Sparkles size={16} />
-                </div>
               </div>
               <div className="about-stat-number">
                 <span style={{ color: "#e53935", fontWeight: 800 }}>1997</span>

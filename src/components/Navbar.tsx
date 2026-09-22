@@ -137,254 +137,240 @@ export default function Navbar({ currentStoreSlug, solid }: NavbarProps) {
           style={{ display: "flex", alignItems: "center", gap: 28 }}
           className="desktop-nav"
         >
-          <Link
-            href="/"
-            style={{
-              fontSize: 14,
-              fontWeight: 600,
-              color: isSolid ? "#334155" : "rgba(255, 255, 255, 0.95)",
-              textDecoration: "none",
-              transition: "color 0.2s ease",
-              textShadow: isSolid ? "none" : "0 2px 8px rgba(0,0,0,0.6)",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")}
-            onMouseLeave={(e) =>
-            (e.currentTarget.style.color = isSolid
-              ? "#334155"
-              : "rgba(255, 255, 255, 0.95)")
-            }
-          >
-            Home
-          </Link>
+          {(() => {
+            const isHomeActive = pathname === "/";
+            const isServicesActive = pathname === "/services" || pathname.startsWith("/services/");
+            const isStoresActive = pathname === "/stores" || pathname.startsWith("/stores/") || !!currentStoreSlug;
+            const isAboutActive = pathname === "/about" || pathname.startsWith("/about/");
+            const isGalleryActive = pathname === "/gallery" || pathname.startsWith("/gallery/");
+            const isContactActive = pathname === "/contact" || pathname.startsWith("/contact/");
 
-          <Link
-            href="/services"
-            style={{
-              fontSize: 14,
-              fontWeight: 600,
-              color: isSolid ? "#334155" : "rgba(255, 255, 255, 0.95)",
-              textDecoration: "none",
-              transition: "color 0.2s ease",
-              textShadow: isSolid ? "none" : "0 2px 8px rgba(0,0,0,0.6)",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")}
-            onMouseLeave={(e) =>
-            (e.currentTarget.style.color = isSolid
-              ? "#334155"
-              : "rgba(255, 255, 255, 0.95)")
-            }
-          >
-            Services
-          </Link>
-
-          {/* Stores ˅ Dropdown */}
-          <div
-            ref={dropdownRef}
-            style={{ position: "relative" }}
-            onMouseEnter={() => setStoresDropdownOpen(true)}
-            onMouseLeave={() => setStoresDropdownOpen(false)}
-          >
-            <button
-              onClick={() => setStoresDropdownOpen(!storesDropdownOpen)}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "5px",
-                background: "transparent",
-                border: "none",
-                cursor: "pointer",
-                padding: "8px 0",
-                fontSize: 14,
-                fontWeight: 600,
-                color:
-                  storesDropdownOpen ? "#ef4444" : (isSolid ? "#0f172a" : "rgba(255, 255, 255, 0.95)"),
-                transition: "color 0.2s ease",
-                textShadow: isSolid ? "none" : "0 2px 8px rgba(0,0,0,0.6)",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")}
-              onMouseLeave={(e) =>
-              (e.currentTarget.style.color =
-                storesDropdownOpen ? "#ef4444" : (isSolid ? "#0f172a" : "rgba(255, 255, 255, 0.95)"))
-              }
-            >
-              <span>{currentStore ? currentStore.shortName : "Our Branches"}</span>
-              <ChevronDown
-                size={14}
-                style={{
-                  transform: storesDropdownOpen ? "rotate(180deg)" : "rotate(0deg)",
-                  transition: "transform 0.2s ease",
-                }}
-              />
-            </button>
-
-            {/* Stores Dropdown Menu */}
-            {storesDropdownOpen && (
-              <div
-                style={{
-                  position: "absolute",
-                  top: "100%",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  width: "320px",
-                  backgroundColor: "#ffffff",
-                  borderRadius: "14px",
-                  boxShadow:
-                    "0 20px 50px rgba(15, 23, 42, 0.16), 0 4px 12px rgba(0, 0, 0, 0.06)",
-                  border: "1px solid #e2e8f0",
-                  padding: "10px",
-                  zIndex: 1100,
-                  marginTop: "6px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "4px",
-                  animation: "fadeIn 0.18s ease",
-                }}
-              >
-                <div
+            return (
+              <>
+                <Link
+                  href="/"
                   style={{
-                    padding: "8px 12px 6px",
-                    fontSize: "11px",
-                    fontWeight: 800,
-                    color: "#94a3b8",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.06em",
-                    borderBottom: "1px solid #f1f5f9",
-                    marginBottom: "4px",
+                    fontSize: 14,
+                    fontWeight: isHomeActive ? 700 : 600,
+                    color: isHomeActive ? "#dc2626" : "#334155",
+                    textDecoration: "none",
+                    transition: "color 0.2s ease",
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = isHomeActive ? "#dc2626" : "#334155")}
                 >
-                  Select Detailing Studio
-                </div>
+                  Home
+                </Link>
 
-                {STORES_DATA.map((s) => {
-                  const isSelected = currentStoreSlug === s.slug;
-                  return (
-                    <Link
-                      key={s.id}
-                      href={`/stores/${s.slug}`}
-                      onClick={() => setStoresDropdownOpen(false)}
+                <Link
+                  href="/services"
+                  style={{
+                    fontSize: 14,
+                    fontWeight: isServicesActive ? 700 : 600,
+                    color: isServicesActive ? "#dc2626" : "#334155",
+                    textDecoration: "none",
+                    transition: "color 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = isServicesActive ? "#dc2626" : "#334155")}
+                >
+                  Services
+                </Link>
+
+                {/* Stores ˅ Dropdown */}
+                <div
+                  ref={dropdownRef}
+                  style={{ position: "relative" }}
+                  onMouseEnter={() => setStoresDropdownOpen(true)}
+                  onMouseLeave={() => setStoresDropdownOpen(false)}
+                >
+                  <button
+                    onClick={() => setStoresDropdownOpen(!storesDropdownOpen)}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "5px",
+                      background: "transparent",
+                      border: "none",
+                      cursor: "pointer",
+                      padding: "8px 0",
+                      fontSize: 14,
+                      fontWeight: (isStoresActive || storesDropdownOpen) ? 700 : 600,
+                      color: (isStoresActive || storesDropdownOpen) ? "#dc2626" : "#334155",
+                      transition: "color 0.2s ease",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")}
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.color = (isStoresActive || storesDropdownOpen) ? "#dc2626" : "#334155")
+                    }
+                  >
+                    <span>{currentStore ? currentStore.shortName : "Our Branches"}</span>
+                    <ChevronDown
+                      size={14}
                       style={{
+                        transform: storesDropdownOpen ? "rotate(180deg)" : "rotate(0deg)",
+                        transition: "transform 0.2s ease",
+                      }}
+                    />
+                  </button>
+
+                  {/* Stores Dropdown Menu */}
+                  {storesDropdownOpen && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "100%",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        width: "320px",
+                        backgroundColor: "#ffffff",
+                        borderRadius: "14px",
+                        boxShadow:
+                          "0 20px 50px rgba(15, 23, 42, 0.16), 0 4px 12px rgba(0, 0, 0, 0.06)",
+                        border: "1px solid #e2e8f0",
+                        padding: "10px",
+                        zIndex: 1100,
+                        paddingTop: "16px",
+                        marginTop: "0px",
                         display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        padding: "10px 12px",
-                        borderRadius: "8px",
-                        textDecoration: "none",
-                        background: isSelected ? "#fee2e2" : "transparent",
-                        transition: "all 0.15s ease",
-                      }}
-                      onMouseEnter={(e) => {
-                        if (!isSelected) e.currentTarget.style.backgroundColor = "#f8fafc";
-                      }}
-                      onMouseLeave={(e) => {
-                        if (!isSelected) e.currentTarget.style.backgroundColor = "transparent";
+                        flexDirection: "column",
+                        gap: "4px",
+                        animation: "fadeIn 0.18s ease",
                       }}
                     >
-                      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                        <div
-                          style={{
-                            width: "28px",
-                            height: "28px",
-                            borderRadius: "6px",
-                            background: isSelected ? "#dc2626" : "#f1f5f9",
-                            color: isSelected ? "#ffffff" : "#64748b",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            flexShrink: 0,
-                          }}
-                        >
-                          <MapPin size={14} />
-                        </div>
-                        <div>
-                          <div
-                            style={{
-                              fontSize: "13px",
-                              fontWeight: 700,
-                              color: isSelected ? "#dc2626" : "#0f172a",
-                            }}
-                          >
-                            {s.shortName}
-                          </div>
-                          <div
-                            style={{
-                              fontSize: "11px",
-                              color: "#64748b",
-                              fontWeight: 500,
-                              lineHeight: 1.2,
-                            }}
-                          >
-                            {s.area}
-                          </div>
-                        </div>
+                      <div
+                        style={{
+                          padding: "8px 12px 6px",
+                          fontSize: "11px",
+                          fontWeight: 800,
+                          color: "#94a3b8",
+                          textTransform: "uppercase",
+                          letterSpacing: "0.06em",
+                          borderBottom: "1px solid #f1f5f9",
+                          marginBottom: "4px",
+                        }}
+                      >
+                        Select Detailing Studio
                       </div>
 
-                      {isSelected && <Check size={16} style={{ color: "#dc2626" }} />}
-                    </Link>
-                  );
-                })}
-              </div>
-            )}
-          </div>
+                      {STORES_DATA.map((s) => {
+                        const isSelected = currentStoreSlug === s.slug;
+                        return (
+                          <Link
+                            key={s.id}
+                            href={`/stores/${s.slug}`}
+                            onClick={() => setStoresDropdownOpen(false)}
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                              padding: "10px 12px",
+                              borderRadius: "8px",
+                              textDecoration: "none",
+                              background: isSelected ? "#fee2e2" : "transparent",
+                              transition: "all 0.15s ease",
+                            }}
+                            onMouseEnter={(e) => {
+                              if (!isSelected) e.currentTarget.style.backgroundColor = "#f8fafc";
+                            }}
+                            onMouseLeave={(e) => {
+                              if (!isSelected) e.currentTarget.style.backgroundColor = "transparent";
+                            }}
+                          >
+                            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                              <div
+                                style={{
+                                  width: "28px",
+                                  height: "28px",
+                                  borderRadius: "6px",
+                                  background: isSelected ? "#dc2626" : "#f1f5f9",
+                                  color: isSelected ? "#ffffff" : "#64748b",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  flexShrink: 0,
+                                }}
+                              >
+                                <MapPin size={14} />
+                              </div>
+                              <div>
+                                <div
+                                  style={{
+                                    fontSize: "13px",
+                                    fontWeight: 700,
+                                    color: isSelected ? "#dc2626" : "#0f172a",
+                                  }}
+                                >
+                                  {s.shortName}
+                                </div>
+                                <div
+                                  style={{
+                                    fontSize: "11px",
+                                    color: "#64748b",
+                                    fontWeight: 500,
+                                    lineHeight: 1.2,
+                                  }}
+                                >
+                                  {s.area}
+                                </div>
+                              </div>
+                            </div>
 
-          <Link
-            href="/about"
-            style={{
-              fontSize: 14,
-              fontWeight: 600,
-              color: isSolid ? "#334155" : "rgba(255, 255, 255, 0.95)",
-              textDecoration: "none",
-              transition: "color 0.2s ease",
-              textShadow: isSolid ? "none" : "0 2px 8px rgba(0,0,0,0.6)",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")}
-            onMouseLeave={(e) =>
-            (e.currentTarget.style.color = isSolid
-              ? "#334155"
-              : "rgba(255, 255, 255, 0.95)")
-            }
-          >
-            About
-          </Link>
+                            {isSelected && <Check size={16} style={{ color: "#dc2626" }} />}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
 
-          <Link
-            href="/gallery"
-            style={{
-              fontSize: 14,
-              fontWeight: 600,
-              color: isSolid ? "#334155" : "rgba(255, 255, 255, 0.95)",
-              textDecoration: "none",
-              transition: "color 0.2s ease",
-              textShadow: isSolid ? "none" : "0 2px 8px rgba(0,0,0,0.6)",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")}
-            onMouseLeave={(e) =>
-            (e.currentTarget.style.color = isSolid
-              ? "#334155"
-              : "rgba(255, 255, 255, 0.95)")
-            }
-          >
-            Gallery
-          </Link>
+                <Link
+                  href="/about"
+                  style={{
+                    fontSize: 14,
+                    fontWeight: isAboutActive ? 700 : 600,
+                    color: isAboutActive ? "#dc2626" : "#334155",
+                    textDecoration: "none",
+                    transition: "color 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = isAboutActive ? "#dc2626" : "#334155")}
+                >
+                  About
+                </Link>
 
-          <Link
-            href="/contact"
-            style={{
-              fontSize: 14,
-              fontWeight: 600,
-              color: isSolid ? "#334155" : "rgba(255, 255, 255, 0.95)",
-              textDecoration: "none",
-              transition: "color 0.2s ease",
-              textShadow: isSolid ? "none" : "0 2px 8px rgba(0,0,0,0.6)",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")}
-            onMouseLeave={(e) =>
-            (e.currentTarget.style.color = isSolid
-              ? "#334155"
-              : "rgba(255, 255, 255, 0.95)")
-            }
-          >
-            Contact
-          </Link>
+                <Link
+                  href="/gallery"
+                  style={{
+                    fontSize: 14,
+                    fontWeight: isGalleryActive ? 700 : 600,
+                    color: isGalleryActive ? "#dc2626" : "#334155",
+                    textDecoration: "none",
+                    transition: "color 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = isGalleryActive ? "#dc2626" : "#334155")}
+                >
+                  Gallery
+                </Link>
+
+                <Link
+                  href="/contact"
+                  style={{
+                    fontSize: 14,
+                    fontWeight: isContactActive ? 700 : 600,
+                    color: isContactActive ? "#dc2626" : "#334155",
+                    textDecoration: "none",
+                    transition: "color 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = isContactActive ? "#dc2626" : "#334155")}
+                >
+                  Contact
+                </Link>
+              </>
+            );
+          })()}
         </nav>
 
         {/* Desktop Right CTA */}
@@ -421,27 +407,8 @@ export default function Navbar({ currentStoreSlug, solid }: NavbarProps) {
           </a>
         </div>
 
-        {/* Mobile Action Buttons (Call + Hamburger Menu) */}
+        {/* Mobile Action Buttons (Hamburger Menu only) */}
         <div className="mobile-actions">
-          <a
-            href="tel:7045282473"
-            aria-label="Call A1 Car Wash"
-            className="mobile-quick-call"
-            style={{
-              width: 38,
-              height: 38,
-              borderRadius: 9,
-              background: "#fee2e2",
-              color: "#dc2626",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              textDecoration: "none",
-              boxShadow: "0 2px 8px rgba(220, 38, 38, 0.15)",
-            }}
-          >
-            <Phone size={17} />
-          </a>
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -665,33 +632,10 @@ export default function Navbar({ currentStoreSlug, solid }: NavbarProps) {
             <span style={{ fontSize: "12px", color: "#94a3b8" }}>→</span>
           </Link>
 
-          <div style={{ marginTop: "8px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
-            <a
-              href="tel:7045282473"
-              style={{
-                textAlign: "center",
-                border: "1.5px solid #dc2626",
-                color: "#dc2626",
-                padding: "12px 8px",
-                borderRadius: 9,
-                fontWeight: 800,
-                fontSize: "13.5px",
-                textDecoration: "none",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "6px",
-                background: "#fef2f2",
-              }}
-            >
-              <Phone size={15} />
-              <span>Call Now</span>
-            </a>
-
-            <a
-              href="https://wa.me/917045282473?text=Hi%20A1%20Car%20Wash!%20I%20would%20like%20to%20book%20a%20service."
-              target="_blank"
-              rel="noopener noreferrer"
+          <div style={{ marginTop: "8px" }}>
+            <Link
+              href="/contact"
+              onClick={() => setMobileMenuOpen(false)}
               style={{
                 textAlign: "center",
                 background: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
@@ -706,10 +650,11 @@ export default function Navbar({ currentStoreSlug, solid }: NavbarProps) {
                 alignItems: "center",
                 justifyContent: "center",
                 gap: "6px",
+                width: "100%",
               }}
             >
-              <span>Book Wash</span>
-            </a>
+              <span>Book Now</span>
+            </Link>
           </div>
         </div>
       )}
@@ -718,7 +663,7 @@ export default function Navbar({ currentStoreSlug, solid }: NavbarProps) {
         @keyframes fadeIn {
           from {
             opacity: 0;
-            transform: translate(-50%, -6px);
+            transform: translate(-50%, -4px);
           }
           to {
             opacity: 1;

@@ -14,7 +14,13 @@ interface GalleryItem {
 const ALL_WORKS_PHOTOS: GalleryItem[] = [
   {
     id: "g-1",
-    image: "/gallery/about-interceptor-bike.jpg",
+    image: "/gallery/royal-enfield-bullet-military.png",
+    title: "Royal Enfield Bullet Military Green",
+    alt: "Royal Enfield Bullet Military Green",
+  },
+  {
+    id: "g-2",
+    image: "/gallery/royal-enfield-interceptor-650.png",
     title: "Royal Enfield Interceptor 650",
     alt: "Royal Enfield Interceptor 650",
   },
@@ -69,12 +75,9 @@ export default function GallerySection() {
         alt={photo.alt}
         loading="lazy"
       />
-      {/* Bottom gradient overlay for text readability */}
-      <div className="gallery-card-gradient" />
 
-      {/* Card Info & Red Zoom Badge */}
+      {/* Red Zoom Badge */}
       <div className="gallery-card-content">
-        <span className="gallery-card-title">{photo.title}</span>
         <div className="gallery-zoom-badge">
           <ZoomIn size={14} color="#ffffff" />
         </div>
@@ -282,7 +285,7 @@ export default function GallerySection() {
           padding: 12px 14px;
           display: flex;
           align-items: flex-end;
-          justify-content: space-between;
+          justify-content: flex-end;
           gap: 8px;
           z-index: 2;
           pointer-events: none;
