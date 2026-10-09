@@ -43,8 +43,8 @@ export const STORES_DATA: StoreLocation[] = [
     baysCount: 5,
     rating: 4.9,
     reviewCount: 860,
-    mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.824754325883!2d78.4328!3d17.4156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb972e3895e6f3%3A0xdba3e7be7c014771!2sBanjara%20Hills%2C%20Hyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
-    googleMapsLink: "https://maps.google.com/?q=Road+No+12+Banjara+Hills+Hyderabad+Telangana+500034",
+    mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3807.0580789834526!2d78.4196511!3d17.4090002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb979a079a1a63%3A0xcd5a35fe24b05955!2sA1%20Car%20Wash!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin",
+    googleMapsLink: "https://maps.app.goo.gl/SeVusXkrj6KrMrJh7",
     features: [
       "Jack Lift Wash Bays with Hydraulic Ramp",
       "Ceramic Foam & Paint Shield Station",

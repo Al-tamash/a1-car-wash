@@ -259,6 +259,7 @@ export function StoreLocationJsonLd({ store }: { store: StoreLocation }) {
     name: store.name,
     description: `${store.heroHeadline}. ${store.heroSubheadline}`,
     url: `${BASE_URL}/stores/${store.slug}`,
+    hasMap: store.googleMapsLink,
     telephone: `+91${store.phone.replace(/[^0-9]/g, "")}`,
     email: store.email,
     image: store.image,

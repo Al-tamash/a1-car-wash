@@ -169,7 +169,7 @@ export default function ContactBookingSection({
                     </div>
                   </div>
                   <a
-                    href={activeStore?.googleMapsLink || "https://maps.app.goo.gl/T3178g94WL8t2NAC8"}
+                    href={activeStore?.googleMapsLink || STORES_DATA[0].googleMapsLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
