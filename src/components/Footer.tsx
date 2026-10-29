@@ -111,7 +111,7 @@ export default function Footer() {
                 <FacebookIcon size={18} />
               </a>
               <a
-                href="https://wa.me/917045282473"
+                href="https://wa.me/917095282473"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="WhatsApp"
@@ -231,8 +231,8 @@ export default function Footer() {
             <div style={{ display: "flex", flexDirection: "column", gap: "16px", fontSize: "14px", color: "#9ca3af" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                 <Phone size={18} style={{ color: "#ef4444", flexShrink: 0 }} />
-                <a href="tel:7045282473" style={{ color: "#ffffff", fontWeight: 600, textDecoration: "none" }}>
-                  +91 70452 82473
+                <a href="tel:7095282473" style={{ color: "#ffffff", fontWeight: 600, textDecoration: "none" }}>
+                  +91 70952 82473
                 </a>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>

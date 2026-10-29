@@ -7,14 +7,14 @@ export const metadata: Metadata = {
     absolute: "A1 Car Wash | Car Wash & Detailing Hyderabad",
   },
   description:
-    "A1 Car Wash in Hyderabad offers hydraulic jack lift car washes, snow foam cleaning, interior steam sanitization, Teflon coating & bike wash. Call 70452 82473.",
+    "A1 Car Wash in Hyderabad offers hydraulic jack lift car washes, snow foam cleaning, interior steam sanitization, Teflon coating & bike wash. Call 70952 82473.",
   alternates: {
     canonical: "https://a1carwash.in",
   },
   openGraph: {
     title: "A1 Car Wash | Car Wash & Detailing Hyderabad",
     description:
-      "A1 Car Wash in Hyderabad offers hydraulic jack lift car washes, snow foam cleaning, interior steam sanitization, Teflon coating & bike wash. Call 70452 82473.",
+      "A1 Car Wash in Hyderabad offers hydraulic jack lift car washes, snow foam cleaning, interior steam sanitization, Teflon coating & bike wash. Call 70952 82473.",
     url: "https://a1carwash.in",
     siteName: "A1 Car Wash",
     locale: "en_IN",

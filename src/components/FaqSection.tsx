@@ -20,13 +20,13 @@ const faqs = [
     id: "appointment",
     question: "Do I have to make an appointment for a car wash?",
     answer:
-      "Walk-ins are always welcome for our Body Wash bays. However, for 7-Seater or 5-Seater Full Car Wash (with Jack Lift, Oil & Diesel Wash), Interior Deep Cleaning, Teflon Coating, or Underbody Anti-Rust Treatment, we recommend booking in advance or messaging us on WhatsApp (70452 82473) for prompt bay allocation."
+      "Walk-ins are always welcome for our Body Wash bays. However, for 7-Seater or 5-Seater Full Car Wash (with Jack Lift, Oil & Diesel Wash), Interior Deep Cleaning, Teflon Coating, or Underbody Anti-Rust Treatment, we recommend booking in advance or messaging us on WhatsApp (70952 82473) for prompt bay allocation."
   },
   {
     id: "contact",
     question: "Is there any way to contact with you?",
     answer:
-      "Yes! You can call us directly at 70452 82473, reach out on WhatsApp anytime for instant slot bookings, or submit the contact form right below."
+      "Yes! You can call us directly at 70952 82473, reach out on WhatsApp anytime for instant slot bookings, or submit the contact form right below."
   },
   {
     id: "payment",

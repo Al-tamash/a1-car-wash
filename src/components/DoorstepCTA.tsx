@@ -45,7 +45,7 @@ export default function DoorstepCTA() {
                   Call Us Anytime
                 </div>
                 <div style={{ fontSize: "18px", fontWeight: 900, color: "#ffffff" }}>
-                  +91 70452 82473
+                  +91 70952 82473
                 </div>
               </div>
             </div>

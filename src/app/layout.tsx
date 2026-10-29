@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     template: "%s | A1 Car Wash",
   },
   description:
-    "A1 Car Wash in Hyderabad offers hydraulic jack lift car washes, snow foam cleaning, interior steam sanitization, Teflon coating & bike wash. Call 70452 82473.",
+    "A1 Car Wash in Hyderabad offers hydraulic jack lift car washes, snow foam cleaning, interior steam sanitization, Teflon coating & bike wash. Call 70952 82473.",
   keywords: [
     "A1 Car Wash",
     "A1 Car Wash Hyderabad",
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "A1 Car Wash | Car Cleaning & Detailing Hyderabad",
     description:
-      "A1 Car Wash in Hyderabad offers hydraulic jack lift car washes, snow foam cleaning, interior steam sanitization, Teflon coating & bike wash. Call 70452 82473.",
+      "A1 Car Wash in Hyderabad offers hydraulic jack lift car washes, snow foam cleaning, interior steam sanitization, Teflon coating & bike wash. Call 70952 82473.",
     url: "https://a1carwash.in",
     siteName: "A1 Car Wash",
     locale: "en_IN",
@@ -93,7 +93,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "A1 Car Wash | Car Cleaning & Detailing Hyderabad",
     description:
-      "A1 Car Wash in Hyderabad offers hydraulic jack lift car washes, snow foam cleaning, interior steam sanitization, Teflon coating & bike wash. Call 70452 82473.",
+      "A1 Car Wash in Hyderabad offers hydraulic jack lift car washes, snow foam cleaning, interior steam sanitization, Teflon coating & bike wash. Call 70952 82473.",
     images: ["/gallery/real-fortuner-studio-lights.png"],
   },
   robots: {

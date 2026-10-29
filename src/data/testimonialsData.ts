@@ -86,7 +86,7 @@ export const FAQS_DATA: FAQItem[] = [
     id: "faq-1",
     category: "General & Booking",
     question: "Do I need to book an appointment in advance?",
-    answer: "While drive-ins are welcome for quick washes, we recommend messaging us on WhatsApp (70452 82473) to ensure zero waiting time and dedicated jack lift bay allocation."
+    answer: "While drive-ins are welcome for quick washes, we recommend messaging us on WhatsApp (70952 82473) to ensure zero waiting time and dedicated jack lift bay allocation."
   },
   {
     id: "faq-2",
@@ -116,6 +116,6 @@ export const FAQS_DATA: FAQItem[] = [
     id: "faq-6",
     category: "Location & Timings",
     question: "Where is A1 CAR WASH located and what are the timings?",
-    answer: "We are located near Mehfil Restaurant, Raidurg, Darga Chowrasta, Film Nagar Road, Hyderabad, Telangana – 500104. Open 7 days a week from 8:00 AM to 9:00 PM. Call/WhatsApp: 70452 82473."
+    answer: "We are located near Mehfil Restaurant, Raidurg, Darga Chowrasta, Film Nagar Road, Hyderabad, Telangana – 500104. Open 7 days a week from 8:00 AM to 9:00 PM. Call/WhatsApp: 70952 82473."
   }
 ];

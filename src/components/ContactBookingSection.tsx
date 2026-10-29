@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { CheckCircle2, MessageSquare, MapPin, ExternalLink, Phone, Mail, Clock, Sparkles } from "lucide-react";
+import { CheckCircle2, MessageSquare, MapPin, ExternalLink, Phone, Clock } from "lucide-react";
 import { StoreLocation, STORES_DATA } from "@/data/storesData";
 
 interface ContactBookingSectionProps {
@@ -15,9 +15,9 @@ export default function ContactBookingSection({
   store,
   showMap = true,
 }: ContactBookingSectionProps = {}) {
-  const activeStore = store || (currentStoreSlug ? STORES_DATA.find((s) => s.slug === currentStoreSlug) : undefined);
+  const initialStore = store || (currentStoreSlug ? STORES_DATA.find((s) => s.slug === currentStoreSlug) : undefined) || STORES_DATA[0];
 
-  const defaultLocation = activeStore ? `${activeStore.shortName} (${activeStore.area.split('/')[0].trim()})` : "Banjara Hills (Road No. 12)";
+  const defaultLocation = initialStore ? `${initialStore.shortName} (${initialStore.area.split('/')[0].trim()})` : "Banjara Hills (Road No. 12)";
 
   const [formData, setFormData] = useState({
     name: "",
@@ -27,12 +27,23 @@ export default function ContactBookingSection({
     service: "7-Seater Full Car Wash — ₹1,200",
     message: "",
   });
+  const [viewMode, setViewMode] = useState<"map" | "streetView">("map");
   const [submitted, setSubmitted] = useState(false);
   const [lastSubmittedUrl, setLastSubmittedUrl] = useState("");
 
+  // Dynamically track store from selection or prop
+  const matchedStore = STORES_DATA.find((s) =>
+    formData.location.toLowerCase().includes(s.shortName.toLowerCase()) ||
+    formData.location.toLowerCase().includes(s.slug)
+  );
+
+  const activeStore = (store && !formData.location.toLowerCase().includes(store.shortName.toLowerCase()) && matchedStore)
+    ? matchedStore
+    : (store || matchedStore || initialStore);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const phoneNum = activeStore?.whatsapp || "917045282473";
+    const phoneNum = activeStore.whatsapp || "917095282473";
     const cleanPhone = phoneNum.replace(/\D/g, "");
     const formattedPhone = cleanPhone.startsWith("91") ? cleanPhone : `91${cleanPhone}`;
 
@@ -95,122 +106,232 @@ export default function ContactBookingSection({
           }}
           className={showMap ? "contact-grid" : undefined}
         >
-          {/* LEFT: Store Location Map (Only displayed when showMap is true) */}
+          {/* LEFT: Store Location Map & 360 Street View */}
           {showMap && (
-            <div style={{ display: "flex", flexDirection: "column", height: "100%", minHeight: "560px" }}>
+            <div style={{ display: "flex", flexDirection: "column", height: "100%", minHeight: "580px" }}>
               <div
                 style={{
                   borderRadius: "20px",
                   overflow: "hidden",
                   boxShadow: "0 14px 40px rgba(15,23,42,0.10)",
                   height: "100%",
-                  minHeight: "560px",
+                  minHeight: "580px",
                   border: "1.5px solid #e2e8f0",
                   position: "relative",
+                  background: "#0f172a",
                 }}
               >
-                {/* Floating Store Identification Badge */}
+                {/* Top Controls Overlay */}
                 <div
                   style={{
                     position: "absolute",
                     top: "14px",
                     left: "14px",
-                    zIndex: 2,
-                    background: "rgba(255, 255, 255, 0.95)",
-                    backdropFilter: "blur(8px)",
-                    padding: "8px 14px",
-                    borderRadius: "12px",
-                    boxShadow: "0 4px 18px rgba(15, 23, 42, 0.15)",
+                    right: "14px",
+                    zIndex: 10,
                     display: "flex",
-                    alignItems: "center",
+                    flexDirection: "column",
                     gap: "10px",
-                    border: "1px solid rgba(220, 38, 38, 0.2)",
-                    maxWidth: "calc(100% - 28px)",
+                    pointerEvents: "none",
                   }}
                 >
+                  {/* Floating Store Identification Badge */}
                   <div
                     style={{
-                      width: "32px",
-                      height: "32px",
-                      borderRadius: "8px",
-                      background: "#fee2e2",
+                      background: "rgba(255, 255, 255, 0.96)",
+                      backdropFilter: "blur(12px)",
+                      padding: "10px 14px",
+                      borderRadius: "14px",
+                      boxShadow: "0 8px 24px rgba(15, 23, 42, 0.15)",
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: "center",
-                      color: "#dc2626",
-                      flexShrink: 0,
+                      justifyContent: "space-between",
+                      gap: "10px",
+                      border: "1px solid rgba(220, 38, 38, 0.2)",
+                      pointerEvents: "auto",
                     }}
                   >
-                    <MapPin size={17} />
-                  </div>
-                  <div style={{ minWidth: 0, flex: 1 }}>
-                    <div
+                    <div style={{ display: "flex", alignItems: "center", gap: "10px", minWidth: 0, flex: 1 }}>
+                      <div
+                        style={{
+                          width: "36px",
+                          height: "36px",
+                          borderRadius: "10px",
+                          background: "#fee2e2",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "#dc2626",
+                          flexShrink: 0,
+                        }}
+                      >
+                        <MapPin size={18} />
+                      </div>
+                      <div style={{ minWidth: 0, flex: 1 }}>
+                        <div
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: 800,
+                            color: "#0f172a",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {activeStore.name}
+                        </div>
+                        <div
+                          style={{
+                            fontSize: "12px",
+                            color: "#64748b",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {activeStore.address}
+                        </div>
+                      </div>
+                    </div>
+
+                    <a
+                      href={activeStore.googleMapsLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       style={{
-                        fontSize: "13.5px",
-                        fontWeight: 800,
-                        color: "#0f172a",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
+                        background: "#dc2626",
+                        color: "#ffffff",
+                        fontSize: "12px",
+                        fontWeight: 700,
+                        padding: "7px 13px",
+                        borderRadius: "8px",
+                        textDecoration: "none",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "5px",
+                        flexShrink: 0,
+                        boxShadow: "0 2px 8px rgba(220,38,38,0.35)",
                       }}
                     >
-                      {activeStore ? activeStore.name : "A1 Car Wash - Hyderabad Hub"}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "11.5px",
-                        color: "#64748b",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                      }}
-                    >
-                      {activeStore ? activeStore.address : "Hyderabad, Telangana"}
-                    </div>
+                      <span>Directions</span>
+                      <ExternalLink size={13} />
+                    </a>
                   </div>
-                  <a
-                    href={activeStore?.googleMapsLink || STORES_DATA[0].googleMapsLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
+
+                  {/* Toggle Bar: Map vs 360° Street View & Branch Live Info */}
+                  <div
                     style={{
-                      background: "#dc2626",
-                      color: "#ffffff",
-                      fontSize: "11.5px",
-                      fontWeight: 700,
-                      padding: "6px 12px",
-                      borderRadius: "8px",
-                      textDecoration: "none",
-                      display: "inline-flex",
+                      display: "flex",
                       alignItems: "center",
-                      gap: "4px",
-                      flexShrink: 0,
+                      justifyContent: "space-between",
+                      gap: "8px",
+                      flexWrap: "wrap",
+                      pointerEvents: "auto",
                     }}
                   >
-                    <span>Directions</span>
-                    <ExternalLink size={12} />
-                  </a>
+                    {/* Toggle button */}
+                    <div
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        background: "rgba(15, 23, 42, 0.88)",
+                        backdropFilter: "blur(10px)",
+                        borderRadius: "10px",
+                        padding: "3px",
+                        border: "1px solid rgba(255,255,255,0.18)",
+                        boxShadow: "0 4px 14px rgba(0,0,0,0.25)",
+                      }}
+                    >
+                      <button
+                        type="button"
+                        onClick={() => setViewMode("map")}
+                        style={{
+                          background: viewMode === "map" ? "#dc2626" : "transparent",
+                          color: "#ffffff",
+                          border: "none",
+                          borderRadius: "7px",
+                          padding: "6px 13px",
+                          fontSize: "12px",
+                          fontWeight: 700,
+                          cursor: "pointer",
+                          transition: "all 0.2s ease",
+                        }}
+                      >
+                        🗺️ Map View
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setViewMode("streetView")}
+                        style={{
+                          background: viewMode === "streetView" ? "#dc2626" : "transparent",
+                          color: "#ffffff",
+                          border: "none",
+                          borderRadius: "7px",
+                          padding: "6px 13px",
+                          fontSize: "12px",
+                          fontWeight: 700,
+                          cursor: "pointer",
+                          transition: "all 0.2s ease",
+                        }}
+                      >
+                        👁️ 360° Street View
+                      </button>
+                    </div>
+
+                    {/* Quick WhatsApp / Call Pill */}
+                    <div
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "8px",
+                        background: "rgba(255, 255, 255, 0.95)",
+                        backdropFilter: "blur(8px)",
+                        padding: "5px 12px",
+                        borderRadius: "10px",
+                        fontSize: "12px",
+                        fontWeight: 700,
+                        color: "#0f172a",
+                        boxShadow: "0 4px 12px rgba(15, 23, 42, 0.12)",
+                        border: "1px solid #e2e8f0",
+                      }}
+                    >
+                      <span style={{ color: "#16a34a", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                        <Clock size={12} /> {activeStore.timing}
+                      </span>
+                      <span style={{ color: "#cbd5e1" }}>|</span>
+                      <a
+                        href={`https://wa.me/${activeStore.whatsapp}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: "#dc2626", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "4px" }}
+                      >
+                        <Phone size={12} />
+                        {activeStore.phone}
+                      </a>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Map iframe wrapped with offset so Google Maps native top-left box ("No reviews") is clipped out */}
+                {/* Map or Street View iframe */}
                 <div
                   style={{
                     position: "absolute",
-                    top: "-110px",
+                    top: viewMode === "map" ? "-110px" : 0,
                     left: 0,
                     width: "100%",
-                    height: "calc(100% + 110px)",
+                    height: viewMode === "map" ? "calc(100% + 110px)" : "100%",
                     overflow: "hidden",
                   }}
                 >
                   <iframe
-                    src={activeStore ? activeStore.mapEmbedUrl : STORES_DATA[0].mapEmbedUrl}
+                    src={viewMode === "map" ? activeStore.mapEmbedUrl : activeStore.streetViewLink}
                     width="100%"
                     height="100%"
                     style={{ border: 0, width: "100%", height: "100%", display: "block" }}
                     allowFullScreen
                     loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title={`${activeStore?.name || "A1 Car Wash"} Map`}
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    title={`${activeStore.name} ${viewMode === "map" ? "Map" : "360 Street View"}`}
                   />
                 </div>
               </div>
@@ -309,7 +430,7 @@ export default function ContactBookingSection({
                   Booking Sent to WhatsApp!
                 </h4>
                 <p style={{ fontSize: "14px", color: "#374151", marginBottom: "20px", lineHeight: "1.6" }}>
-                  Your booking request for <strong>{formData.name}</strong> ({formData.service} at <strong>{formData.location}</strong>) has been generated and redirected to our WhatsApp desk.
+                  Your booking request for <strong>{formData.name}</strong> ({formData.service} at <strong>{formData.location}</strong>) has been generated and redirected to our WhatsApp desk ({activeStore.phone}).
                 </p>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "center" }}>
@@ -402,12 +523,12 @@ export default function ContactBookingSection({
                       }
                       style={{ ...inputStyle, cursor: "pointer", fontWeight: 600 }}
                     >
-                      <option value="Banjara Hills (Road No. 12)">Banjara Hills (Road No. 12)</option>
                       <option value="Film Nagar (Darga Chowrasta)">Film Nagar (Darga Chowrasta)</option>
+                      <option value="Banjara Hills (Road No. 12)">Banjara Hills (Road No. 12)</option>
                       <option value="Narsingi (Main Road)">Narsingi (Main Road)</option>
-                      <option value="Shaikpet (Sathya Colony)">Shaikpet (Sathya Colony)</option>
-                      <option value="Nanal Nagar (Mehdipatnam)">Nanal Nagar (Mehdipatnam)</option>
-                      <option value="Himayat (Himayat Sagar Rd)">Himayat (Himayat Sagar Rd)</option>
+                      <option value="Shaikpet (Manikonda Rd)">Shaikpet (Manikonda Rd)</option>
+                      <option value="Nanal Nagar (Kakatiya Nagar)">Nanal Nagar (Kakatiya Nagar)</option>
+                      <option value="Himayat Sagar (Himayat Sagar Rd)">Himayat Sagar (Himayat Sagar Rd)</option>
                     </select>
                   </div>
                   <div>

@@ -6,14 +6,14 @@ import { BreadcrumbJsonLd } from "@/components/StructuredData";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "A1 Car Wash operates 6 multi-bay detailing studios in Hyderabad with hydraulic jack lifts, automated RO soft-water plants & Teflon coating. Call 70452 82473.",
+    "A1 Car Wash operates 6 multi-bay detailing studios in Hyderabad with hydraulic jack lifts, automated RO soft-water plants & Teflon coating. Call 70952 82473.",
   alternates: {
     canonical: "https://a1carwash.in/about",
   },
   openGraph: {
     title: "About Us | A1 Car Wash",
     description:
-      "A1 Car Wash operates 6 multi-bay detailing studios in Hyderabad with hydraulic jack lifts, automated RO soft-water plants & Teflon coating. Call 70452 82473.",
+      "A1 Car Wash operates 6 multi-bay detailing studios in Hyderabad with hydraulic jack lifts, automated RO soft-water plants & Teflon coating. Call 70952 82473.",
     url: "https://a1carwash.in/about",
     siteName: "A1 Car Wash",
     locale: "en_IN",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "About Us | A1 Car Wash",
     description:
-      "6 multi-bay detailing studios across Hyderabad with hydraulic jack lifts and RO soft water. Call 70452 82473.",
+      "6 multi-bay detailing studios across Hyderabad with hydraulic jack lifts and RO soft water. Call 70952 82473.",
     images: ["/gallery/about-fortuner-studio.jpg"],
   },
 };

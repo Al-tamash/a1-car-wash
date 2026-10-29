@@ -199,7 +199,7 @@ export default function ServicesClient() {
               Explore Services
             </a>
             <a
-              href="tel:+917045282473"
+              href="tel:+917095282473"
               style={{
                 display: "inline-flex",
                 alignItems: "center",

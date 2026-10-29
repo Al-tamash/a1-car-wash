@@ -274,7 +274,7 @@ export default function PricingSection() {
                         onClick={() => {
                           const msg = `Hi A1 Car Wash! I would like to book the *${vehicleLabel} ${plan.name}* (${currentPrice}) at Raidurg, Hyderabad.`;
                           window.open(
-                            `https://wa.me/917045282473?text=${encodeURIComponent(msg)}`,
+                            `https://wa.me/917095282473?text=${encodeURIComponent(msg)}`,
                             "_blank"
                           );
                         }}
@@ -357,7 +357,7 @@ export default function PricingSection() {
                           onClick={() => {
                             const msg = `Hi A1 Car Wash! I would like to book the *${vehicleLabel} ${add.name}* (${price}) at Raidurg, Hyderabad.`;
                             window.open(
-                              `https://wa.me/917045282473?text=${encodeURIComponent(msg)}`,
+                              `https://wa.me/917095282473?text=${encodeURIComponent(msg)}`,
                               "_blank"
                             );
                           }}
@@ -432,7 +432,7 @@ export default function PricingSection() {
                       onClick={() => {
                         const msg = `Hi A1 Car Wash! I would like to book a *${bike.name}* wash (Foam: ${bike.foamPrice} / Diesel: ${bike.dieselPrice}) at Raidurg, Hyderabad.`;
                         window.open(
-                          `https://wa.me/917045282473?text=${encodeURIComponent(msg)}`,
+                          `https://wa.me/917095282473?text=${encodeURIComponent(msg)}`,
                           "_blank"
                         );
                       }}

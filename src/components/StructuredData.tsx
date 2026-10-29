@@ -30,7 +30,7 @@ export function RootJsonLd() {
     url: BASE_URL,
     logo: `${BASE_URL}/gallery/real-storefront.png`,
     image: `${BASE_URL}/gallery/real-fortuner-studio-lights.png`,
-    telephone: "+917045282473",
+    telephone: "+917095282473",
     email: "care@a1carwash.in",
     priceRange: "₹₹ (₹150 - ₹4,000)",
     currenciesAccepted: "INR",
@@ -191,7 +191,7 @@ export function FaqJsonLd() {
         name: "Do I have to make an appointment for a car wash?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Walk-ins are welcome for body wash bays. For 7-Seater/5-Seater Full Car Wash (with Jack Lift, Oil & Diesel Wash), Interior Deep Cleaning, Teflon Coating, or Underbody Anti-Rust Treatment, we recommend booking in advance via phone or WhatsApp at 70452 82473.",
+          text: "Walk-ins are welcome for body wash bays. For 7-Seater/5-Seater Full Car Wash (with Jack Lift, Oil & Diesel Wash), Interior Deep Cleaning, Teflon Coating, or Underbody Anti-Rust Treatment, we recommend booking in advance via phone or WhatsApp at 70952 82473.",
         },
       },
       {
@@ -199,7 +199,7 @@ export function FaqJsonLd() {
         name: "Is there any way to contact with you?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "You can call us directly at 70452 82473, reach out on WhatsApp anytime for instant slot bookings, or submit the contact form on the website.",
+          text: "You can call us directly at 70952 82473, reach out on WhatsApp anytime for instant slot bookings, or submit the contact form on the website.",
         },
       },
       {

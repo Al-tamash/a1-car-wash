@@ -6,14 +6,14 @@ import { BreadcrumbJsonLd } from "@/components/StructuredData";
 export const metadata: Metadata = {
   title: "Services & Pricing",
   description:
-    "Explore A1 Car Wash services in Hyderabad: Hydraulic Jack Lift wash, snow foam body bath, interior deep cleaning, Teflon coating & bike wash. Call 70452 82473.",
+    "Explore A1 Car Wash services in Hyderabad: Hydraulic Jack Lift wash, snow foam body bath, interior deep cleaning, Teflon coating & bike wash. Call 70952 82473.",
   alternates: {
     canonical: "https://a1carwash.in/services",
   },
   openGraph: {
     title: "Services & Pricing | A1 Car Wash",
     description:
-      "Explore A1 Car Wash services in Hyderabad: Hydraulic Jack Lift wash, snow foam body bath, interior deep cleaning, Teflon coating & bike wash. Call 70452 82473.",
+      "Explore A1 Car Wash services in Hyderabad: Hydraulic Jack Lift wash, snow foam body bath, interior deep cleaning, Teflon coating & bike wash. Call 70952 82473.",
     url: "https://a1carwash.in/services",
     siteName: "A1 Car Wash",
     locale: "en_IN",

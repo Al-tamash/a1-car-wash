@@ -6,14 +6,14 @@ import { BreadcrumbJsonLd } from "@/components/StructuredData";
 export const metadata: Metadata = {
   title: "Locations",
   description:
-    "Find 6 A1 Car Wash locations in Hyderabad: Banjara Hills, Film Nagar, Narsingi, Shaikpet, Nanal Nagar & Himayat Sagar. Hydraulic jack lifts. Call 70452 82473.",
+    "Find 6 A1 Car Wash locations in Hyderabad: Banjara Hills, Film Nagar, Narsingi, Shaikpet, Nanal Nagar & Himayat Sagar. Hydraulic jack lifts. Call 70952 82473.",
   alternates: {
     canonical: "https://a1carwash.in/stores",
   },
   openGraph: {
     title: "Locations | A1 Car Wash",
     description:
-      "Find 6 A1 Car Wash locations in Hyderabad: Banjara Hills, Film Nagar, Narsingi, Shaikpet, Nanal Nagar & Himayat Sagar. Hydraulic jack lifts. Call 70452 82473.",
+      "Find 6 A1 Car Wash locations in Hyderabad: Banjara Hills, Film Nagar, Narsingi, Shaikpet, Nanal Nagar & Himayat Sagar. Hydraulic jack lifts. Call 70952 82473.",
     url: "https://a1carwash.in/stores",
     siteName: "A1 Car Wash",
     locale: "en_IN",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Locations | A1 Car Wash",
     description:
-      "Banjara Hills, Film Nagar, Narsingi, Shaikpet, Nanal Nagar & Himayat Sagar Rd. Call 70452 82473.",
+      "Banjara Hills, Film Nagar, Narsingi, Shaikpet, Nanal Nagar & Himayat Sagar Rd. Call 70952 82473.",
     images: ["/gallery/real-fortuner-studio-lights.png"],
   },
 };
