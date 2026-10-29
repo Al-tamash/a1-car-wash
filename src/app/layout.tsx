@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { RootJsonLd, FaqJsonLd } from "@/components/StructuredData";
+import FloatingContactActions from "@/components/FloatingContactActions";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -120,7 +121,10 @@ export default function RootLayout({
         <RootJsonLd />
         <FaqJsonLd />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <FloatingContactActions />
+      </body>
     </html>
   );
 }

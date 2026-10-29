@@ -48,7 +48,7 @@ export default function StoreDetailClient({ store }: { store: StoreLocation }) {
       <StoreLocator currentStoreSlug={store.slug} />
 
       {/* 14. Footer */}
-      <Footer />
+      <Footer currentStoreSlug={store.slug} />
     </main>
   );
 }
