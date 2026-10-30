@@ -375,7 +375,7 @@ export default function ContactBookingSection({
             <h2
               style={{
                 fontSize: "clamp(2rem, 3.2vw, 2.75rem)",
-                fontWeight: 600,
+                fontWeight: 800,
                 color: "#172554",
                 letterSpacing: "-0.02em",
                 marginBottom: "8px",

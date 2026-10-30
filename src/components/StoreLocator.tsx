@@ -91,7 +91,7 @@ export default function StoreLocator({ currentStoreSlug }: StoreLocatorProps = {
           <h2
             style={{
               fontSize: "clamp(2rem, 3.2vw, 2.75rem)",
-              fontWeight: 600,
+              fontWeight: 800,
               lineHeight: 1.15,
               margin: "0 0 14px 0",
               letterSpacing: "-0.02em",

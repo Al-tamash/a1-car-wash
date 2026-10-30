@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { Phone, ChevronUp, MapPin, X } from "lucide-react";
+import { Phone, ChevronUp, MapPin, X, Check } from "lucide-react";
 import { STORES_DATA, getStoreBySlug, StoreLocation } from "@/data/storesData";
 
 function WhatsAppIcon({ size = 20, color = "currentColor" }: { size?: number; color?: string }) {
@@ -26,7 +26,7 @@ export default function FloatingContactActions() {
   const [showBranchPicker, setShowBranchPicker] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  // Detect branch from current URL
+  // Auto-detect branch based on current URL path
   useEffect(() => {
     if (pathname.includes("/stores/")) {
       const slug = pathname.split("/stores/")[1]?.split("/")[0]?.split("?")[0];
@@ -38,15 +38,26 @@ export default function FloatingContactActions() {
         }
       }
     }
-    // Default to primary studio
     setActiveStore(STORES_DATA[0]);
   }, [pathname]);
 
   // Reveal smoothly after short mount
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 300);
+    const timer = setTimeout(() => setIsVisible(true), 250);
     return () => clearTimeout(timer);
   }, []);
+
+  // Prevent body scroll when mobile drawer is open
+  useEffect(() => {
+    if (showBranchPicker && typeof window !== "undefined" && window.innerWidth <= 768) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showBranchPicker]);
 
   const cleanPhone = activeStore.phone.replace(/[^0-9]/g, "");
   const formattedTel = cleanPhone.startsWith("91") ? `+${cleanPhone}` : `+91${cleanPhone}`;
@@ -58,6 +69,200 @@ export default function FloatingContactActions() {
 
   return (
     <>
+      {/* ── MOBILE SLIDE-UP DRAWER (<= 768px) ── */}
+      {showBranchPicker && (
+        <div
+          className="mobile-branch-drawer-backdrop"
+          onClick={() => setShowBranchPicker(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0, 0, 0, 0.65)",
+            backdropFilter: "blur(4px)",
+            WebkitBackdropFilter: "blur(4px)",
+            zIndex: 10000,
+            display: "flex",
+            alignItems: "flex-end",
+            animation: "fadeIn 0.2s ease-out",
+          }}
+        >
+          <div
+            className="mobile-branch-drawer-card"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              width: "100%",
+              background: "#ffffff",
+              borderRadius: "22px 22px 0 0",
+              padding: "20px 20px 30px",
+              boxShadow: "0 -10px 35px rgba(0, 0, 0, 0.35)",
+              maxHeight: "82vh",
+              overflowY: "auto",
+              animation: "slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
+            }}
+          >
+            {/* Top Drag Pill */}
+            <div
+              style={{
+                width: "40px",
+                height: "4px",
+                borderRadius: "99px",
+                background: "#e2e8f0",
+                margin: "0 auto 16px",
+              }}
+            />
+
+            {/* Header */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: "16px",
+                paddingBottom: "12px",
+                borderBottom: "1px solid #f1f5f9",
+              }}
+            >
+              <div>
+                <h3
+                  style={{
+                    fontSize: "17px",
+                    fontWeight: 800,
+                    color: "#0f172a",
+                    margin: "0 0 2px",
+                  }}
+                >
+                  Choose Your Branch
+                </h3>
+                <p style={{ fontSize: "12px", color: "#64748b", margin: 0 }}>
+                  Connecting directly to the branch bay manager
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setShowBranchPicker(false)}
+                style={{
+                  background: "#f1f5f9",
+                  border: "none",
+                  borderRadius: "50%",
+                  width: "32px",
+                  height: "32px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  color: "#475569",
+                }}
+                aria-label="Close branch selector"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* Branch Cards List */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              {STORES_DATA.map((store) => {
+                const isSelected = activeStore.slug === store.slug;
+                return (
+                  <button
+                    key={store.id}
+                    type="button"
+                    onClick={() => {
+                      setActiveStore(store);
+                      setShowBranchPicker(false);
+                    }}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: "12px 14px",
+                      borderRadius: "14px",
+                      border: isSelected ? "2px solid #dc2626" : "1.5px solid #e2e8f0",
+                      background: isSelected ? "#fef2f2" : "#ffffff",
+                      cursor: "pointer",
+                      textAlign: "left",
+                      transition: "all 0.15s ease",
+                      boxShadow: isSelected ? "0 4px 12px rgba(220, 38, 38, 0.15)" : "none",
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "12px", minWidth: 0 }}>
+                      <div
+                        style={{
+                          width: "38px",
+                          height: "38px",
+                          borderRadius: "10px",
+                          background: isSelected ? "#dc2626" : "#f1f5f9",
+                          color: isSelected ? "#ffffff" : "#64748b",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          flexShrink: 0,
+                        }}
+                      >
+                        <MapPin size={18} />
+                      </div>
+                      <div>
+                        <div
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: 800,
+                            color: isSelected ? "#dc2626" : "#0f172a",
+                            marginBottom: "2px",
+                          }}
+                        >
+                          {store.shortName}
+                        </div>
+                        <div
+                          style={{
+                            fontSize: "11.5px",
+                            color: "#64748b",
+                            lineHeight: 1.3,
+                          }}
+                        >
+                          {store.area} • 📞 {store.phone}
+                        </div>
+                      </div>
+                    </div>
+
+                    {isSelected ? (
+                      <div
+                        style={{
+                          background: "#dc2626",
+                          color: "#ffffff",
+                          width: "24px",
+                          height: "24px",
+                          borderRadius: "50%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          flexShrink: 0,
+                        }}
+                      >
+                        <Check size={14} strokeWidth={3} />
+                      </div>
+                    ) : (
+                      <span
+                        style={{
+                          fontSize: "11px",
+                          fontWeight: 700,
+                          color: "#64748b",
+                          background: "#f8fafc",
+                          padding: "4px 10px",
+                          borderRadius: "6px",
+                          border: "1px solid #e2e8f0",
+                        }}
+                      >
+                        Select
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ── MOBILE BOTTOM STICKY BAR (<= 768px) ── */}
       <div
         className="floating-mobile-bar"
@@ -67,7 +272,7 @@ export default function FloatingContactActions() {
           left: 0,
           right: 0,
           zIndex: 9999,
-          background: "rgba(15, 23, 42, 0.94)",
+          background: "rgba(15, 23, 42, 0.95)",
           backdropFilter: "blur(14px)",
           WebkitBackdropFilter: "blur(14px)",
           borderTop: "1px solid rgba(226, 232, 240, 0.15)",
@@ -88,9 +293,9 @@ export default function FloatingContactActions() {
             padding: "0 2px",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#22c55e" }} />
-            <span style={{ color: "#e2e8f0", fontWeight: 700 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#22c55e", boxShadow: "0 0 6px #22c55e" }} />
+            <span style={{ color: "#ffffff", fontWeight: 800 }}>
               {activeStore.shortName} Branch
             </span>
             <span style={{ color: "#64748b" }}>• 8 AM – 9 PM</span>
@@ -98,23 +303,23 @@ export default function FloatingContactActions() {
 
           <button
             type="button"
-            onClick={() => setShowBranchPicker(!showBranchPicker)}
+            onClick={() => setShowBranchPicker(true)}
             style={{
-              background: "none",
-              border: "none",
+              background: "rgba(239, 68, 68, 0.15)",
+              border: "1px solid rgba(239, 68, 68, 0.3)",
               color: "#f87171",
               fontSize: "11px",
-              fontWeight: 700,
+              fontWeight: 800,
               cursor: "pointer",
-              padding: 0,
-              display: "flex",
+              padding: "2px 8px",
+              borderRadius: "6px",
+              display: "inline-flex",
               alignItems: "center",
-              gap: "2px",
-              textDecoration: "underline",
+              gap: "3px",
             }}
           >
             Change Branch
-            <ChevronUp size={12} style={{ transform: showBranchPicker ? "rotate(180deg)" : "none" }} />
+            <ChevronUp size={12} />
           </button>
         </div>
 
@@ -184,7 +389,7 @@ export default function FloatingContactActions() {
           gap: "12px",
         }}
       >
-        {/* Branch Quick Switch Tooltip Trigger (Optional) */}
+        {/* Desktop Branch Quick Switch Tooltip Trigger */}
         {showBranchPicker && (
           <div
             style={{
@@ -192,7 +397,7 @@ export default function FloatingContactActions() {
               borderRadius: "16px",
               padding: "14px",
               boxShadow: "0 20px 45px rgba(15, 23, 42, 0.25), 0 0 0 1px #e2e8f0",
-              width: "290px",
+              width: "300px",
               marginBottom: "4px",
               animation: "fadeInUp 0.25s ease-out",
             }}
@@ -357,6 +562,20 @@ export default function FloatingContactActions() {
       </div>
 
       <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+          from {
+            transform: translateY(100%);
+          }
+          to {
+            transform: translateY(0);
+          }
+        }
+
         @keyframes fadeInUp {
           from {
             opacity: 0;
@@ -394,4 +613,3 @@ export default function FloatingContactActions() {
     </>
   );
 }
-

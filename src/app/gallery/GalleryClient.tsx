@@ -101,8 +101,63 @@ export default function GalleryClient() {
       {/* 1. Navbar */}
       <Navbar />
 
+      {/* ── GALLERY HERO HEADER ── */}
+      <section
+        style={{
+          padding: "115px 20px 36px",
+          background: "linear-gradient(180deg, #fef2f2 0%, #ffffff 100%)",
+          textAlign: "center",
+        }}
+      >
+        <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              background: "#fee2e2",
+              color: "#dc2626",
+              borderRadius: "9999px",
+              padding: "5px 16px",
+              fontSize: "12px",
+              fontWeight: 800,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              marginBottom: "14px",
+            }}
+          >
+            <Sparkles size={13} />
+            <span>REAL HYDERABAD STUDIO WORK</span>
+          </div>
+
+          <h1
+            style={{
+              fontSize: "clamp(2rem, 3.2vw, 2.75rem)",
+              fontWeight: 800,
+              letterSpacing: "-0.02em",
+              color: "#0f172a",
+              marginBottom: "14px",
+            }}
+          >
+            Our Work <span style={{ color: "#dc2626" }}>Gallery</span>
+          </h1>
+
+          <p
+            style={{
+              fontSize: "16px",
+              color: "#475569",
+              lineHeight: 1.6,
+              margin: "0 auto",
+              maxWidth: "600px",
+            }}
+          >
+            Explore real transformations from our Hyderabad detailing bays — hydraulic jack lift washes, snow foam baths, Teflon glaze &amp; superbike detailing.
+          </p>
+        </div>
+      </section>
+
       {/* Gallery Section with Category Filter */}
-      <section style={{ padding: "100px 0 72px", background: "#f8fafc", flex: 1 }}>
+      <section style={{ padding: "10px 0 72px", background: "#f8fafc", flex: 1 }}>
         <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 24px" }}>
           
           {/* Category Filter Tabs */}

@@ -43,14 +43,15 @@ export default function ServicesClient() {
 
       {/* ── COVAR-STYLE FULL-WIDTH HERO ── */}
       <section
+        className="services-hero-section"
         style={{
           position: "relative",
-          height: "100vh",
-          minHeight: "640px",
+          minHeight: "clamp(560px, 86vh, 740px)",
           overflow: "hidden",
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-end",
+          paddingTop: "90px",
         }}
       >
         {/* Full-width slideshow images */}
@@ -76,20 +77,21 @@ export default function ServicesClient() {
             position: "absolute",
             inset: 0,
             background:
-              "linear-gradient(180deg, rgba(8,13,21,0.45) 0%, rgba(8,13,21,0.3) 40%, rgba(8,13,21,0.75) 80%, rgba(8,13,21,0.92) 100%)",
+              "linear-gradient(180deg, rgba(8,13,21,0.55) 0%, rgba(8,13,21,0.35) 35%, rgba(8,13,21,0.8) 75%, rgba(8,13,21,0.96) 100%)",
             zIndex: 1,
           }}
         />
 
-        {/* Slide dots — top right */}
+        {/* Slide dots — bottom-right desktop, right-side aligned */}
         <div
+          className="services-hero-dots"
           style={{
             position: "absolute",
-            top: "28px",
+            bottom: "36px",
             right: "32px",
             display: "flex",
             gap: "8px",
-            zIndex: 3,
+            zIndex: 5,
           }}
         >
           {HERO_IMAGES.map((_, i) => (
@@ -113,13 +115,14 @@ export default function ServicesClient() {
 
         {/* Main content — bottom left */}
         <div
+          className="services-hero-content"
           style={{
             position: "relative",
             zIndex: 2,
             maxWidth: "1280px",
             width: "100%",
             margin: "0 auto",
-            padding: "0 32px 140px",
+            padding: "0 32px 100px",
           }}
         >
           {/* Rating pill */}
@@ -133,7 +136,7 @@ export default function ServicesClient() {
               border: "1px solid rgba(255,255,255,0.2)",
               borderRadius: "9999px",
               padding: "5px 14px",
-              marginBottom: "20px",
+              marginBottom: "16px",
             }}
           >
             <div style={{ display: "flex", gap: "2px" }}>
@@ -141,19 +144,19 @@ export default function ServicesClient() {
                 <Star key={i} size={12} fill="#ef4444" stroke="none" />
               ))}
             </div>
-            <span style={{ fontSize: "12px", fontWeight: 600, color: "#ffffff" }}>4.9 &nbsp;·&nbsp; 2 Lakh+ Happy Customers</span>
+            <span style={{ fontSize: "12px", fontWeight: 700, color: "#ffffff" }}>4.9 &nbsp;·&nbsp; 2 Lakh+ Happy Customers</span>
           </div>
 
           {/* Headline */}
           <h1
             style={{
-              fontSize: "clamp(2rem, 3.2vw, 2.75rem)",
-              fontWeight: 600,
+              fontSize: "clamp(2.1rem, 3.8vw, 3.2rem)",
+              fontWeight: 800,
               color: "#ffffff",
-              lineHeight: 1.12,
+              lineHeight: 1.1,
               letterSpacing: "-0.02em",
               margin: "0 0 16px 0",
-              maxWidth: "700px",
+              maxWidth: "720px",
               textTransform: "uppercase",
             }}
           >
@@ -583,6 +586,18 @@ export default function ServicesClient() {
           .services-stats-track:hover,
           .services-stats-track:active {
             animation-play-state: paused;
+          }
+        }
+        @media (max-width: 640px) {
+          .services-hero-section {
+            min-height: 520px !important;
+          }
+          .services-hero-content {
+            padding: 0 18px 80px !important;
+          }
+          .services-hero-dots {
+            bottom: 20px !important;
+            right: 20px !important;
           }
         }
         @keyframes servicesStatsScroll {

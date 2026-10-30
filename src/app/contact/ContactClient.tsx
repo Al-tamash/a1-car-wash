@@ -14,22 +14,22 @@ export default function ContactClient() {
       {/* Header */}
       <section style={{
         padding: "115px 0 35px",
-        background: "linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%)",
+        background: "linear-gradient(180deg, #fef2f2 0%, #ffffff 100%)",
         textAlign: "center"
       }}>
         <div className="container" style={{ maxWidth: "800px" }}>
           <div className="badge-pill badge-glow" style={{ marginBottom: "14px" }}>
-            <Phone size={14} style={{ color: "#0284c7" }} />
+            <Phone size={14} style={{ color: "#dc2626" }} />
             <span>CONNECT WITH OUR DETAILING MASTERS</span>
           </div>
           <h1 style={{
             fontSize: "clamp(2rem, 3.2vw, 2.75rem)",
-            fontWeight: 600,
-            letterSpacing: "-0.03em",
+            fontWeight: 800,
+            letterSpacing: "-0.02em",
             color: "#0f172a",
             marginBottom: "16px"
           }}>
-            Contact <span className="text-gradient">Our Team</span>
+            Contact <span style={{ color: "#dc2626" }}>Our Team</span>
           </h1>
           <p style={{ fontSize: "16px", color: "#475569", lineHeight: "1.6" }}>
             Have questions about services, pricing, or want to book a detailing slot? Call our central desk or send us a message below.

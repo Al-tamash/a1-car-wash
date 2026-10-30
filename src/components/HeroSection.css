@@ -119,7 +119,7 @@
 .hero-headline {
   font-family: var(--font-heading, 'Outfit', sans-serif);
   font-size: clamp(2.3rem, 4vw, 3.4rem);
-  font-weight: 600;
+  font-weight: 800;
   line-height: 1.08;
   letter-spacing: -0.02em;
   color: #ffffff;
@@ -133,7 +133,7 @@
   -webkit-background-clip: unset;
   -webkit-text-fill-color: #ef4444;
   display: inline-block;
-  font-weight: 600;
+  font-weight: 800;
 }
 
 .hero-description {
@@ -221,24 +221,33 @@
 .hero-features-strip {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
 .hero-feature-pill {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
-  padding: 8px 12px;
+  gap: 9px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 8px 14px;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+.hero-feature-pill:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(239, 68, 68, 0.4);
+  transform: translateY(-1px);
 }
 
 .hero-feature-pill-icon {
   color: #ef4444;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .hero-feature-pill-text {
@@ -250,11 +259,13 @@
   font-size: 12px;
   font-weight: 700;
   color: #ffffff;
+  line-height: 1.2;
 }
 
 .hero-feature-pill-sub {
   font-size: 10px;
   color: #94a3b8;
+  line-height: 1.2;
 }
 
 /* ──── Right Cinematic Media Player Card ──── */
@@ -500,15 +511,16 @@
 
   .hero-actions-row {
     display: grid;
-    grid-template-columns: 1.15fr 0.95fr;
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
     width: 100%;
     margin-bottom: 0;
   }
 
   .hero-btn-primary {
-    padding: 12px 14px;
-    font-size: 13px;
+    grid-column: 1 / -1;
+    padding: 13px 18px;
+    font-size: 14px;
     justify-content: center;
     border-radius: 9999px;
     white-space: nowrap;

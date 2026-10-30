@@ -73,7 +73,7 @@ export default function AboutClient() {
           <h1
             style={{
               fontSize: "clamp(2rem, 3.2vw, 2.75rem)",
-              fontWeight: 600,
+              fontWeight: 800,
               letterSpacing: "-0.02em",
               color: "#0f172a",
               marginBottom: "16px",

@@ -31,7 +31,7 @@ export default function StoresClient() {
           </div>
           <h1 style={{
             fontSize: "clamp(2rem, 3.2vw, 2.75rem)",
-            fontWeight: 600,
+            fontWeight: 800,
             letterSpacing: "-0.03em",
             color: "#172554",
             marginBottom: "16px"
@@ -39,7 +39,7 @@ export default function StoresClient() {
             Our 6 Premium <span style={{ color: "#dc2626" }}>Store Locations</span>
           </h1>
           <p style={{ fontSize: "16px", color: "#475569", lineHeight: "1.6" }}>
-            Find the closest AutoCare Pro studio in Hyderabad. Every branch is fully equipped with multi-bay wash stations, RO filtration plant, and certified detailing cleanrooms.
+            Find the closest A1 Car Wash studio in Hyderabad. Every branch is fully equipped with hydraulic jack lift bays, RO softened water plant, and certified detailing cleanrooms.
           </p>
         </div>
       </section>
