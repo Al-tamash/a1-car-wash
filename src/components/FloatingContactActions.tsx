@@ -131,10 +131,10 @@ export default function FloatingContactActions() {
                     margin: "0 0 2px",
                   }}
                 >
-                  Choose Your Branch
+                  Select A1 Studio
                 </h3>
                 <p style={{ fontSize: "12px", color: "#64748b", margin: 0 }}>
-                  Connecting directly to the branch bay manager
+                  Direct phone &amp; WhatsApp contact with studio manager
                 </p>
               </div>
 
@@ -380,42 +380,69 @@ export default function FloatingContactActions() {
         className="floating-desktop-actions"
         style={{
           position: "fixed",
-          bottom: "28px",
+          bottom: "26px",
           right: "26px",
           zIndex: 9999,
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-end",
-          gap: "12px",
+          gap: "10px",
         }}
       >
         {/* Desktop Branch Quick Switch Tooltip Trigger */}
         {showBranchPicker && (
           <div
+            className="desktop-branch-popover"
             style={{
               background: "#ffffff",
-              borderRadius: "16px",
-              padding: "14px",
-              boxShadow: "0 20px 45px rgba(15, 23, 42, 0.25), 0 0 0 1px #e2e8f0",
-              width: "300px",
+              borderRadius: "18px",
+              padding: "16px",
+              boxShadow: "0 20px 45px rgba(15, 23, 42, 0.22), 0 0 0 1px #e2e8f0",
+              width: "320px",
               marginBottom: "4px",
-              animation: "fadeInUp 0.25s ease-out",
+              animation: "fadeInUp 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "10px" }}>
-              <span style={{ fontSize: "12px", fontWeight: 800, color: "#0f172a", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-                Select Branch to Contact
-              </span>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: "12px",
+                paddingBottom: "8px",
+                borderBottom: "1px solid #f1f5f9",
+              }}
+            >
+              <div>
+                <div style={{ fontSize: "13.5px", fontWeight: 800, color: "#0f172a" }}>
+                  Select A1 Studio
+                </div>
+                <div style={{ fontSize: "11px", color: "#64748b" }}>
+                  Connect directly with your nearest studio
+                </div>
+              </div>
               <button
                 type="button"
                 onClick={() => setShowBranchPicker(false)}
-                style={{ background: "none", border: "none", cursor: "pointer", color: "#94a3b8", padding: "2px" }}
+                style={{
+                  background: "#f1f5f9",
+                  border: "none",
+                  borderRadius: "50%",
+                  width: "26px",
+                  height: "26px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  color: "#64748b",
+                }}
+                aria-label="Close"
               >
-                <X size={15} />
+                <X size={14} />
               </button>
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px", maxHeight: "330px", overflowY: "auto" }}>
               {STORES_DATA.map((s) => {
                 const isCurrent = activeStore.slug === s.slug;
                 return (
@@ -430,9 +457,9 @@ export default function FloatingContactActions() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "space-between",
-                      padding: "8px 10px",
-                      borderRadius: "8px",
-                      border: isCurrent ? "1.5px solid #dc2626" : "1px solid #f1f5f9",
+                      padding: "9px 12px",
+                      borderRadius: "10px",
+                      border: isCurrent ? "1.5px solid #dc2626" : "1px solid #e2e8f0",
                       background: isCurrent ? "#fef2f2" : "#f8fafc",
                       cursor: "pointer",
                       textAlign: "left",
@@ -440,14 +467,32 @@ export default function FloatingContactActions() {
                     }}
                   >
                     <div>
-                      <div style={{ fontSize: "12.5px", fontWeight: 700, color: isCurrent ? "#dc2626" : "#1e293b" }}>
+                      <div style={{ fontSize: "13px", fontWeight: 800, color: isCurrent ? "#dc2626" : "#0f172a" }}>
                         {s.shortName}
                       </div>
-                      <div style={{ fontSize: "11px", color: "#64748b" }}>{s.phone}</div>
+                      <div style={{ fontSize: "11px", color: "#64748b" }}>
+                        {s.area.split("/")[0].trim()} • 📞 {s.phone}
+                      </div>
                     </div>
-                    <span style={{ fontSize: "11px", fontWeight: 700, color: isCurrent ? "#dc2626" : "#0284c7" }}>
-                      {isCurrent ? "Active" : "Switch"}
-                    </span>
+                    {isCurrent ? (
+                      <div
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          borderRadius: "50%",
+                          background: "#dc2626",
+                          color: "#ffffff",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          flexShrink: 0,
+                        }}
+                      >
+                        <Check size={12} strokeWidth={3} />
+                      </div>
+                    ) : (
+                      <span style={{ fontSize: "11px", fontWeight: 700, color: "#64748b" }}>Switch</span>
+                    )}
                   </button>
                 );
               })}
@@ -455,45 +500,9 @@ export default function FloatingContactActions() {
           </div>
         )}
 
-        {/* Call Now Pill (Desktop) */}
-        <a
-          href={`tel:${formattedTel}`}
-          className="desktop-call-btn"
-          title={`Call ${activeStore.shortName}: ${activeStore.phone}`}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "9px",
-            background: "#ffffff",
-            color: "#0f172a",
-            padding: "10px 18px",
-            borderRadius: "9999px",
-            fontSize: "13.5px",
-            fontWeight: 700,
-            textDecoration: "none",
-            boxShadow: "0 6px 20px rgba(15, 23, 42, 0.12), 0 0 0 1px #e2e8f0",
-            transition: "all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)",
-          }}
-        >
-          <div
-            style={{
-              width: "28px",
-              height: "28px",
-              borderRadius: "50%",
-              background: "#fee2e2",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#dc2626",
-            }}
-          >
-            <Phone size={14} />
-          </div>
-          <span>Call: {activeStore.phone}</span>
-        </a>
-
-        {/* WhatsApp Floating Button (Desktop) */}
+        {/* Desktop Action Dock Row */}
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          {/* Branch Switcher Button */}
           <button
             type="button"
             onClick={() => setShowBranchPicker(!showBranchPicker)}
@@ -501,24 +510,62 @@ export default function FloatingContactActions() {
             style={{
               background: "#ffffff",
               border: "1px solid #e2e8f0",
-              color: "#475569",
+              color: "#334155",
               borderRadius: "9999px",
-              padding: "7px 12px",
-              fontSize: "11.5px",
-              fontWeight: 700,
+              padding: "10px 14px",
+              fontSize: "12.5px",
+              fontWeight: 800,
               cursor: "pointer",
-              boxShadow: "0 4px 12px rgba(15,23,42,0.08)",
+              boxShadow: "0 6px 18px rgba(15,23,42,0.08)",
               display: "inline-flex",
               alignItems: "center",
-              gap: "4px",
+              gap: "6px",
               transition: "all 0.2s ease",
             }}
           >
-            <MapPin size={12} style={{ color: "#dc2626" }} />
+            <MapPin size={13} style={{ color: "#dc2626" }} />
             <span>{activeStore.shortName}</span>
-            <ChevronUp size={12} style={{ transform: showBranchPicker ? "rotate(180deg)" : "none" }} />
+            <ChevronUp size={13} style={{ transform: showBranchPicker ? "rotate(180deg)" : "none", transition: "transform 0.2s" }} />
           </button>
 
+          {/* Call Studio Button (Compact without raw phone clutter) */}
+          <a
+            href={`tel:${formattedTel}`}
+            className="desktop-call-btn"
+            title={`Call ${activeStore.shortName} Studio: +91 ${activeStore.phone}`}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "7px",
+              background: "#ffffff",
+              color: "#0f172a",
+              padding: "10px 16px",
+              borderRadius: "9999px",
+              fontSize: "13px",
+              fontWeight: 800,
+              textDecoration: "none",
+              boxShadow: "0 6px 18px rgba(15, 23, 42, 0.08), 0 0 0 1px #e2e8f0",
+              transition: "all 0.22s ease",
+            }}
+          >
+            <div
+              style={{
+                width: "22px",
+                height: "22px",
+                borderRadius: "50%",
+                background: "#fee2e2",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#dc2626",
+              }}
+            >
+              <Phone size={12} />
+            </div>
+            <span>Call Studio</span>
+          </a>
+
+          {/* WhatsApp Floating Button */}
           <a
             href={whatsappUrl}
             target="_blank"
@@ -528,16 +575,16 @@ export default function FloatingContactActions() {
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "10px",
+              gap: "9px",
               background: "linear-gradient(135deg, #25D366 0%, #128C7E 100%)",
               color: "#ffffff",
-              padding: "12px 22px",
+              padding: "10px 20px",
               borderRadius: "9999px",
-              fontSize: "14.5px",
+              fontSize: "13.5px",
               fontWeight: 800,
               textDecoration: "none",
-              boxShadow: "0 8px 28px rgba(37, 211, 102, 0.45)",
-              transition: "all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1)",
+              boxShadow: "0 8px 24px rgba(37, 211, 102, 0.4)",
+              transition: "all 0.25s ease",
               position: "relative",
             }}
           >
@@ -545,17 +592,17 @@ export default function FloatingContactActions() {
             <span
               style={{
                 position: "absolute",
-                top: "-3px",
-                right: "-3px",
-                width: "12px",
-                height: "12px",
+                top: "-2px",
+                right: "-2px",
+                width: "10px",
+                height: "10px",
                 borderRadius: "50%",
                 background: "#22c55e",
                 border: "2px solid #ffffff",
-                boxShadow: "0 0 10px #22c55e",
+                boxShadow: "0 0 8px #22c55e",
               }}
             />
-            <WhatsAppIcon size={20} color="#ffffff" />
+            <WhatsAppIcon size={18} color="#ffffff" />
             <span>WhatsApp Us</span>
           </a>
         </div>
@@ -595,6 +642,12 @@ export default function FloatingContactActions() {
         .desktop-call-btn:hover {
           transform: translateY(-2px);
           box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18), 0 0 0 1px #cbd5e1 !important;
+        }
+
+        @media (min-width: 769px) {
+          .mobile-branch-drawer-backdrop {
+            display: none !important;
+          }
         }
 
         @media (max-width: 768px) {

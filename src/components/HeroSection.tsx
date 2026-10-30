@@ -12,7 +12,6 @@ import {
   ChevronRight,
   Play,
   X,
-  Users,
 } from "lucide-react";
 import "./HeroSection.css";
 
@@ -230,27 +229,35 @@ export default function HeroSection({
                 : "Professional car & bike wash with advanced snow foam, alloy detailing and eco-friendly care."}
             </p>
 
-            {/* Action Buttons & Experience Badge */}
+            {/* Primary Action Button */}
             <div className="hero-actions-row">
               <Link href={bookingHref} className="hero-btn-primary">
                 <span>{primaryButtonText || "BOOK A WASH"}</span>
                 <ArrowRight size={16} />
               </Link>
+            </div>
 
-              <div className="hero-experience-badge">
-                <span className="hero-exp-star">★</span>
-                <div className="hero-exp-text">
-                  <span className="hero-exp-sub">EXPERIENCE SINCE</span>
-                  <span className="hero-exp-year">1997</span>
+            {/* Editorial Social Proof / Trust Metrics (Clearly statistics, not buttons) */}
+            <div className="hero-trust-metrics">
+              <div className="hero-trust-item">
+                <div className="hero-trust-num">
+                  28+ <span className="hero-trust-unit">Yrs</span>
                 </div>
+                <div className="hero-trust-label">Legacy Since 1997</div>
               </div>
 
-              <div className="hero-experience-badge">
-                <Users size={16} style={{ color: "#ef4444" }} />
-                <div className="hero-exp-text">
-                  <span className="hero-exp-sub">HAPPY CUSTOMERS</span>
-                  <span className="hero-exp-year">2 Lakh+</span>
-                </div>
+              <div className="hero-trust-divider" />
+
+              <div className="hero-trust-item">
+                <div className="hero-trust-num">2 Lakh+</div>
+                <div className="hero-trust-label">Happy Customers</div>
+              </div>
+
+              <div className="hero-trust-divider" />
+
+              <div className="hero-trust-item">
+                <div className="hero-trust-num">4.9 ★</div>
+                <div className="hero-trust-label">Across 6 Studios</div>
               </div>
             </div>
 

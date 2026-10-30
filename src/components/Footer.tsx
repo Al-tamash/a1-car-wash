@@ -3,8 +3,8 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronRight, Phone, Mail, MapPin, MessageCircle, Clock, ExternalLink } from "lucide-react";
-import { STORES_DATA, getStoreBySlug } from "@/data/storesData";
+import { ChevronRight, Phone, MapPin, MessageCircle, Clock } from "lucide-react";
+import { getStoreBySlug } from "@/data/storesData";
 
 function InstagramIcon({ size = 18 }: { size?: number }) {
   return (
@@ -323,171 +323,26 @@ export default function Footer({ currentStoreSlug }: FooterProps = {}) {
                   {displayAddress}
                 </span>
               </div>
+
+              {/* Link to All Branches & Maps */}
+              <Link
+                href="/stores"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  color: "#ef4444",
+                  fontSize: "13px",
+                  fontWeight: 700,
+                  textDecoration: "none",
+                  marginTop: "6px",
+                  transition: "transform 0.2s ease",
+                }}
+              >
+                <span>View All 6 Hyderabad Studios &amp; Maps</span>
+                <ChevronRight size={14} />
+              </Link>
             </div>
-          </div>
-        </div>
-
-        {/* ── ALL 6 HYDERABAD BRANCHES DIRECT HELPLINE DIRECTORY (COMPACT DESIGN) ── */}
-        <div
-          style={{
-            borderTop: "1px solid #1f2937",
-            paddingTop: "24px",
-            marginBottom: "28px",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              marginBottom: "14px",
-              flexWrap: "wrap",
-              gap: "8px",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#ef4444" }} />
-              <span style={{ fontSize: "12px", fontWeight: 800, color: "#ffffff", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-                Hyderabad Studios • Direct Branch Helplines
-              </span>
-            </div>
-
-            <Link
-              href="/stores"
-              style={{
-                fontSize: "12px",
-                fontWeight: 700,
-                color: "#ef4444",
-                textDecoration: "none",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "4px",
-                transition: "transform 0.2s",
-              }}
-            >
-              <span>View All Studios &amp; 360° Views</span>
-              <ChevronRight size={14} />
-            </Link>
-          </div>
-
-          <div
-            className="footer-branches-compact-grid"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "8px",
-            }}
-          >
-            {STORES_DATA.map((store) => {
-              const isSelected = resolvedSlug === store.slug;
-              const phoneOnly = store.phone.replace(/[^0-9]/g, "");
-
-              return (
-                <div
-                  key={store.id}
-                  className={`footer-branch-chip ${isSelected ? "active" : ""}`}
-                  style={{
-                    background: isSelected ? "rgba(220, 38, 38, 0.15)" : "#161e2e",
-                    border: isSelected ? "1px solid #dc2626" : "1px solid #232d42",
-                    borderRadius: "10px",
-                    padding: "9px 12px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    gap: "10px",
-                    transition: "all 0.2s ease",
-                  }}
-                >
-                  <Link
-                    href={`/stores/${store.slug}`}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "7px",
-                      textDecoration: "none",
-                      minWidth: 0,
-                      flex: 1,
-                    }}
-                  >
-                    <MapPin size={14} style={{ color: isSelected ? "#ef4444" : "#94a3b8", flexShrink: 0 }} />
-                    <div style={{ minWidth: 0 }}>
-                      <div
-                        style={{
-                          fontSize: "13px",
-                          fontWeight: 700,
-                          color: isSelected ? "#f87171" : "#ffffff",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {store.shortName}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: "10.5px",
-                          color: "#64748b",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {store.area.split("/")[0].trim()}
-                      </div>
-                    </div>
-                  </Link>
-
-                  {/* Direct Calling & WhatsApp Mini Buttons */}
-                  <div style={{ display: "flex", alignItems: "center", gap: "6px", flexShrink: 0 }}>
-                    <a
-                      href={`tel:${phoneOnly}`}
-                      className="footer-call-pill"
-                      title={`Call ${store.shortName}: ${store.phone}`}
-                      style={{
-                        fontSize: "12px",
-                        fontWeight: 700,
-                        color: "#ffffff",
-                        background: "#1e293b",
-                        border: "1px solid #334155",
-                        padding: "5px 9px",
-                        borderRadius: "7px",
-                        textDecoration: "none",
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "4px",
-                        fontVariantNumeric: "tabular-nums",
-                        transition: "background 0.15s, border-color 0.15s",
-                      }}
-                    >
-                      <Phone size={11} style={{ color: "#ef4444" }} />
-                      <span>{store.phone}</span>
-                    </a>
-
-                    <a
-                      href={`https://wa.me/${store.whatsapp}?text=${encodeURIComponent(`Hi A1 Car Wash (${store.shortName})! I want to enquire about car wash services.`)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      title={`Chat with ${store.shortName} on WhatsApp`}
-                      style={{
-                        background: "rgba(37, 211, 102, 0.15)",
-                        border: "1px solid rgba(37, 211, 102, 0.35)",
-                        color: "#25D366",
-                        width: "28px",
-                        height: "28px",
-                        borderRadius: "7px",
-                        display: "inline-flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        textDecoration: "none",
-                        transition: "all 0.15s",
-                      }}
-                    >
-                      <MessageCircle size={14} />
-                    </a>
-                  </div>
-                </div>
-              );
-            })}
           </div>
         </div>
 
@@ -519,15 +374,6 @@ export default function Footer({ currentStoreSlug }: FooterProps = {}) {
           color: #ffffff !important;
           transform: translateX(4px);
         }
-        .footer-branch-chip:hover {
-          border-color: #ef4444 !important;
-          background: #1c2638 !important;
-          transform: translateY(-1px);
-        }
-        .footer-call-pill:hover {
-          background: #dc2626 !important;
-          border-color: #dc2626 !important;
-        }
         @media (max-width: 900px) {
           .footer-columns-grid {
             grid-template-columns: 1fr 1fr !important;
@@ -536,9 +382,6 @@ export default function Footer({ currentStoreSlug }: FooterProps = {}) {
         }
         @media (max-width: 640px) {
           .footer-columns-grid {
-            grid-template-columns: 1fr !important;
-          }
-          .footer-branches-compact-grid {
             grid-template-columns: 1fr !important;
           }
         }
